@@ -4,34 +4,47 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class School {
 
     @Id
     private Long rspo;
 
+    @Column(length = 100)
+    @Size(max = 100)
     private String type;
 
     @NotNull
+    @Column(length = 100)
+    @Size(max = 100)
     private String name;
-
-    @Embedded
-    private Address address;
 
     private String email;
 
     private String website;
 
+    @Column(length = 50)
+    @Size(max = 50)
     private String publicStatus;
+
+    @Embedded
+    private Address address;
+
+    @OneToMany(mappedBy = "school")
+    private Set<Phone> phones;
+
+    @OneToOne
+    private AdditionalSchoolInformation additionalSchoolInformation;
 
 
     @Override
