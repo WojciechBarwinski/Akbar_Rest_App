@@ -1,8 +1,10 @@
-package com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo;
+package com.wojciech.barwinski.akbarrestapp.entities.deliverable;
 
 
+import com.wojciech.barwinski.akbarrestapp.entities.deliverable.PhotographyKey;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,26 +13,21 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
-public class Schedule {
+@Setter
+@Getter
+@Entity
+public class Photography {
 
-    private LocalDate contact;
-
-    private LocalDate signContractDate;
+    @Id
+    private PhotographyKey key;
 
     private LocalDate photographingDate;
 
     private Integer photographyDaysCount;
 
-    private LocalDate payoff;
-
-    private LocalDate other;
-
     @Column(length = 500)
     @Size(max = 500)
-    private String scheduleNote;
+    private String tradeNote;
 }

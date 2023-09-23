@@ -27,5 +27,4 @@ public class Notation {
     @Column(length = 500)
     @Size(max = 500)
     private String notation3;
-
 }

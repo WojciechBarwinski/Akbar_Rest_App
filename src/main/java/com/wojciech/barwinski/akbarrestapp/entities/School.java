@@ -1,6 +1,8 @@
 package com.wojciech.barwinski.akbarrestapp.entities;
 
 
+import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
+import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
@@ -42,6 +44,12 @@ public class School {
 
     @OneToMany(mappedBy = "school")
     private Set<Phone> phones;
+
+    @OneToMany(mappedBy = "key.school")
+    private Set<Trade> trades;
+
+    @OneToMany(mappedBy = "key.school")
+    private Set<Photography>  photographs;
 
     @OneToOne
     private AdditionalSchoolInformation additionalSchoolInformation;
