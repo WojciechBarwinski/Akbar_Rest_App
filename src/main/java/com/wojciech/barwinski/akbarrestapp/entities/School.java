@@ -45,10 +45,10 @@ public class School {
     @OneToMany(mappedBy = "school")
     private Set<Phone> phones;
 
-    @OneToMany(mappedBy = "key.school")
+    @OneToMany(mappedBy = "school")
     private Set<Trade> trades;
 
-    @OneToMany(mappedBy = "key.school")
+    @OneToMany(mappedBy = "school")
     private Set<Photography>  photographs;
 
     @OneToOne

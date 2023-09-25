@@ -36,7 +36,7 @@ public class Salesman {
 
     private String email;
 
-    @OneToMany(mappedBy = "key.salesman")
+    @OneToMany(mappedBy = "salesman")
     private Set<Trade> trades;
 
     @Column(length = 500)

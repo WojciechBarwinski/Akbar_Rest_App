@@ -1,14 +1,15 @@
 package com.wojciech.barwinski.akbarrestapp.entities.deliverable;
 
 
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.TradeKey;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.entities.personnel.Salesman;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,15 @@ import java.time.LocalDate;
 public class Trade {
 
     @Id
-    private TradeKey key;
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn
+    private Salesman salesman;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn
+    private School school;
 
     private LocalDate signContractDate;
 

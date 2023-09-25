@@ -36,7 +36,7 @@ public class Photographer {
 
     private String email;
 
-    @OneToMany(mappedBy = "key.photographer")
+    @OneToMany(mappedBy = "photographer")
     private Set<Photography>  photographs;
 
     @Column(length = 500)

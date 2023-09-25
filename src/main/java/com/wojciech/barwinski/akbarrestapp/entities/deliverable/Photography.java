@@ -1,10 +1,9 @@
 package com.wojciech.barwinski.akbarrestapp.entities.deliverable;
 
 
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.PhotographyKey;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.entities.personnel.Photographer;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +22,15 @@ import java.time.LocalDate;
 public class Photography {
 
     @Id
-    private PhotographyKey key;
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn
+    private Photographer photographer;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn
+    private School school;
 
     private LocalDate photographingDate;
 
