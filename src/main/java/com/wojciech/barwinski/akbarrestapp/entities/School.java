@@ -12,6 +12,8 @@ import lombok.*;
 import java.util.Objects;
 import java.util.Set;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,19 +41,19 @@ public class School {
     @Size(max = 50)
     private String publicStatus;
 
-    @Embedded
+    @Embedded()
     private Address address;
 
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "school", fetch = LAZY)
     private Set<Phone> phones;
 
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "school", fetch = LAZY)
     private Set<Trade> trades;
 
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "school", fetch = LAZY)
     private Set<Photography>  photographs;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "additionalSchoolInformation_id")
     private AdditionalSchoolInformation additionalSchoolInformation;
 
