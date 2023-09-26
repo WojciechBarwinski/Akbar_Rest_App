@@ -52,6 +52,7 @@ public class School {
     private Set<Photography>  photographs;
 
     @OneToOne
+    @JoinColumn(name = "additionalSchoolInformation_id")
     private AdditionalSchoolInformation additionalSchoolInformation;
 
 

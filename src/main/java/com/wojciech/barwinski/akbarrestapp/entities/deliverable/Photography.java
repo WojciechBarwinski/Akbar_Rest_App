@@ -25,11 +25,11 @@ public class Photography {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn
+    @JoinColumn(name = "photographer_id")
     private Photographer photographer;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn
+    @JoinColumn(name = "school_rspo")
     private School school;
 
     private LocalDate photographingDate;

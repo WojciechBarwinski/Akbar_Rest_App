@@ -21,7 +21,7 @@ public class AdditionalSchoolInformation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "additionalSchoolInformation")
     private School school;
 
     @Embedded

@@ -22,11 +22,11 @@ public class Trade {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn
+    @JoinColumn(name = "salesman_id")
     private Salesman salesman;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn
+    @JoinColumn(name = "school_rspo")
     private School school;
 
     private LocalDate signContractDate;
