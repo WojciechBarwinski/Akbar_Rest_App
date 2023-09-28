@@ -44,16 +44,16 @@ public class School {
     @Embedded()
     private Address address;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY)
+    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Phone> phones;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY)
+    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Trade> trades;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY)
+    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Photography>  photographs;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "additionalSchoolInformation_id")
     private AdditionalSchoolInformation additionalSchoolInformation;
 

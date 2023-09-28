@@ -36,7 +36,7 @@ public class Photographer {
 
     private String email;
 
-    @OneToMany(mappedBy = "photographer")
+    @OneToMany(mappedBy = "photographer", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Photography>  photographs;
 
     @Column(length = 500)

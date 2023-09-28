@@ -36,7 +36,7 @@ public class Salesman {
 
     private String email;
 
-    @OneToMany(mappedBy = "salesman")
+    @OneToMany(mappedBy = "salesman", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Trade> trades;
 
     @Column(length = 500)
