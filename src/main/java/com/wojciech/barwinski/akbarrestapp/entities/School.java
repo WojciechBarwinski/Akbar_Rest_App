@@ -54,9 +54,17 @@ public class School {
     private Set<Photography>  photographs;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "additionalSchoolInformation_id")
+    @JoinColumn(name = "additional_info_id")
     private AdditionalSchoolInformation additionalSchoolInformation;
 
+    public School(Long rspo, String type, String name, String email, String website, String publicStatus) {
+        this.rspo = rspo;
+        this.type = type;
+        this.name = name;
+        this.email = email;
+        this.website = website;
+        this.publicStatus = publicStatus;
+    }
 
     @Override
     public boolean equals(Object o) {
