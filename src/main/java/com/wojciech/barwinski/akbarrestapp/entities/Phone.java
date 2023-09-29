@@ -30,6 +30,12 @@ public class Phone {
     private String phoneNote;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "school_rspo")
+    @JoinColumn(name = "school_rspo", foreignKey = @ForeignKey(name = "FK_PHONE_SCHOOL"))
     private School school;
+
+    public Phone(String number, String owner, String phoneNote) {
+        this.number = number;
+        this.owner = owner;
+        this.phoneNote = phoneNote;
+    }
 }

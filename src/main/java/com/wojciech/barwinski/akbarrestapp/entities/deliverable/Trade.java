@@ -22,11 +22,11 @@ public class Trade {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "salesman_id")
+    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "FK_TRADE_SALESMAN"))
     private Salesman salesman;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "school_rspo")
+    @JoinColumn(name = "school_rspo", foreignKey = @ForeignKey(name = "FK_TRADE_SCHOOL"))
     private School school;
 
     private LocalDate signContractDate;

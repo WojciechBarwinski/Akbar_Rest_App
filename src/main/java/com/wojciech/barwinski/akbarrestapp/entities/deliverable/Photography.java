@@ -25,11 +25,11 @@ public class Photography {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "photographer_id")
+    @JoinColumn(name = "photographer_id", foreignKey = @ForeignKey(name = "FK_PHOTOGRAPHY_PHOTOGRAPHER"))
     private Photographer photographer;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "school_rspo")
+    @JoinColumn(name = "school_rspo", foreignKey = @ForeignKey(name = "FK_PHOTOGRAPHY_SCHOOL"))
     private School school;
 
     private LocalDate photographingDate;

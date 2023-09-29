@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -45,7 +47,7 @@ public class School {
     private Address address;
 
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Phone> phones;
+    private List<Phone> phones;
 
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Trade> trades;
@@ -54,7 +56,7 @@ public class School {
     private Set<Photography>  photographs;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "additional_info_id")
+    @JoinColumn(name = "additional_info_id", foreignKey = @ForeignKey(name = "FK_SCHOOL_INFO"))
     private AdditionalSchoolInformation additionalSchoolInformation;
 
     public School(Long rspo, String type, String name, String email, String website, String publicStatus) {
@@ -64,6 +66,16 @@ public class School {
         this.email = email;
         this.website = website;
         this.publicStatus = publicStatus;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        if (this.phones == null){
+            this.phones = new ArrayList<>();
+        }
+        for(Phone p : phones){
+            this.phones.add(p);
+            p.setSchool(this);
+        }
     }
 
     @Override
