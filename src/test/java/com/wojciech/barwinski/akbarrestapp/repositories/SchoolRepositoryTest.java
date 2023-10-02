@@ -77,8 +77,18 @@ class SchoolRepositoryTest {
         School school = schoolRepository.findByRspo(11111L)
                 .orElseThrow();
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone("555-1234", "John Doe", "Work phone"));
-        phoneList.add(new Phone("555-5678", "Jane Doe", "Personal phone"));
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("555-1234")
+                .owner("John Doe")
+                .phoneNote("Work phone")
+                .build());
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("555-5678")
+                .owner("JJane Doe")
+                .phoneNote("Personal phone")
+                .build());
+
+
 
         school.setPhones(phoneList);
         LOGGER.info("saving school with phones");

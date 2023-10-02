@@ -2,8 +2,6 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +48,16 @@ class PhoneRepositoryTest {
         School school = schoolRepository.save(new School(schoolRspo, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone("555-1234", "John Doe", "Work phone"));
-        phoneList.add(new Phone("555-5678", "Jane Doe", "Personal phone"));
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("970018363")
+                .owner("John Doe")
+                .phoneNote("Work phone")
+                .build());
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("246667788")
+                .owner("JJane Doe")
+                .phoneNote("Personal phone")
+                .build());
 
         //when
         school.setPhones(phoneList);
@@ -66,4 +72,6 @@ class PhoneRepositoryTest {
                 .hasSize(2)
                 .isNotEmpty();
     }
+
+
 }
