@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 public class TestDataInitializer implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println("TestDataInitializer in use");
     }
 
-    // initialization logic
 
 }

@@ -10,9 +10,9 @@ import lombok.Setter;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-@Getter
-@Setter
-@AllArgsConstructor
+/*@Getter
+@Setter*/
+//@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Phone {
@@ -37,5 +37,14 @@ public class Phone {
         this.number = number;
         this.owner = owner;
         this.phoneNote = phoneNote;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    //TODO jesli szkoła juz jest zapisana oraz sprawdzenie czy school nie jest nullem
+    public void setSchool(School school) {
+        this.school = school;
     }
 }
