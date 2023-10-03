@@ -3,9 +3,11 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.ToString;
 
 import static jakarta.persistence.FetchType.LAZY;
 
+@ToString
 @Entity
 public class Phone {
 
@@ -35,6 +37,7 @@ public class Phone {
         this.number = builder.number;
         this.owner = builder.owner;
         this.phoneNote = builder.phoneNote;
+        this.school = builder.school;
 
     }
 
@@ -52,6 +55,7 @@ public class Phone {
         private String number;
         private String owner;
         private String phoneNote;
+        private School school;
 
 
         public PhoneBuilder id(Long id){
@@ -74,6 +78,11 @@ public class Phone {
 
         public PhoneBuilder phoneNote(String phoneNote){
             this.phoneNote = phoneNote;
+            return this;
+        }
+
+        public PhoneBuilder school(School school){
+            this.school = school;
             return this;
         }
 

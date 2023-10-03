@@ -89,7 +89,6 @@ class SchoolRepositoryTest {
                 .build());
 
 
-
         school.setPhones(phoneList);
         LOGGER.info("saving school with phones");
         schoolRepository.saveAndFlush(school);

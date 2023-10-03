@@ -24,4 +24,14 @@ class PhoneBuilderTest {
                 .contains(expectedMessage));
     }
 
+    @Test
+    void tmpTest(){
+        Phone dyrektor = new Phone.PhoneBuilder().number("123456789")
+                .owner("Dyrektor")
+                .phoneNote("   ")
+                .build();
+
+        System.out.println(dyrektor.toString());
+    }
+
 }
