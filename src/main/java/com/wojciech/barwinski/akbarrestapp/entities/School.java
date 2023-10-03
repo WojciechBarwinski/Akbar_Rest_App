@@ -16,8 +16,8 @@ import java.util.Set;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-/*@Getter
-@Setter*/
+@Getter
+/*@Setter*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

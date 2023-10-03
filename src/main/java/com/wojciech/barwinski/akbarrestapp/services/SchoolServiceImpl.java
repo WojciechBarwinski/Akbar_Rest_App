@@ -3,31 +3,36 @@ package com.wojciech.barwinski.akbarrestapp.services;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.mappers.ShortSchoolDTOMapper;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
-    private final SchoolRepository SCHOOL_REPOSITORY;
+    private final SchoolRepository schoolRepository;
+    private final ShortSchoolDTOMapper shortSchoolDTOMapper;
 
-    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY) {
-        this.SCHOOL_REPOSITORY = SCHOOL_REPOSITORY;
+    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, ShortSchoolDTOMapper shortSchoolDTOMapper) {
+        this.schoolRepository = SCHOOL_REPOSITORY;
+        this.shortSchoolDTOMapper = shortSchoolDTOMapper;
     }
 
     @Override
     public List<ShortSchoolDTO> getAllSchools() {
-        List<School> allSchools = SCHOOL_REPOSITORY.findAll();
-        //TODO mapper to shortDTO
-        return null;
+        List<School> allSchools = schoolRepository.findAll();
+        return allSchools.stream()
+                .map(shortSchoolDTOMapper)
+                .collect(Collectors.toList());
     }
 
     @Override
     public SchoolDTO getSchoolById(Long id) {
-        Optional<School> byRspo = SCHOOL_REPOSITORY.findByRspo(id);
+        Optional<School> byRspo = schoolRepository.findByRspo(id);
         //TODO exception and mapper to SchoolDTO
 
         return null;

@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-@ToString
 @Entity
 public class Phone {
 
@@ -43,6 +42,10 @@ public class Phone {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNumber(){
+        return number;
     }
 
     public void setSchool(School school) {
