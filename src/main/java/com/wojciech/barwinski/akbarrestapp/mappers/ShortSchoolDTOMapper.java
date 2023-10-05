@@ -8,17 +8,17 @@ import java.util.function.Function;
 
 @Service
 public class ShortSchoolDTOMapper implements Function<School, ShortSchoolDTO> {
+
     @Override
     public ShortSchoolDTO apply(School school) {
         return new ShortSchoolDTO(
                 school.getRspo(),
                 school.getName(),
-                school.getAddress().getVoivodeship(),
+                school.getAddress().getVoivodeship().name(),
                 school.getAddress().getCounty(),
                 school.getAddress().getBorough(),
                 school.getAddress().getCity(),
-                school.getAddress().getStreet(),
-                school.getPhones().get(0).getNumber()
+                school.getAddress().getStreet()
         );
     }
 }

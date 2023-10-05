@@ -14,19 +14,19 @@ import java.util.List;
 @RequestMapping("/schools")
 public class SchoolController {
 
-    private final SchoolService SCHOOL_SERVICE;
+    private final SchoolService schoolService;
 
     public SchoolController(SchoolService SCHOOL_SERVICE) {
-        this.SCHOOL_SERVICE = SCHOOL_SERVICE;
+        this.schoolService = SCHOOL_SERVICE;
     }
 
     @GetMapping()
     public List<ShortSchoolDTO> readAllHero(){
-        return SCHOOL_SERVICE.getAllSchools();
+        return schoolService.getAllSchools();
     }
 
     @GetMapping(value = "/{id}")
     public SchoolDTO readSchoolById(@PathVariable Long id){
-        return SCHOOL_SERVICE.getSchoolById(id);
+        return schoolService.getSchoolById(id);
     }
 }

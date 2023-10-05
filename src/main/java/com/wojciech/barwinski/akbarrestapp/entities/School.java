@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static jakarta.persistence.FetchType.LAZY;
+//TODO BUILDER!
 
 @Getter
 /*@Setter*/
@@ -66,6 +67,16 @@ public class School {
         this.email = email;
         this.website = website;
         this.publicStatus = publicStatus;
+    }
+
+    public School(Long rspo, String type, String name, String email, String website, String publicStatus, Address address) {
+        this.rspo = rspo;
+        this.type = type;
+        this.name = name;
+        this.email = email;
+        this.website = website;
+        this.publicStatus = publicStatus;
+        this.address = address;
     }
 
     public void setPhones(List<Phone> phones) {

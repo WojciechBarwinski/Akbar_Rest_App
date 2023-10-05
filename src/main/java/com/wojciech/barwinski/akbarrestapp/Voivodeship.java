@@ -13,7 +13,7 @@ public enum Voivodeship {
     POMORSKIE ("Pomorskie"),
     SLASKIE ("Śląskie"),
     SWIEOKRZYSKIE ("Świętokrzyskie"),
-    WARMIŃSKO_MAZURSKIE ("Warmińsko-Mazurskie"),
+    WARMINSKO_MAZURSKIE("Warmińsko-Mazurskie"),
     WIELKOPOLSKIE ("Wielkopolskie"),
     ZACHODNIOPOMORSKIE ("Zachodniopomorskie"),
     LODZKIE ("Łódzkie");

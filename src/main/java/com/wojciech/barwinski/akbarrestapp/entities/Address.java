@@ -46,6 +46,15 @@ public class Address {
     @Size(max = 500)
     private String addressNote;
 
+    public Address(Voivodeship voivodeship, String county, String borough, String city, String street, String zipCode) {
+        this.voivodeship = voivodeship;
+        this.county = county;
+        this.borough = borough;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+    }
+
     /*
     @Column and @Size is from the longest city/street/county etc
      */
