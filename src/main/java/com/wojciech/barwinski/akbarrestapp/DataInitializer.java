@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp;
 
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
+import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -45,11 +46,27 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     private void initialDataForProd() {
         List<School> schools = new ArrayList<>();
-        schools.add(new School(1L, "High School", "Central High School", "info@centralhigh.edu", "www.centralhigh.edu", "Public",
-                new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123")));
+        School school1 = new School(1L, "High School", "Central High School", "info@centralhigh.edu", "www.centralhigh.edu", "Public",
+                new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
 
-        schools.add(new School(2L, "Middle School", "Washington Middle School", "info@washingtonmiddle.edu", "www.washingtonmiddle.edu", "Public",
-                new Address(Voivodeship.LUBELSKIE, "Lublin County", "Lublin", "Lublin", "Lipowa 5", "20-002")));
+        School school2 = new School(2L, "Middle School", "Washington Middle School", "info@washingtonmiddle.edu", "www.washingtonmiddle.edu", "Public",
+                new Address(Voivodeship.LUBELSKIE, "Lublin County", "Lublin", "Lublin", "Lipowa 5", "20-002"));
+
+        List<Phone> phoneList = new ArrayList<>();
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("123456789")
+                .owner("John Doe")
+                .phoneNote("Work phone")
+                .build());
+        phoneList.add(new Phone.PhoneBuilder()
+                .number("987654321")
+                .owner("Jane Doe")
+                .phoneNote("Personal phone")
+                .build());
+        school1.setPhones(phoneList);
+        //school2.setPhones(phoneList);
+        schools.add(school1);
+        schools.add(school2);
 
         schoolRepository.saveAll(schools);
     }

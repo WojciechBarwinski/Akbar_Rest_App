@@ -3,7 +3,6 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.ToString;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -29,8 +28,8 @@ public class Phone {
     protected Phone() {
     }
 
-    private Phone(PhoneBuilder builder){
-        if (builder.id != null){
+    private Phone(PhoneBuilder builder) {
+        if (builder.id != null) {
             this.id = builder.id;
         }
         this.number = builder.number;
@@ -44,7 +43,7 @@ public class Phone {
         return id;
     }
 
-    public String getNumber(){
+    public String getNumber() {
         return number;
     }
 
@@ -52,7 +51,7 @@ public class Phone {
         this.school = school;
     }
 
-    public static class PhoneBuilder{
+    public static class PhoneBuilder {
 
         private Long id;
         private String number;
@@ -61,35 +60,35 @@ public class Phone {
         private School school;
 
 
-        public PhoneBuilder id(Long id){
+        public PhoneBuilder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public PhoneBuilder number(String number){
-            if(!number.matches("\\d{9}")) {
+        public PhoneBuilder number(String number) {
+            if (!number.matches("\\d{9}")) {
                 throw new IllegalArgumentException("Number must be 9 digits");
             }
             this.number = number;
             return this;
         }
 
-        public PhoneBuilder owner(String owner){
+        public PhoneBuilder owner(String owner) {
             this.owner = owner;
             return this;
         }
 
-        public PhoneBuilder phoneNote(String phoneNote){
+        public PhoneBuilder phoneNote(String phoneNote) {
             this.phoneNote = phoneNote;
             return this;
         }
 
-        public PhoneBuilder school(School school){
+        public PhoneBuilder school(School school) {
             this.school = school;
             return this;
         }
 
-        public Phone build(){
+        public Phone build() {
             return new Phone(this);
         }
 

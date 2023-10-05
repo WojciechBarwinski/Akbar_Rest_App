@@ -15,7 +15,7 @@ import lombok.Setter;
 @Embeddable
 public class Status {
 
-   private boolean isOurs;
+    private boolean isOurs;
 
     private boolean isContracted;
 

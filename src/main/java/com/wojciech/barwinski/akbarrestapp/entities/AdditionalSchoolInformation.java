@@ -6,12 +6,8 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedul
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-/*@Getter
-@Setter*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

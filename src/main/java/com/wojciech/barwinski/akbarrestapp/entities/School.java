@@ -4,10 +4,11 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
 import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class School {
     private Set<Trade> trades;
 
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Photography>  photographs;
+    private Set<Photography> photographs;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id", foreignKey = @ForeignKey(name = "FK_SCHOOL_INFO"))
@@ -80,13 +81,17 @@ public class School {
     }
 
     public void setPhones(List<Phone> phones) {
-        if (this.phones == null){
+        if (this.phones == null) {
             this.phones = new ArrayList<>();
         }
-        for(Phone p : phones){
+        for (Phone p : phones) {
             this.phones.add(p);
             p.setSchool(this);
         }
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
     }
 
     @Override

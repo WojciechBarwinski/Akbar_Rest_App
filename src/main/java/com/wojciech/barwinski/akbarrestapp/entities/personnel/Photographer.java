@@ -4,15 +4,11 @@ import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Set;
 
 
-/*@Getter
-@Setter*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -37,7 +33,7 @@ public class Photographer {
     private String email;
 
     @OneToMany(mappedBy = "photographer", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Photography>  photographs;
+    private Set<Photography> photographs;
 
     @Column(length = 500)
     @Size(max = 500)

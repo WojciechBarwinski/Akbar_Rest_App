@@ -18,7 +18,8 @@ public class ShortSchoolDTOMapper implements Function<School, ShortSchoolDTO> {
                 school.getAddress().getCounty(),
                 school.getAddress().getBorough(),
                 school.getAddress().getCity(),
-                school.getAddress().getStreet()
+                school.getAddress().getStreet(),
+                school.getPhones().get(0).getNumber()
         );
     }
 }
