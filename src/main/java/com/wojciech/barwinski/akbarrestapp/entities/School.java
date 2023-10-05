@@ -90,6 +90,11 @@ public class School {
         }
     }
 
+    public void setAdditionalSchoolInformation(AdditionalSchoolInformation additionalSchoolInformation) {
+        this.additionalSchoolInformation = additionalSchoolInformation;
+        additionalSchoolInformation.setSchool(this);
+    }
+
     public List<Phone> getPhones() {
         return phones;
     }

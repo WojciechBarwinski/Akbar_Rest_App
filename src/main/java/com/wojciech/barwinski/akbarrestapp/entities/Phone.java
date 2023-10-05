@@ -3,9 +3,11 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 
 import static jakarta.persistence.FetchType.LAZY;
 
+@Getter
 @Entity
 public class Phone {
 
@@ -14,7 +16,7 @@ public class Phone {
     private Long id;
 
     @Column(length = 20)
-    @Size(max = 9)
+    @Size(max = 12)
     private String number;
 
     private String owner;
@@ -29,22 +31,11 @@ public class Phone {
     }
 
     private Phone(PhoneBuilder builder) {
-        if (builder.id != null) {
-            this.id = builder.id;
-        }
+        this.id = builder.id;
         this.number = builder.number;
         this.owner = builder.owner;
         this.phoneNote = builder.phoneNote;
         this.school = builder.school;
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNumber() {
-        return number;
     }
 
     public void setSchool(School school) {
@@ -66,9 +57,6 @@ public class Phone {
         }
 
         public PhoneBuilder number(String number) {
-            if (!number.matches("\\d{9}")) {
-                throw new IllegalArgumentException("Number must be 9 digits");
-            }
             this.number = number;
             return this;
         }

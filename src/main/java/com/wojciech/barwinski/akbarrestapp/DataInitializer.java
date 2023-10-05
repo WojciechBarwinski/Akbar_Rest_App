@@ -1,8 +1,12 @@
 package com.wojciech.barwinski.akbarrestapp;
 
+import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notation;
+import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
+import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -10,6 +14,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +69,20 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
                 .phoneNote("Personal phone")
                 .build());
         school1.setPhones(phoneList);
-        //school2.setPhones(phoneList);
+
+        AdditionalSchoolInformation addInfo = new AdditionalSchoolInformation(
+                new Status(true, true, false, false, "notka statusu"),
+                new Notation("note1", "note2", "note3"),
+                new Schedule(LocalDate.of(2022, 10, 15),
+                        LocalDate.of(2022, 10, 20),
+                        LocalDate.of(2022, 11, 1),
+                        3,
+                        LocalDate.of(2022, 11, 15),
+                        LocalDate.of(2022, 11, 10),
+                        "Schedule for client John Doe"));
+
+        school1.setAdditionalSchoolInformation(addInfo);
+
         schools.add(school1);
         schools.add(school2);
 

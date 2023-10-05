@@ -1,12 +1,12 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 
 import java.util.List;
 
 public interface SchoolService {
-    List<ShortSchoolDTO> getAllSchools();
+    List<SchoolDTOPreview> getAllSchools();
 
     SchoolDTO getSchoolById(Long id);
 }

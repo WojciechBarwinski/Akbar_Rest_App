@@ -6,8 +6,9 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedul
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,4 +29,14 @@ public class AdditionalSchoolInformation {
 
     @Embedded
     private Schedule schedule;
+
+    public AdditionalSchoolInformation(Status status, Notation notation, Schedule schedule) {
+        this.status = status;
+        this.notation = notation;
+        this.schedule = schedule;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 }

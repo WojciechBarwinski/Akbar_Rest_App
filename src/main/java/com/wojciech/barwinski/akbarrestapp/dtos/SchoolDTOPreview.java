@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShortSchoolDTO {
+public class SchoolDTOPreview {
 
     private Long rspo;
     private String name;

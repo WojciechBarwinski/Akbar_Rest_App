@@ -1,10 +1,9 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapperModelTest;
-import com.wojciech.barwinski.akbarrestapp.mappers.ShortSchoolDTOMapper;
+import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +15,25 @@ import java.util.stream.Collectors;
 public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
-    private final ShortSchoolDTOMapper shortSchoolDTOMapper;
-    private final SchoolMapperModelTest schoolMapperModelTest;
+    private final SchoolMapper schoolMapper;
 
-    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, ShortSchoolDTOMapper shortSchoolDTOMapper, SchoolMapperModelTest schoolMapperModelTest) {
+    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolMapper schoolMapper) {
         this.schoolRepository = SCHOOL_REPOSITORY;
-        this.shortSchoolDTOMapper = shortSchoolDTOMapper;
-        this.schoolMapperModelTest = schoolMapperModelTest;
+        this.schoolMapper = schoolMapper;
     }
 
     @Override
-    public List<ShortSchoolDTO> getAllSchools() {
+    public List<SchoolDTOPreview> getAllSchools() {
         List<School> allSchools = schoolRepository.findAll();
         return allSchools.stream()
-                .map(schoolMapperModelTest::shortSchoolDTOMapperTest)
+                .map(schoolMapper::mapSchoolToSchoolDTOPreview)
                 .collect(Collectors.toList());
     }
 
     @Override
     public SchoolDTO getSchoolById(Long id) {
-        Optional<School> byRspo = schoolRepository.findByRspo(id);
+       School byRspo = schoolRepository.findByRspo(id).get();
         //TODO exception and mapper to SchoolDTO
-
-        return null;
+        return schoolMapper.mapSchoolToFullSchoolDTO(byRspo);
     }
 }

@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +21,7 @@ public class SchoolController {
     }
 
     @GetMapping()
-    public List<ShortSchoolDTO> readAllHero(){
+    public List<SchoolDTOPreview> readAllHero(){
         return schoolService.getAllSchools();
     }
 
