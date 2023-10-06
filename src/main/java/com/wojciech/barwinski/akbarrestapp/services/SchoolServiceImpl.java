@@ -8,7 +8,6 @@ import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +31,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public SchoolDTO getSchoolById(Long id) {
-       School byRspo = schoolRepository.findByRspo(id).get();
+        School byRspo = schoolRepository.findByRspo(id).get();
         //TODO exception and mapper to SchoolDTO
         return schoolMapper.mapSchoolToFullSchoolDTO(byRspo);
     }

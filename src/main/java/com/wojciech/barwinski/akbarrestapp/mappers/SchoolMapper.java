@@ -25,7 +25,6 @@ public class SchoolMapper {
         return dto;
     }
 
-
     public SchoolDTO mapSchoolToFullSchoolDTO(School school){
         SchoolDTO dto = modelMapper.map(school, SchoolDTO.class);
         modelMapper.map(school.getAddress(), dto);
@@ -33,7 +32,10 @@ public class SchoolMapper {
         return dto;
     }
 
-    public AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info){
+    private AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info){
+        if (info == null){
+            return new AdditionalSchoolInformationDTO();
+        }
         AdditionalSchoolInformationDTO map = modelMapper.map(info, AdditionalSchoolInformationDTO.class);
         modelMapper.map(info.getNotation(), map);
         modelMapper.map(info.getSchedule(), map);
