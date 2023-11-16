@@ -6,10 +6,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,7 @@ import static jakarta.persistence.FetchType.LAZY;
 //TODO BUILDER!
 
 @Getter
-/*@Setter*/
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

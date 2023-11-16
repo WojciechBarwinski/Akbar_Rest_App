@@ -1,9 +1,11 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
+import com.wojciech.barwinski.akbarrestapp.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.AdditionalSchoolInformationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
+import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,14 @@ public class SchoolMapper {
         return dto;
     }
 
+    public School mapSchoolCsvRepToSchool(SchoolCsvRepresentation csv){
+        School school = modelMapper.map(csv, School.class);
+        Address address = modelMapper.map(csv, Address.class);
+        school.setAddress(address);
+        return school;
+    }
+
+    //TODO spróbować zrobić to w mapperModel
     private AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info){
         if (info == null){
             return new AdditionalSchoolInformationDTO();
