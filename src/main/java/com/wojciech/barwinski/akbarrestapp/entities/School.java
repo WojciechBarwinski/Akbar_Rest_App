@@ -89,6 +89,14 @@ public class School {
         }
     }
 
+    public void addPhone(Phone phone){
+        if (this.phones == null) {
+            this.phones = new ArrayList<>();
+        }
+        phones.add(phone);
+        phone.setSchool(this);
+    }
+
     public void setAdditionalSchoolInformation(AdditionalSchoolInformation additionalSchoolInformation) {
         this.additionalSchoolInformation = additionalSchoolInformation;
         additionalSchoolInformation.setSchool(this);

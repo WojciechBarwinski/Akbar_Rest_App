@@ -96,6 +96,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             System.out.println(school.getName());
             System.out.println(school.getRspo());
             System.out.println(school.getAddress().getStreet());
+            System.out.println(school.getPhones().get(0).getNumber());
         }
 
     }

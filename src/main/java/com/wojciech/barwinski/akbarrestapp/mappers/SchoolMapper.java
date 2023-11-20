@@ -6,6 +6,7 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
+import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,12 @@ public class SchoolMapper {
     public School mapSchoolCsvRepToSchool(SchoolCsvRepresentation csv){
         School school = modelMapper.map(csv, School.class);
         Address address = modelMapper.map(csv, Address.class);
+        school.addPhone(getPhoneFromCsv(csv.getPhone()));
         school.setAddress(address);
         return school;
     }
 
-    //TODO spróbować zrobić to w mapperModel
+
     private AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info){
         if (info == null){
             return new AdditionalSchoolInformationDTO();
@@ -52,5 +54,17 @@ public class SchoolMapper {
         modelMapper.map(info.getStatus(), map);
 
         return map;
+    }
+
+    private Phone getPhoneFromCsv(String phone){
+        if (phone.isEmpty()){
+            return new Phone.PhoneBuilder()
+                    .phoneNote("brak numeru szkoły z bazy danych ministerstwa")
+                    .build();
+        }
+        return new Phone.PhoneBuilder()
+                .number(phone)
+                .owner("Główny numer szkoły")
+                .build();
     }
 }

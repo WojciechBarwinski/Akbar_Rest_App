@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "Akbar API")
@@ -36,8 +35,20 @@ public class SchoolController {
 
     @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
     public ResponseEntity<Integer> uploadStudents(@RequestPart("file") MultipartFile file){
+        csvChecks(file.getOriginalFilename());
+
         return ResponseEntity.ok(schoolService.uploadSchool(file));
     }
 
+
+
+    private void csvChecks(String fileName){
+        if (fileName == null){
+            throw new IllegalArgumentException("No file was send");
+        }
+        if (!fileName.endsWith(".csv")){
+            throw new IllegalArgumentException("Only .csv files are allowed!");
+        }
+    }
 
 }

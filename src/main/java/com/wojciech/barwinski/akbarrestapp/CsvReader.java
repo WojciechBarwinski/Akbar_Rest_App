@@ -1,9 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp;
 
 
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import org.springframework.stereotype.Component;
