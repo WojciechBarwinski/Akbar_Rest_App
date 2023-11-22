@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
-import com.wojciech.barwinski.akbarrestapp.CsvReader;
+import com.wojciech.barwinski.akbarrestapp.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -18,12 +18,12 @@ public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
     private final SchoolMapper schoolMapper;
-    private final CsvReader csvReader;
+    private final CsvCustomReader csvCustomReader;
 
-    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolMapper schoolMapper, CsvReader csvReader) {
+    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolMapper schoolMapper, CsvCustomReader csvCustomReader) {
         this.schoolRepository = SCHOOL_REPOSITORY;
         this.schoolMapper = schoolMapper;
-        this.csvReader = csvReader;
+        this.csvCustomReader = csvCustomReader;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public Integer uploadSchool(MultipartFile file) {
-        Set<School> schools = csvReader.parseCsvByMultipartFile(file);
+        Set<School> schools = csvCustomReader.parseCsvByMultipartFile(file);
         for (School school : schools) {
             System.out.println(school.getName());
         }

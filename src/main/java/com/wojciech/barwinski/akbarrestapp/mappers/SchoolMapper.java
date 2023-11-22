@@ -57,7 +57,7 @@ public class SchoolMapper {
     }
 
     private Phone getPhoneFromCsv(String phone){
-        if (phone.isEmpty()){
+        if (phone == null || phone.isEmpty()){
             return new Phone.PhoneBuilder()
                     .phoneNote("brak numeru szkoły z bazy danych ministerstwa")
                     .build();

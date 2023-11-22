@@ -18,18 +18,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private final SchoolRepository schoolRepository;
-    private final CsvReader csvReader;
+    private final CsvCustomReader csvCustomReader;
 
-    public DataInitializer(SchoolRepository schoolRepository, CsvReader csvReader) {
+    public DataInitializer(SchoolRepository schoolRepository, CsvCustomReader csvCustomReader) {
         this.schoolRepository = schoolRepository;
-        this.csvReader = csvReader;
+        this.csvCustomReader = csvCustomReader;
     }
 
 
@@ -92,7 +91,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         schoolRepository.saveAll(schools);
 
-        for (School school : csvReader.parseCsvByFilePath()) {
+        for (School school : csvCustomReader.parseCsvByFilePath()) {
             System.out.println(school.getName());
             System.out.println(school.getRspo());
             System.out.println(school.getAddress().getStreet());
