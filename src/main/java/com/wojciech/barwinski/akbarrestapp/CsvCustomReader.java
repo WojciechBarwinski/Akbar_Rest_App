@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp;
 
 
+import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
@@ -23,9 +24,11 @@ public class CsvCustomReader {
 
     private static final String FILE_PATH = "src/main/resources/testSchools.csv";
     private final SchoolMapper schoolMapper;
+    private final CsvValidator csvValidator;
 
-    public CsvCustomReader(SchoolMapper schoolMapper) {
+    public CsvCustomReader(SchoolMapper schoolMapper, CsvValidator csvValidator) {
         this.schoolMapper = schoolMapper;
+        this.csvValidator = csvValidator;
     }
 
     public Set<School> parseCsvByMultipartFile(MultipartFile file) {
@@ -39,8 +42,8 @@ public class CsvCustomReader {
 
     public Set<School> parseCsvByFilePath() {
         try {BufferedReader readOneLine = new BufferedReader(new FileReader(FILE_PATH));
-            List<String> missingNames = checkIfColumnsNamesAreCorrect(readOneLine.readLine());
-
+            List<String> missingNames = csvValidator.checkIfColumnsNamesAreCorrect(readOneLine.readLine());
+                //TODO zmienic to aby kazdy plik mial własna validator i inaczej przekształcać dane tutaj
             if (missingNames.isEmpty()) {
                 BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
                 return parseCsv(reader);
@@ -53,12 +56,14 @@ public class CsvCustomReader {
     }
 
     private Set<School> parseCsv(BufferedReader reader) throws IOException {
-
-        List<SchoolCsvRepresentation> parse = new CsvToBeanBuilder<SchoolCsvRepresentation>(reader)
+        CsvToBean<SchoolCsvRepresentation> build = new CsvToBeanBuilder<SchoolCsvRepresentation>(reader)
                 .withType(SchoolCsvRepresentation.class)
                 .withSeparator(';')
-                .build().parse();
+                .build();
 
+        //TODO metoda przyjmuje CsvToBean, validuje i zwraca listę tych obiektów które nadają sie do parsowania dalej.
+
+        List<SchoolCsvRepresentation> parse = build.parse();
         return mapCsvToSchool(parse);
     }
 
@@ -67,20 +72,5 @@ public class CsvCustomReader {
                 .map(schoolMapper::mapSchoolCsvRepToSchool)
                 .collect(Collectors.toSet());
     }
-    
-    private List<String> checkIfColumnsNamesAreCorrect(String columnNames) {
-        String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
 
-        String[] expectedColumnsName = NAMES.split(";");
-        List<String> columnsNameToCheck = Arrays.asList(columnNames.split(";"));
-        List<String> missingNames = new ArrayList<>();
-
-        for (String name : expectedColumnsName) {
-            if (!columnsNameToCheck.contains(name)) {
-                missingNames.add(name);
-            }
-        }
-
-        return missingNames;
-    }
 }
