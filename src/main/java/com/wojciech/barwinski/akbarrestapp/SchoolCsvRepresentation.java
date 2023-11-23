@@ -11,11 +11,11 @@ import lombok.*;
 @Builder
 public class SchoolCsvRepresentation {
 
-    @CsvBindByName(column = "Typ")
-    private String type;
-
     @CsvBindByName(column = "Numer RSPO")
     private String rspo;
+
+    @CsvBindByName(column = "Typ")
+    private String type;
 
     @CsvBindByName(column = "Nazwa")
     private String name;
