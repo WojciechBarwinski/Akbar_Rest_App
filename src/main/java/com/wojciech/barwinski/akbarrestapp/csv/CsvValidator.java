@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp;
+package com.wojciech.barwinski.akbarrestapp.csv;
 
 import org.springframework.stereotype.Component;
 
@@ -32,5 +32,12 @@ public class CsvValidator {
 
     private void validateSchoolDataFromCsv(List<SchoolCsvRepresentation> schoolList){
 
+        for (SchoolCsvRepresentation CsvSchoolToValidate : schoolList) {
+
+        }
+
+
     }
+
+
 }

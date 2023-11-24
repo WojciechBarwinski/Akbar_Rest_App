@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp;
+package com.wojciech.barwinski.akbarrestapp.csv;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.*;

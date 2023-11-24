@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp;
+package com.wojciech.barwinski.akbarrestapp.csv;
 
 
 import com.opencsv.bean.CsvToBean;
@@ -12,13 +12,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//TODO dodac czas wczytywania pliku
+
 @Component
 public class CsvCustomReader {
 

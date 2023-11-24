@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
-import com.wojciech.barwinski.akbarrestapp.SchoolCsvRepresentation;
+import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.AdditionalSchoolInformationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
