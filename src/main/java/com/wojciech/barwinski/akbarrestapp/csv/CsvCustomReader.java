@@ -1,7 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csv;
 
 
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
@@ -29,7 +28,7 @@ public class CsvCustomReader {
         this.csvValidator = csvValidator;
     }
 
-    public Set<School> parseCsvByMultipartFile(MultipartFile file) {
+    public List<SchoolCsvRepresentation> parseCsvByMultipartFile(MultipartFile file) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             return parseCsv(reader);
         } catch (IOException e) {
@@ -38,10 +37,10 @@ public class CsvCustomReader {
         }
     }
 
-    public Set<School> parseCsvByFilePath() {
+    public List<SchoolCsvRepresentation> parseCsvByFilePath() {
         try {BufferedReader readOneLine = new BufferedReader(new FileReader(FILE_PATH));
             List<String> missingNames = csvValidator.checkIfColumnsNamesAreCorrect(readOneLine.readLine());
-                //TODO zmienic to aby kazdy plik mial własna validator i inaczej przekształcać dane tutaj
+
             if (missingNames.isEmpty()) {
                 BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
                 return parseCsv(reader);
@@ -53,16 +52,12 @@ public class CsvCustomReader {
         }
     }
 
-    private Set<School> parseCsv(BufferedReader reader) throws IOException {
-        CsvToBean<SchoolCsvRepresentation> build = new CsvToBeanBuilder<SchoolCsvRepresentation>(reader)
+    private List<SchoolCsvRepresentation> parseCsv(BufferedReader reader) throws IOException {
+        return new CsvToBeanBuilder<SchoolCsvRepresentation>(reader)
                 .withType(SchoolCsvRepresentation.class)
                 .withSeparator(';')
-                .build();
-
-        //TODO metoda przyjmuje CsvToBean, validuje i zwraca listę tych obiektów które nadają sie do parsowania dalej.
-
-        List<SchoolCsvRepresentation> parse = build.parse();
-        return mapCsvToSchool(parse);
+                .build()
+                .parse();
     }
 
     private Set<School> mapCsvToSchool(List<SchoolCsvRepresentation> csv) {

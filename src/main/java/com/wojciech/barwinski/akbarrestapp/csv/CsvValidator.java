@@ -30,7 +30,7 @@ public class CsvValidator {
     }
 
 
-    private void validateSchoolDataFromCsv(List<SchoolCsvRepresentation> schoolList){
+    protected void validateSchoolDataFromCsv(List<SchoolCsvRepresentation> schoolList){
 
         for (SchoolCsvRepresentation CsvSchoolToValidate : schoolList) {
 

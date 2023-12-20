@@ -8,8 +8,6 @@ public class AkbarRestAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AkbarRestAppApplication.class, args);
-
-		System.out.println("Hello World");
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.csv.CsvCustomReader;
+import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -43,19 +44,8 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public Integer uploadSchool(MultipartFile file) {
-        Set<School> schools = csvCustomReader.parseCsvByMultipartFile(file);
+        List<SchoolCsvRepresentation> schoolCsvRepresentations = csvCustomReader.parseCsvByMultipartFile(file);
 
-
-
-
-
-
-
-
-
-        for (School school : schools) {
-            System.out.println(school.getName());
-        }
-        return schools.size();
+        return schoolCsvRepresentations.size();
     }
 }
