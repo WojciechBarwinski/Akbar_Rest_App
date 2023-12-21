@@ -2,7 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.csv;
 
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.csv.Validators.ColumnsNameValidator;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -21,16 +19,23 @@ public class CsvCustomReader {
 
     private static final String FILE_PATH = "src/main/resources/testSchools.csv";
     private final SchoolMapper schoolMapper;
-    private final CsvValidator csvValidator;
+    private final ColumnsNameValidator validator;
 
-    public CsvCustomReader(SchoolMapper schoolMapper, CsvValidator csvValidator) {
+    public CsvCustomReader(SchoolMapper schoolMapper, ColumnsNameValidator validator) {
         this.schoolMapper = schoolMapper;
-        this.csvValidator = csvValidator;
+        this.validator = validator;
     }
 
     public List<SchoolCsvRepresentation> parseCsvByMultipartFile(MultipartFile file) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-            return parseCsv(reader);
+        try {BufferedReader readOneLine = new BufferedReader(new FileReader(FILE_PATH));
+            List<String> missingNames = validator.checkIfColumnsNamesAreCorrect(readOneLine.readLine());
+
+            if (missingNames.isEmpty()) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+                return parseCsv(reader);
+            } else {
+                throw new RuntimeException("Brakuje następujących nazw kolumn " + missingNames);
+            }
         } catch (IOException e) {
             //TODO correct exception
             throw new RuntimeException(e);
@@ -39,7 +44,7 @@ public class CsvCustomReader {
 
     public List<SchoolCsvRepresentation> parseCsvByFilePath() {
         try {BufferedReader readOneLine = new BufferedReader(new FileReader(FILE_PATH));
-            List<String> missingNames = csvValidator.checkIfColumnsNamesAreCorrect(readOneLine.readLine());
+            List<String> missingNames = validator.checkIfColumnsNamesAreCorrect(readOneLine.readLine());
 
             if (missingNames.isEmpty()) {
                 BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -60,10 +65,10 @@ public class CsvCustomReader {
                 .parse();
     }
 
-    private Set<School> mapCsvToSchool(List<SchoolCsvRepresentation> csv) {
+    /*private Set<School> mapCsvToSchool(List<SchoolCsvRepresentation> csv) {
         return csv.stream()
                 .map(schoolMapper::mapSchoolCsvRepToSchool)
                 .collect(Collectors.toSet());
-    }
+    }*/
 
 }

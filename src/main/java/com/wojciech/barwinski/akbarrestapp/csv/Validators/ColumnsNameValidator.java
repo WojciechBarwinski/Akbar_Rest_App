@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.csv;
+package com.wojciech.barwinski.akbarrestapp.csv.Validators;
 
 import org.springframework.stereotype.Component;
 
@@ -8,13 +8,11 @@ import java.util.List;
 
 
 @Component
-public class CsvValidator {
+public class ColumnsNameValidator {
 
-    private final String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
+    String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
 
-
-
-    protected List<String> checkIfColumnsNamesAreCorrect(String columnNames) {
+    public List<String> checkIfColumnsNamesAreCorrect(String columnNames) {
 
         String[] expectedColumnsName = NAMES.split(";");
         List<String> columnsNameToCheck = Arrays.asList(columnNames.split(";"));
@@ -28,16 +26,4 @@ public class CsvValidator {
 
         return missingNames;
     }
-
-
-    protected void validateSchoolDataFromCsv(List<SchoolCsvRepresentation> schoolList){
-
-        for (SchoolCsvRepresentation CsvSchoolToValidate : schoolList) {
-
-        }
-
-
-    }
-
-
 }

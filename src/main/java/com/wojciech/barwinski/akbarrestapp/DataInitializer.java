@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp;
 
 import com.wojciech.barwinski.akbarrestapp.csv.CsvCustomReader;
+import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -92,12 +93,12 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         schoolRepository.saveAll(schools);
 
-        for (School school : csvCustomReader.parseCsvByFilePath()) {
+        /*for (SchoolCsvRepresentation school : csvCustomReader.parseCsvByFilePath()) {
             System.out.println(school.getName());
             System.out.println(school.getRspo());
-            System.out.println(school.getAddress().getStreet());
-            System.out.println(school.getPhones().get(0).getNumber());
-        }
+            System.out.println(school.getStreet());
+            System.out.println(school.getPhone());
+        }*/
 
     }
 }
