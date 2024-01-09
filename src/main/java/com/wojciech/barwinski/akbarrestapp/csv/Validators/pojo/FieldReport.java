@@ -13,8 +13,9 @@ public class FieldReport {
     private ValidationStatus status;
     private String comment;
 
-    public FieldReport(String fieldName, ValidationStatus status) {
+    public FieldReport(String fieldName) {
         this.fieldName = fieldName;
-        this.status = status;
+        this.status = ValidationStatus.OK;
+        this.comment = "OK";
     }
 }
