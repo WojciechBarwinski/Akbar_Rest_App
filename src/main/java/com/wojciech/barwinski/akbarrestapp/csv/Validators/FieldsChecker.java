@@ -2,21 +2,27 @@ package com.wojciech.barwinski.akbarrestapp.csv.Validators;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.FieldReport;
 
+
 import static com.wojciech.barwinski.akbarrestapp.csv.Validators.ValidationStatus.ERROR;
 import static com.wojciech.barwinski.akbarrestapp.csv.Validators.ValidationStatus.WARNING;
 
 public class FieldsChecker {
 
-    public static FieldReport checkRSPO(String rspo) {
-        FieldReport fieldReport = new FieldReport("RSPO");
+    private static final String specialSigns = "field contains special characters or symbols";
+    private static final String untypicalSize = "field has untypical size";
+    private static final String emptyField = "field is empty";
 
-        if (rspo.isBlank() || rspo.matches(".*[a-zA-Z].*")) {
-            fieldReport.setStatus(ERROR);
-            fieldReport.setComment("RSPO is null or have non-digit signs");
+    public static FieldReport checkRSPO(String rspo) {
+        FieldReport fieldReport = checkEmptyField(new FieldReport("RSPO"), rspo);
+        if (fieldReport.getStatus().equals(ERROR)){
             return fieldReport;
-        } else if (!rspo.matches(".*\\d{3,8}.*")) {
+        }else if (rspo.matches(".*[a-zA-Z\\p{P}\\p{S}].*")){
+            fieldReport.setStatus(ERROR);
+            fieldReport.setComment("RSPO has non-digit signs");
+            return fieldReport;
+        } else if (!rspo.trim().matches("\\d{3,8}")) {
             fieldReport.setStatus(WARNING);
-            fieldReport.setComment("RSPO has untypical size");
+            fieldReport.setComment(untypicalSize);
             return fieldReport;
         } else {
             return fieldReport;
@@ -38,11 +44,11 @@ public class FieldsChecker {
     public static FieldReport checkSchoolBuildingNumber(String buildingNumber) {
         FieldReport fieldReport = new FieldReport("Building number");
 
-        if (buildingNumber.isBlank()){
+        if (buildingNumber == null ||buildingNumber.isBlank()){
             fieldReport.setStatus(ERROR);
             fieldReport.setComment("building number is empty");
             return fieldReport;
-        } else if (buildingNumber.trim().length() > 5) {
+        } else if (buildingNumber.trim().length() > 4) {
             fieldReport.setStatus(WARNING);
             fieldReport.setComment("Building number has untypical size");
             return fieldReport;
@@ -54,7 +60,7 @@ public class FieldsChecker {
 
     public static FieldReport checkSchoolLocalNumber(String localNumber) {
         FieldReport fieldReport = new FieldReport("Local number");
-        if (localNumber.isBlank()) {
+        if (localNumber == null || localNumber.isBlank()) {
             fieldReport.setStatus(WARNING);
             fieldReport.setComment("There is no local number");
         }
@@ -137,18 +143,28 @@ public class FieldsChecker {
         return checkBlankAndStringLength(status, new FieldReport("School status"));
     }
 
-    private static FieldReport checkBlankAndStringLength(String field, FieldReport fieldReport) {
-
-        if (field.isBlank()) {
-            fieldReport.setStatus(ERROR);
-            fieldReport.setComment("field is empty");
+    private static FieldReport checkBlankAndStringLength(String field, FieldReport report) {
+        FieldReport fieldReport = checkEmptyField(report, field);
+        if (fieldReport.getStatus().equals(ERROR)){
             return fieldReport;
-        } else if (field.trim().length() < 4) {
+        } else if (field.matches(".*[\\p{P}\\p{S}&&[^.-]]+.*")) {
             fieldReport.setStatus(WARNING);
-            fieldReport.setComment("field has untypical size");
+            fieldReport.setComment(specialSigns);
+            return fieldReport;
+        }else if (field.trim().length() < 4) {
+            fieldReport.setStatus(WARNING);
+            fieldReport.setComment(untypicalSize);
             return fieldReport;
         } else {
             return fieldReport;
         }
+    }
+
+    private static FieldReport checkEmptyField(FieldReport fieldReport, String field) {
+        if (field == null || field.isBlank()) {
+            fieldReport.setStatus(ERROR);
+            fieldReport.setComment(emptyField);
+        }
+        return fieldReport;
     }
 }
