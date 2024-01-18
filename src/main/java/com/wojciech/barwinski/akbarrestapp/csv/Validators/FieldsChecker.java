@@ -11,9 +11,10 @@ public class FieldsChecker {
     private static final String specialSigns = "field contains special characters or symbols";
     private static final String untypicalSize = "field has untypical size";
     private static final String emptyField = "field is empty";
+    private static final String specialSignsRegex = ".*[\\p{P}\\p{S}&&[^.-]]+.*";
 
     public static FieldReport checkRSPO(String rspo) {
-        FieldReport fieldReport = checkEmptyField(new FieldReport("RSPO"), rspo);
+        FieldReport fieldReport = checkEmptyFieldERROR(new FieldReport("RSPO"), rspo);
         if (fieldReport.getStatus().equals(ERROR)){
             return fieldReport;
         }else if (rspo.matches(".*[a-zA-Z\\p{P}\\p{S}].*")){
@@ -21,9 +22,7 @@ public class FieldsChecker {
             fieldReport.setComment("RSPO has non-digit signs");
             return fieldReport;
         } else if (!rspo.trim().matches("\\d{3,8}")) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment(untypicalSize);
-            return fieldReport;
+            return setUntypicalSizeWARNING(fieldReport);
         } else {
             return fieldReport;
         }
@@ -42,38 +41,38 @@ public class FieldsChecker {
     }
 
     public static FieldReport checkSchoolBuildingNumber(String buildingNumber) {
-        FieldReport fieldReport = new FieldReport("Building number");
-
-        if (buildingNumber == null ||buildingNumber.isBlank()){
-            fieldReport.setStatus(ERROR);
-            fieldReport.setComment("building number is empty");
+        FieldReport fieldReport = checkEmptyFieldERROR(new FieldReport("Building Number"), buildingNumber);
+        if (fieldReport.getStatus().equals(ERROR)){
             return fieldReport;
         } else if (buildingNumber.trim().length() > 4) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment("Building number has untypical size");
-            return fieldReport;
+            return setUntypicalSizeWARNING(fieldReport);
+        } else if (buildingNumber.matches(specialSignsRegex)) {
+            return setUntypicalSpecialSignsWARNING(fieldReport);
         } else {
             return fieldReport;
         }
-
     }
 
     public static FieldReport checkSchoolLocalNumber(String localNumber) {
-        FieldReport fieldReport = new FieldReport("Local number");
-        if (localNumber == null || localNumber.isBlank()) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment("There is no local number");
+        FieldReport fieldReport = checkEmptyFieldWARNING(new FieldReport("Local number"), localNumber);
+        if (fieldReport.getStatus().equals(WARNING)){
+            return fieldReport;
+        } else if (localNumber.matches(specialSignsRegex)) {
+            return setUntypicalSpecialSignsWARNING(fieldReport);
+        }else if (localNumber.trim().length() > 4) {
+            return setUntypicalSizeWARNING(fieldReport);
+        } else {
+            return fieldReport;
         }
-
-        return fieldReport;
     }
 
     public static FieldReport checkSchoolZipCode(String zipCode) {
-        FieldReport fieldReport = new FieldReport("Zip code");
-
-        if (zipCode.isBlank() || !(zipCode.matches("\\d{2}-\\d{3}") || zipCode.matches("\\d{5}"))){
+        FieldReport fieldReport = checkEmptyFieldERROR(new FieldReport("Zip code"), zipCode);
+        if (fieldReport.getStatus().equals(ERROR)) {
+            return fieldReport;
+        } else if (!(zipCode.matches("\\d{2}-\\d{3}") || zipCode.matches("\\d{5}"))){
             fieldReport.setStatus(ERROR);
-            fieldReport.setComment("zip code is null or have wrong format");
+            fieldReport.setComment("field has wrong format");
         }
         return fieldReport;
     }
@@ -83,15 +82,13 @@ public class FieldsChecker {
     }
 
     public static FieldReport checkSchoolPhone(String phone) {
-        FieldReport fieldReport = new FieldReport("Phone");
-        if (phone.isBlank() || phone.replace("-", "").trim().matches(".*[a-zA-Z].*")){
-            fieldReport.setStatus(ERROR);
-            fieldReport.setComment("Phone number is null or have non-digit signs");
+        FieldReport fieldReport = checkEmptyFieldERROR(new FieldReport("Phone"), phone);
+        if (fieldReport.getStatus().equals(ERROR)){
             return fieldReport;
+        } else if (phone.replace("-", "").trim().matches(".*[a-zA-Z\\p{P}\\p{S}].*")){
+            return setUntypicalSpecialSignsERROR(fieldReport);
         } else if (!phone.replace("-", "").trim().matches(".*\\d{5,11}.*")) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment("Phone number has untypical size");
-            return fieldReport;
+            return setUntypicalSizeWARNING(fieldReport);
         } else {
             return fieldReport;
         }
@@ -143,28 +140,50 @@ public class FieldsChecker {
         return checkBlankAndStringLength(status, new FieldReport("School status"));
     }
 
-    private static FieldReport checkBlankAndStringLength(String field, FieldReport report) {
-        FieldReport fieldReport = checkEmptyField(report, field);
-        if (fieldReport.getStatus().equals(ERROR)){
-            return fieldReport;
-        } else if (field.matches(".*[\\p{P}\\p{S}&&[^.-]]+.*")) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment(specialSigns);
-            return fieldReport;
+    private static FieldReport checkBlankAndStringLength(String field, FieldReport fieldReport) {
+        FieldReport report = checkEmptyFieldERROR(fieldReport, field);
+        if (report.getStatus().equals(ERROR)){
+            return report;
+        } else if (field.matches(specialSignsRegex)) {
+            return setUntypicalSpecialSignsWARNING(report);
         }else if (field.trim().length() < 4) {
-            fieldReport.setStatus(WARNING);
-            fieldReport.setComment(untypicalSize);
-            return fieldReport;
+            return setUntypicalSizeWARNING(report);
         } else {
-            return fieldReport;
+            return report;
         }
     }
 
-    private static FieldReport checkEmptyField(FieldReport fieldReport, String field) {
+    private static FieldReport checkEmptyFieldERROR(FieldReport fieldReport, String field) {
         if (field == null || field.isBlank()) {
             fieldReport.setStatus(ERROR);
             fieldReport.setComment(emptyField);
         }
         return fieldReport;
+    }
+
+    private static FieldReport checkEmptyFieldWARNING(FieldReport fieldReport, String field) {
+        if (field == null || field.isBlank()) {
+            fieldReport.setStatus(WARNING);
+            fieldReport.setComment(emptyField);
+        }
+        return fieldReport;
+    }
+
+    private static FieldReport setUntypicalSizeWARNING(FieldReport report){
+        report.setStatus(WARNING);
+        report.setComment(untypicalSize);
+        return report;
+    }
+
+    private static FieldReport setUntypicalSpecialSignsWARNING(FieldReport report){
+        report.setStatus(WARNING);
+        report.setComment(specialSigns);
+        return report;
+    }
+
+    private static FieldReport setUntypicalSpecialSignsERROR(FieldReport report){
+        report.setStatus(ERROR);
+        report.setComment(specialSigns);
+        return report;
     }
 }
