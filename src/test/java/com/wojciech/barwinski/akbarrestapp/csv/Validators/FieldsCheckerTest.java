@@ -1,7 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csv.Validators;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.FieldReport;
-import org.assertj.core.api.ObjectAssert;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -13,6 +12,7 @@ class FieldsCheckerTest {
     private final String empty = "field is empty";
     private final String ok = "OK";
     private final String wrongFormat = "field has wrong format";
+    private final String untypicalField = "field has untypical format";
 
 
     //RSPO
@@ -78,7 +78,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckNullRPSO_ERROR() {
+    public void shouldCheckNoneRPSO_ERROR() {
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
         FieldReport report = FieldsChecker.checkRSPO(null);
@@ -134,7 +134,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolType_ERROR() {
+    public void shouldCheckNoneSchoolType_ERROR() {
         String schoolType = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -186,7 +186,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolName_ERROR() {
+    public void shouldCheckNoneSchoolName_ERROR() {
         String schoolName = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -238,7 +238,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolStreet_ERROR() {
+    public void shouldCheckNoneSchoolStreet_ERROR() {
         String schoolStreet = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -289,7 +289,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolBuildingNumber_ERROR() {
+    public void shouldCheckNoneSchoolBuildingNumber_ERROR() {
         String buildNumber = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -340,7 +340,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolLocalNumber_WARNING() {
+    public void shouldCheckNoneSchoolLocalNumber_WARNING() {
         String localNumber = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
@@ -372,7 +372,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolZipCode_ERROR() {
+    public void shouldCheckNoneSchoolZipCode_ERROR() {
         String zipCode1 = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -475,7 +475,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectSchoolPhoneNumber_ERROR() {
+    public void shouldCheckNoneSchoolPhoneNumber_ERROR() {
         String phone = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
@@ -506,5 +506,363 @@ class FieldsCheckerTest {
         assertThat(report1.getFieldName()).isEqualTo(expectedFieldName);
     }
 
+    //City
+    @Test
+    public void shouldCheckCorrectCity_OK() {
+        String cityName = "Łódź";
+        String expectedFieldName = "City";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+
+    }
+
+    @Test
+    public void shouldCheckTooShortCity_WARNING() {
+        String cityName = "abc";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+
+        assertThat(report.getComment()).isEqualTo(untypicalSize);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckCityWithSpecialCharacters_WARNING() {
+        String cityName = "Ł@d&";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+
+        assertThat(report.getComment()).isEqualTo(specialSigns);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckNoneCity_ERROR() {
+        String cityName = "";
+        ValidationStatus expectedStatus = ValidationStatus.ERROR;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolCity(cityName);
+        FieldReport nullReport = FieldsChecker.checkSchoolCity(null);
+
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+
+    }
+
+    //Email
+    @Test
+    public void shouldCheckCorrectEmail_OK(){
+        String email = "kontakt@sp000.lodz.edu.pl";
+        String expectedFieldName = "Email";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolEmail(email);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+    }
+
+    @Test
+    public void shouldCheckNoneEmail_OK(){
+        String email = "";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolEmail(email);
+        FieldReport nullReport = FieldsChecker.checkSchoolEmail(null);
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckIncorrectEmail_OK(){
+        String email1 = "absd";
+        String email2 = "@@absd$";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report1 = FieldsChecker.checkSchoolEmail(email1);
+        FieldReport report2 = FieldsChecker.checkSchoolEmail(email2);
+
+        assertThat(report1.getComment()).isEqualTo(untypicalField);
+        assertThat(report1.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report2.getComment()).isEqualTo(untypicalField);
+        assertThat(report2.getStatus()).isEqualTo(expectedStatus);
+
+    }
+
+    //Website
+    @Test
+    public void shouldCheckCorrectWebsite_OK(){
+        String website1 = "https://website.com";
+        String website2 = "ftp://website.com";
+        String website3 = "www.website.com";
+
+        String expectedFieldName = "Website";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report1 = FieldsChecker.checkSchoolWebsite(website1);
+        FieldReport report2 = FieldsChecker.checkSchoolWebsite(website2);
+        FieldReport report3 = FieldsChecker.checkSchoolWebsite(website3);
+
+
+        assertThat(report1.getComment()).isEqualTo(ok);
+        assertThat(report2.getComment()).isEqualTo(ok);
+        assertThat(report3.getComment()).isEqualTo(ok);
+        assertThat(report1.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report1.getFieldName()).isEqualTo(expectedFieldName);
+    }
+
+    @Test
+    public void shouldCheckIncorrectWebsite_OK(){
+        String website1 = "website.com";
+        String website2 = "ftp://website.comanama";
+        String website3 = "www.website";
+
+        String expectedFieldName = "Website";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report1 = FieldsChecker.checkSchoolWebsite(website1);
+        FieldReport report2 = FieldsChecker.checkSchoolWebsite(website2);
+        FieldReport report3 = FieldsChecker.checkSchoolWebsite(website3);
+
+
+        assertThat(report1.getComment()).isEqualTo(untypicalField);
+        assertThat(report2.getComment()).isEqualTo(untypicalField);
+        assertThat(report3.getComment()).isEqualTo(untypicalField);
+        assertThat(report1.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report1.getFieldName()).isEqualTo(expectedFieldName);
+    }
+
+    @Test
+    public void shouldCheckNoneWebsite_OK(){
+        String website = "";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolEmail(website);
+        FieldReport nullReport = FieldsChecker.checkSchoolEmail(null);
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    //Voivodeship
+    @Test
+    public void shouldCheckCorrectVoivodeship_OK() {
+        String voivodeship = "Łódzkie";
+        String expectedFieldName = "Voivodeship";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+
+    }
+
+    @Test
+    public void shouldCheckTooShortVoivodeship_WARNING() {
+        String voivodeship = "Łód";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+
+        assertThat(report.getComment()).isEqualTo(untypicalSize);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckVoivodeshipWithSpecialCharacters_WARNING() {
+        String voivodeship = "Ł@d&";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+
+        assertThat(report.getComment()).isEqualTo(specialSigns);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckNoneVoivodeship_ERROR() {
+        String voivodeship = "";
+        ValidationStatus expectedStatus = ValidationStatus.ERROR;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+        FieldReport nullReport = FieldsChecker.checkSchoolVoivodeship(null);
+
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+
+    }
+
+    //County
+    @Test
+    public void shouldCheckCorrectCounty_OK() {
+        String county = "Sieradzkie";
+        String expectedFieldName = "County";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+
+    }
+
+    @Test
+    public void shouldCheckTooShortCounty_WARNING() {
+        String county = "Sie";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+
+        assertThat(report.getComment()).isEqualTo(untypicalSize);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckCountyWithSpecialCharacters_WARNING() {
+        String county = "Si#";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+
+        assertThat(report.getComment()).isEqualTo(specialSigns);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckNoneCounty_ERROR() {
+        String county = "";
+        ValidationStatus expectedStatus = ValidationStatus.ERROR;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolCounty(county);
+        FieldReport nullReport = FieldsChecker.checkSchoolCounty(null);
+
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+
+    }
+
+    //Borough
+    @Test
+    public void shouldCheckCorrectBorough_OK() {
+        String borough = "Łódź - delegaruta";
+        String expectedFieldName = "Borough";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+
+    }
+
+    @Test
+    public void shouldCheckTooShortBorough_WARNING() {
+        String borough = "Łod";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+
+        assertThat(report.getComment()).isEqualTo(untypicalSize);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckBoroughWithSpecialCharacters_WARNING() {
+        String borough = "Lo$";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+
+        assertThat(report.getComment()).isEqualTo(specialSigns);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckNoneBorough_ERROR() {
+        String borough = "";
+        ValidationStatus expectedStatus = ValidationStatus.ERROR;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolBorough(borough);
+        FieldReport nullReport = FieldsChecker.checkSchoolBorough(null);
+
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+
+    }
+
+    //Status
+    @Test
+    public void shouldCheckCorrectStatus_OK() {
+        String schoolStatus = "publiczna";
+        String expectedFieldName = "School status";
+        ValidationStatus expectedStatus = ValidationStatus.OK;
+
+        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
+
+    }
+
+    @Test
+    public void shouldCheckTooShortStatus_WARNING() {
+        String schoolStatus = "abc";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+
+        assertThat(report.getComment()).isEqualTo(untypicalSize);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckStatusWithSpecialCharacters_WARNING() {
+        String schoolStatus = "Ł@d&";
+        ValidationStatus expectedStatus = ValidationStatus.WARNING;
+
+        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+
+        assertThat(report.getComment()).isEqualTo(specialSigns);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+    }
+
+    @Test
+    public void shouldCheckNoneStatus_ERROR() {
+        String schoolStatus = "";
+        ValidationStatus expectedStatus = ValidationStatus.ERROR;
+
+        FieldReport emptyReport = FieldsChecker.checkSchoolStatus(schoolStatus);
+        FieldReport nullReport = FieldsChecker.checkSchoolStatus(null);
+
+
+        assertThat(emptyReport.getComment()).isEqualTo(empty);
+        assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
+        assertThat(nullReport.getStatus()).isEqualTo(expectedStatus);
+
+    }
 
 }
