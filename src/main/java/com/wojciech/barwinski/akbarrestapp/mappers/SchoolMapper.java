@@ -1,5 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
+import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.AdditionalSchoolInformationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
@@ -11,6 +12,9 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class SchoolMapper {
@@ -35,12 +39,19 @@ public class SchoolMapper {
         return dto;
     }
 
-    public School mapSchoolCsvRepToSchool(SchoolCsvRepresentation csv){
-        School school = modelMapper.map(csv, School.class);
-        Address address = modelMapper.map(csv, Address.class);
-        school.addPhone(getPhoneFromCsv(csv.getPhone()));
-        school.setAddress(address);
-        return school;
+    public List<School> mapSchoolCsvRepToSchool(List<SchoolCsvRepresentation> csvList){
+        List<School> schools = new ArrayList<>();
+
+        for (SchoolCsvRepresentation csv : csvList) {
+            School school = modelMapper.map(csv, School.class);
+            Address address = modelMapper.map(csv, Address.class);
+            school.addPhone(getPhoneFromCsv(csv.getPhone()));
+            school.setAddress(address);
+
+            schools.add(school);
+        }
+
+        return schools;
     }
 
 
@@ -66,5 +77,11 @@ public class SchoolMapper {
                 .number(phone)
                 .owner("Główny numer szkoły")
                 .build();
+    }
+
+    private Voivodeship getVoivodeshipFromString(String voivodeship){
+
+        //TODO
+        return null;
     }
 }

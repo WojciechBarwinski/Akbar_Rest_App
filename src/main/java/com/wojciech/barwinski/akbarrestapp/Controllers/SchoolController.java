@@ -1,5 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
+import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolService;
@@ -23,7 +24,7 @@ public class SchoolController {
     }
 
     @GetMapping()
-    public List<SchoolDTOPreview> readAllHero() {
+    public List<SchoolDTOPreview> readAllSchools() {
         return schoolService.getAllSchools();
     }
 
@@ -34,7 +35,7 @@ public class SchoolController {
     }
 
     @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
-    public ResponseEntity<Integer> uploadStudents(@RequestPart("file") MultipartFile file){
+    public ResponseEntity<UploadSchoolResult> uploadStudents(@RequestPart("file") MultipartFile file){
         csvChecks(file.getOriginalFilename());
 
         return ResponseEntity.ok(schoolService.uploadSchool(file));

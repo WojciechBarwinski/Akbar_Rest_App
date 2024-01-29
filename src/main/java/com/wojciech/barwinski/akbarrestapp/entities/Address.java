@@ -26,16 +26,16 @@ public class Address {
     @Size(max = 30)
     private String county;
 
-    @Column(length = 10)
-    @Size(max = 10)
+    @Column(length = 30)
+    @Size(max = 30)
     private String borough;
 
     @Column(length = 15)
     @Size(max = 15)
     private String city;
 
-    @Column(length = 40)
-    @Size(max = 40)
+    @Column(length = 50)
+    @Size(max = 50)
     private String street;
 
     @Column(length = 6)
@@ -54,9 +54,5 @@ public class Address {
         this.street = street;
         this.zipCode = zipCode;
     }
-
-    /*
-    @Column and @Size is from the longest city/street/county etc
-     */
 
 }

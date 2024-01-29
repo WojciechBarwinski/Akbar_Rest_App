@@ -5,6 +5,7 @@ import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
+import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -47,23 +48,18 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public Integer uploadSchool(MultipartFile file) {
+    public UploadSchoolResult uploadSchool(MultipartFile file) {
         List<SchoolCsvRepresentation> schoolCsvRepresentations = csvCustomReader.parseCsvByMultipartFile(file);
-
-        System.out.println("---------------schools");
-        for (SchoolCsvRepresentation x : schoolCsvRepresentations) {
-            System.out.println(x.getRspo());
-            System.out.println(x.getName());
-            System.out.println(x.getPhone());
-        }
-
 
         SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolCsvRepresentations);
 
         List<SchoolRepValidateReport> validateReport = schoolRepValidationResult.getSchoolValidateReports();
         List<SchoolCsvRepresentation> correctSchools = schoolRepValidationResult.getSchoolsAfterValidate();
 
+        List<SchoolDTOPreview> schoolDTOPreviews = schoolRepository.saveAll(schoolMapper.mapSchoolCsvRepToSchool(correctSchools))
+                .stream()
+                .map(schoolMapper::mapSchoolToSchoolDTOPreview).toList();
 
-        return schoolCsvRepresentations.size();
+        return new UploadSchoolResult(validateReport, schoolDTOPreviews);
     }
 }

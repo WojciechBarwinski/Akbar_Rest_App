@@ -357,18 +357,15 @@ class FieldsCheckerTest {
     //ZipCode
     @Test
     public void shouldCheckCorrectSchoolZipCode_OK() {
-        String zipCode1 = "12-345";
-        String zipCode2 = "12345";
+        String zipCode = "91-008";
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report1 = FieldsChecker.checkSchoolZipCode(zipCode1);
-        FieldReport report2 = FieldsChecker.checkSchoolZipCode(zipCode2);
+        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
 
-        assertThat(report1.getComment()).isEqualTo(ok);
-        assertThat(report2.getComment()).isEqualTo(ok);
-        assertThat(report1.getStatus()).isEqualTo(expectedStatus);
-        assertThat(report1.getFieldName()).isEqualTo(expectedFieldName);
+        assertThat(report.getComment()).isEqualTo(ok);
+        assertThat(report.getStatus()).isEqualTo(expectedStatus);
+        assertThat(report.getFieldName()).isEqualTo(expectedFieldName);
     }
 
     @Test

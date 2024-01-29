@@ -71,7 +71,7 @@ public class FieldsChecker {
         FieldReport fieldReport = new FieldReport("Zip code");
         if (zipCode == null || zipCode.isBlank()){
             return setEmptyFieldERROR(fieldReport);
-        } else if (!(zipCode.matches("\\d{2}-\\d{3}") || zipCode.matches("\\d{5}"))){
+        } else if (!zipCode.trim().matches("\\d{2}-\\d{3}")){
             fieldReport.setStatus(ERROR);
             fieldReport.setComment("field has wrong format");
         }
