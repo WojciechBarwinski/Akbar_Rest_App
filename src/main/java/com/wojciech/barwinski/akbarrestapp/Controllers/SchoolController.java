@@ -41,8 +41,7 @@ public class SchoolController {
         return ResponseEntity.ok(schoolService.uploadSchool(file));
     }
 
-
-
+    
     private void csvChecks(String fileName){
         if (fileName == null){
             throw new IllegalArgumentException("No file was send");

@@ -24,4 +24,7 @@ public enum Voivodeship {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

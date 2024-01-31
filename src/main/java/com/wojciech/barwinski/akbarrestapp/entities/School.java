@@ -42,7 +42,8 @@ public class School {
 
     @Column(length = 50)
     @Size(max = 50)
-    private String publicStatus;
+    //private String publicStatus;
+    private String status;
 
     @Embedded()
     private Address address;
@@ -66,7 +67,7 @@ public class School {
         this.name = name;
         this.email = email;
         this.website = website;
-        this.publicStatus = publicStatus;
+        this.status = publicStatus;
     }
 
     public School(Long rspo, String type, String name, String email, String website, String publicStatus, Address address) {
@@ -75,7 +76,7 @@ public class School {
         this.name = name;
         this.email = email;
         this.website = website;
-        this.publicStatus = publicStatus;
+        this.status = publicStatus;
         this.address = address;
     }
 

@@ -45,6 +45,7 @@ public class SchoolMapper {
         for (SchoolCsvRepresentation csv : csvList) {
             School school = modelMapper.map(csv, School.class);
             Address address = modelMapper.map(csv, Address.class);
+            address.setVoivodeship(getVoivodeshipFromString(csv.getVoivodeship()));
             school.addPhone(getPhoneFromCsv(csv.getPhone()));
             school.setAddress(address);
 
@@ -80,8 +81,11 @@ public class SchoolMapper {
     }
 
     private Voivodeship getVoivodeshipFromString(String voivodeship){
-
-        //TODO
+        for (Voivodeship v : Voivodeship.values()) {
+            if (v.getName().equalsIgnoreCase(voivodeship)) {
+                return v;
+            }
+        }
         return null;
     }
 }
