@@ -2,10 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
-import com.wojciech.barwinski.akbarrestapp.dtos.AdditionalSchoolInformationDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
-import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -23,8 +20,8 @@ public class SchoolMapper {
     ModelMapper modelMapper;
 
 
-    public SchoolDTOPreview mapSchoolToSchoolDTOPreview(School school) {
-        SchoolDTOPreview dto = modelMapper.map(school, SchoolDTOPreview.class);
+    public ShortSchoolDTO mapSchoolToSchoolDTOPreview(School school) {
+        ShortSchoolDTO dto = modelMapper.map(school, ShortSchoolDTO.class);
         modelMapper.map(school.getAddress(), dto);
         if (!school.getPhones().isEmpty()) {
             modelMapper.map(school.getPhones().get(0), dto);
@@ -32,12 +29,7 @@ public class SchoolMapper {
         return dto;
     }
 
-    public SchoolDTO mapSchoolToFullSchoolDTO(School school){
-        SchoolDTO dto = modelMapper.map(school, SchoolDTO.class);
-        modelMapper.map(school.getAddress(), dto);
-        dto.setAdditionalSchoolInformationDTO(mapInfoToInfoDTO(school.getAdditionalSchoolInformation()));
-        return dto;
-    }
+
 
     public List<School> mapSchoolCsvRepToSchool(List<SchoolCsvRepresentation> csvList){
         List<School> schools = new ArrayList<>();
@@ -53,19 +45,6 @@ public class SchoolMapper {
         }
 
         return schools;
-    }
-
-
-    private AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info){
-        if (info == null){
-            return new AdditionalSchoolInformationDTO();
-        }
-        AdditionalSchoolInformationDTO map = modelMapper.map(info, AdditionalSchoolInformationDTO.class);
-        modelMapper.map(info.getNotation(), map);
-        modelMapper.map(info.getSchedule(), map);
-        modelMapper.map(info.getStatus(), map);
-
-        return map;
     }
 
     private Phone getPhoneFromCsv(String phone){

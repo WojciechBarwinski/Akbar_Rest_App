@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo;
 
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,6 @@ import java.util.List;
 public class UploadSchoolResult {
 
     private List<SchoolRepValidateReport> schoolValidateReports;
-    private List<SchoolDTOPreview> schoolDTOPreviews;
+    private List<ShortSchoolDTO> shortSchoolDTOS;
 
 }

@@ -1,8 +1,8 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
+import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,13 +24,13 @@ public class SchoolController {
     }
 
     @GetMapping()
-    public List<SchoolDTOPreview> readAllSchools() {
+    public List<ShortSchoolDTO> readAllSchools() {
         return schoolService.getAllSchools();
     }
 
     @Operation(summary = "Get a school by id/rspo", description = "Returns a school as per the id/rspo")
     @GetMapping(value = "/{id}")
-    public SchoolDTO readSchoolById(@PathVariable Long id) {
+    public FullSchoolDTO readSchoolById(@PathVariable Long id) {
         return schoolService.getSchoolById(id);
     }
 
@@ -41,7 +41,7 @@ public class SchoolController {
         return ResponseEntity.ok(schoolService.uploadSchool(file));
     }
 
-    
+
     private void csvChecks(String fileName){
         if (fileName == null){
             throw new IllegalArgumentException("No file was send");

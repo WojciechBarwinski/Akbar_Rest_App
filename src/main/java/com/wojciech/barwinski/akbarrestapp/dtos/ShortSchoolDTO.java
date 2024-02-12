@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SchoolDTOPreview {
+public class ShortSchoolDTO {
 
     @Schema(name = "School ID/RSPO", example = "101")
     private Long rspo;

@@ -6,9 +6,10 @@ import com.wojciech.barwinski.akbarrestapp.csv.Validators.SchoolRepresentationVa
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.SchoolDTOPreview;
+import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import org.springframework.stereotype.Service;
@@ -21,30 +22,34 @@ import java.util.stream.Collectors;
 public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
-    private final SchoolMapper schoolMapper;
+    //private final SchoolMapper schoolMapper;
+    private final MapperFacade mapperFacade;
     private final CsvCustomReader csvCustomReader;
     private final SchoolRepresentationValidator schoolRepresentationValidator;
 
+
     public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolMapper schoolMapper, CsvCustomReader csvCustomReader, SchoolRepresentationValidator schoolRepresentationValidator) {
         this.schoolRepository = SCHOOL_REPOSITORY;
-        this.schoolMapper = schoolMapper;
+        //this.schoolMapper = schoolMapper;
         this.csvCustomReader = csvCustomReader;
         this.schoolRepresentationValidator = schoolRepresentationValidator;
+        this.mapperFacade = MapperFacade.getInstance();
     }
 
     @Override
-    public List<SchoolDTOPreview> getAllSchools() {
+    public List<ShortSchoolDTO> getAllSchools() {
         List<School> allSchools = schoolRepository.findAll();
         return allSchools.stream()
-                .map(schoolMapper::mapSchoolToSchoolDTOPreview)
+                .map(mapperFacade::mapSchoolToShortSchoolDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public SchoolDTO getSchoolById(Long id) {
+    public FullSchoolDTO getSchoolById(Long id) {
         School byRspo = schoolRepository.findByRspo(id).get();
         //TODO exception
-        return schoolMapper.mapSchoolToFullSchoolDTO(byRspo);
+        //return schoolMapper.mapSchoolToFullSchoolDTO(byRspo);
+        return mapperFacade.mapSchoolToFullSchoolDTO(byRspo);
     }
 
     @Override
@@ -54,12 +59,15 @@ public class SchoolServiceImpl implements SchoolService {
         SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolCsvRepresentations);
 
         List<SchoolRepValidateReport> validateReport = schoolRepValidationResult.getSchoolValidateReports();
-        List<SchoolCsvRepresentation> correctSchools = schoolRepValidationResult.getSchoolsAfterValidate();
+        List<SchoolCsvRepresentation> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();
 
-        List<SchoolDTOPreview> schoolDTOPreviews = schoolRepository.saveAll(schoolMapper.mapSchoolCsvRepToSchool(correctSchools))
-                .stream()
-                .map(schoolMapper::mapSchoolToSchoolDTOPreview).toList();
+        List<School> schoolsToSave = correctSchoolsRepresentation.stream()
+                .map(mapperFacade::mapSchoolCsvRepresentationToSchool).toList();
 
-        return new UploadSchoolResult(validateReport, schoolDTOPreviews);
+        List<ShortSchoolDTO> shortSchoolDTOS = schoolRepository.saveAll(schoolsToSave).stream()
+                .map(mapperFacade::mapSchoolToShortSchoolDTO)
+                .toList();
+
+        return new UploadSchoolResult(validateReport, shortSchoolDTOS);
     }
 }
