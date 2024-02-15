@@ -8,11 +8,11 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 
 
-public class MapperSchoolFromCsv {
+public class CsvSchoolMapper {
 
     private final ModelMapper modelMapper;
 
-    public MapperSchoolFromCsv(ModelMapper modelMapper) {
+    public CsvSchoolMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

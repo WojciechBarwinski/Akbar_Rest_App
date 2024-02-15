@@ -6,12 +6,12 @@ import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 
-class MapperFullSchoolDTO {
+class FullSchoolDTOMapper {
 
 
     private final ModelMapper modelMapper;
 
-    public MapperFullSchoolDTO(ModelMapper modelMapper) {
+    public FullSchoolDTOMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

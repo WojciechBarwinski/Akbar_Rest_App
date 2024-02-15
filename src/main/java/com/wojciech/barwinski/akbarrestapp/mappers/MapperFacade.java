@@ -4,24 +4,28 @@ import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
-
+@Slf4j
 public class MapperFacade {
 
     private static MapperFacade INSTANCE;
-    private final MapperFullSchoolDTO mapperFullSchoolDTO;
-    private final MapperShortSchoolDTO mapperShortSchoolDTO;
-    private final MapperSchoolFromCsv mapperSchoolFromCsv;
+    private final FullSchoolDTOMapper fullSchoolDTOMapper;
+    private final ShortSchoolDTOMapper shortSchoolDTOMapper;
+    private final CsvSchoolMapper csvSchoolMapper;
 
     private MapperFacade() {
+        log.info("star - create MapperFacade");
         ModelMapper modelMapper = new ModelMapper();
-        mapperFullSchoolDTO = new MapperFullSchoolDTO(modelMapper);
-        mapperShortSchoolDTO = new MapperShortSchoolDTO(modelMapper);
-        mapperSchoolFromCsv = new MapperSchoolFromCsv(modelMapper);
+        fullSchoolDTOMapper = new FullSchoolDTOMapper(modelMapper);
+        shortSchoolDTOMapper = new ShortSchoolDTOMapper(modelMapper);
+        csvSchoolMapper = new CsvSchoolMapper(modelMapper);
+        log.info("finish - create MapperFacade");
     }
 
     public static MapperFacade getInstance() {
+        log.info("using getInstance from MapperFacade");
         if (INSTANCE == null) {
             synchronized (MapperFacade.class) {
                 if (INSTANCE == null) {
@@ -32,16 +36,16 @@ public class MapperFacade {
         return INSTANCE;
     }
 
-
     public FullSchoolDTO mapSchoolToFullSchoolDTO(School school){
-        return mapperFullSchoolDTO.mapSchoolToFullSchoolDTO(school);
+        //Log tutaj czy w środku metody fullSchoolDTOMapper.mapSchoolToFullSchoolDTO?
+        return fullSchoolDTOMapper.mapSchoolToFullSchoolDTO(school);
     }
 
     public ShortSchoolDTO mapSchoolToShortSchoolDTO(School school){
-        return mapperShortSchoolDTO.mapSchoolToShortSchoolDTO(school);
+        return shortSchoolDTOMapper.mapSchoolToShortSchoolDTO(school);
     }
 
     public School mapSchoolCsvRepresentationToSchool(SchoolCsvRepresentation csvRepresentation){
-        return mapperSchoolFromCsv.mapSchoolCsvRepresentationToSchool(csvRepresentation);
+        return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(csvRepresentation);
     }
 }

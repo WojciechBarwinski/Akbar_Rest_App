@@ -4,11 +4,11 @@ import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import org.modelmapper.ModelMapper;
 
-public class MapperShortSchoolDTO {
+public class ShortSchoolDTOMapper {
 
     private final ModelMapper modelMapper;
 
-    public MapperShortSchoolDTO(ModelMapper modelMapper) {
+    public ShortSchoolDTOMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

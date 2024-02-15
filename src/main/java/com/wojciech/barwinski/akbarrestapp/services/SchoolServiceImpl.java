@@ -12,12 +12,15 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
@@ -38,6 +41,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public List<ShortSchoolDTO> getAllSchools() {
+
         List<School> allSchools = schoolRepository.findAll();
         return allSchools.stream()
                 .map(mapperFacade::mapSchoolToShortSchoolDTO)
@@ -46,10 +50,16 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public FullSchoolDTO getSchoolById(Long id) {
-        School byRspo = schoolRepository.findByRspo(id).get();
-        //TODO exception
-        //return schoolMapper.mapSchoolToFullSchoolDTO(byRspo);
-        return mapperFacade.mapSchoolToFullSchoolDTO(byRspo);
+        log.info("get school by id " + id);
+        Optional<School> optionalSchool = schoolRepository.findByRspo(id);
+        if (optionalSchool.isPresent()) {
+            School byRspo = optionalSchool.get();
+            return mapperFacade.mapSchoolToFullSchoolDTO(byRspo);
+        } else {
+            NoSuchElementException exception = new NoSuchElementException("Nie można znaleźć szkoły o ID: " + id);
+            log.error(exception.getMessage(), exception);
+            throw exception;
+        }
     }
 
     @Override

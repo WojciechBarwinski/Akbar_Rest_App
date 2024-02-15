@@ -100,6 +100,11 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             System.out.println(school.getPhone());
         }*/
 
+        log.trace("for tracing purpose");
+        log.debug("for debugging purpose");
+        log.info("for informational purpose");
+        log.warn("for warning purpose");
+        log.error("for logging errors");
     }
 }
 
