@@ -1,18 +1,20 @@
-package com.wojciech.barwinski.akbarrestapp.csv.Validators;
+package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
 
-import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-@Component
-public class ColumnsNameValidator {
+@Slf4j
+class ColumnsNameValidator {
 
     String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
 
-    public List<String> checkIfColumnsNamesAreCorrect(String columnNames) {
+    List<String> checkForMissingColumnNames(String columnNames) {
+        log.debug("Check columns name from .csv");
 
         String[] expectedColumnsName = NAMES.split(";");
         List<String> columnsNameToCheck = Arrays.asList(columnNames.split(";"));

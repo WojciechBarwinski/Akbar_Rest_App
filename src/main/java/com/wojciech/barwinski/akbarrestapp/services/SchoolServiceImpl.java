@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
-import com.wojciech.barwinski.akbarrestapp.csv.CsvCustomReader;
-import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.CsvCustomReader;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
@@ -61,12 +61,12 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public UploadSchoolResult uploadSchool(MultipartFile file) {
-        List<SchoolCsvRepresentation> schoolCsvRepresentations = csvCustomReader.parseCsvByMultipartFile(file);
+        List<SchoolCsvRepresentationDTO> schoolCsvRepresentationDTOS = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
 
-        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolCsvRepresentations);
+        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolCsvRepresentationDTOS);
 
         List<SchoolRepValidateReport> validateReport = schoolRepValidationResult.getSchoolValidateReports();
-        List<SchoolCsvRepresentation> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();
+        List<SchoolCsvRepresentationDTO> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();
 
         List<School> schoolsToSave = correctSchoolsRepresentation.stream()
                 .map(mapperFacade::mapSchoolCsvRepresentationToSchool).toList();

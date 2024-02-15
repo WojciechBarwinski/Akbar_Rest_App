@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo;
 
-import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,5 +13,5 @@ import java.util.List;
 public class SchoolRepValidationResult {
     
     private List<SchoolRepValidateReport> schoolValidateReports;
-    private List<SchoolCsvRepresentation> schoolsAfterValidate;
+    private List<SchoolCsvRepresentationDTO> schoolsAfterValidate;
 }

@@ -1,11 +1,14 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
-import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+
+import java.io.Reader;
+import java.util.List;
 
 @Slf4j
 public class MapperFacade {
@@ -14,6 +17,7 @@ public class MapperFacade {
     private final FullSchoolDTOMapper fullSchoolDTOMapper;
     private final ShortSchoolDTOMapper shortSchoolDTOMapper;
     private final CsvSchoolMapper csvSchoolMapper;
+    private final CsvFileMapper csvFileMapper;
 
     private MapperFacade() {
         log.trace("MapperFacade create");
@@ -21,6 +25,7 @@ public class MapperFacade {
         fullSchoolDTOMapper = new FullSchoolDTOMapper(modelMapper);
         shortSchoolDTOMapper = new ShortSchoolDTOMapper(modelMapper);
         csvSchoolMapper = new CsvSchoolMapper(modelMapper);
+        csvFileMapper = new CsvFileMapper();
     }
 
     public static MapperFacade getInstance() {
@@ -43,7 +48,11 @@ public class MapperFacade {
         return shortSchoolDTOMapper.mapSchoolToShortSchoolDTO(school);
     }
 
-    public School mapSchoolCsvRepresentationToSchool(SchoolCsvRepresentation csvRepresentation){
+    public School mapSchoolCsvRepresentationToSchool(SchoolCsvRepresentationDTO csvRepresentation){
         return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(csvRepresentation);
+    }
+
+    public List<SchoolCsvRepresentationDTO> mapCsvToSchoolCsvRepresentations(Reader reader){
+        return csvFileMapper.mapCsvToSchoolCsvRepresentations(reader);
     }
 }

@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csv.Validators;
 
-import com.wojciech.barwinski.akbarrestapp.csv.SchoolCsvRepresentation;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
 import org.assertj.core.api.Assertions;
@@ -18,11 +18,11 @@ class SchoolRepresentationValidatorTest {
 
     @Test
     public void testSchoolsValidate() {
-        List<SchoolCsvRepresentation> schools = createValidSchoolForTests();
+        List<SchoolCsvRepresentationDTO> schools = createValidSchoolForTests();
         int expectedNumberOfValidSchool = 3;
 
         SchoolRepValidationResult result = validator.schoolsValidate(schools);
-        List<SchoolCsvRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
+        List<SchoolCsvRepresentationDTO> schoolsAfterValidate = result.getSchoolsAfterValidate();
         List<SchoolRepValidateReport> reports = result.getSchoolValidateReports();
 
         assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
@@ -33,13 +33,13 @@ class SchoolRepresentationValidatorTest {
 
     @Test
     public void shouldValidateSchoolWithWarning(){
-        List<SchoolCsvRepresentation> schools = createValidSchoolForTests();
+        List<SchoolCsvRepresentationDTO> schools = createValidSchoolForTests();
         schools.get(0).setRspo("10");
         int expectedNumberOfValidSchool = 3;
 
 
         SchoolRepValidationResult result = validator.schoolsValidate(schools);
-        List<SchoolCsvRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
+        List<SchoolCsvRepresentationDTO> schoolsAfterValidate = result.getSchoolsAfterValidate();
         List<SchoolRepValidateReport> reports = result.getSchoolValidateReports();
 
         assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
@@ -50,13 +50,13 @@ class SchoolRepresentationValidatorTest {
 
     @Test
     public void shouldValidateOnlyCorrectSchoolAndGetErrorInReport(){
-        List<SchoolCsvRepresentation> schools = createValidSchoolForTests();
+        List<SchoolCsvRepresentationDTO> schools = createValidSchoolForTests();
         schools.get(0).setRspo("");
         int expectedNumberOfValidSchool = 2;
 
 
         SchoolRepValidationResult result = validator.schoolsValidate(schools);
-        List<SchoolCsvRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
+        List<SchoolCsvRepresentationDTO> schoolsAfterValidate = result.getSchoolsAfterValidate();
         List<SchoolRepValidateReport> reports = result.getSchoolValidateReports();
 
         assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
@@ -66,11 +66,11 @@ class SchoolRepresentationValidatorTest {
 
     }
 
-    private List<SchoolCsvRepresentation> createValidSchoolForTests() {
+    private List<SchoolCsvRepresentationDTO> createValidSchoolForTests() {
 
-        List<SchoolCsvRepresentation> schools = new ArrayList<>();
+        List<SchoolCsvRepresentationDTO> schools = new ArrayList<>();
 
-        SchoolCsvRepresentation school1 = SchoolCsvRepresentation.builder()
+        SchoolCsvRepresentationDTO school1 = SchoolCsvRepresentationDTO.builder()
                 .rspo("12345678")
                 .type("Public")
                 .name("ABC School")
@@ -89,7 +89,7 @@ class SchoolRepresentationValidatorTest {
                 .build();
         schools.add(school1);
 
-        SchoolCsvRepresentation school2 = SchoolCsvRepresentation.builder()
+        SchoolCsvRepresentationDTO school2 = SchoolCsvRepresentationDTO.builder()
                 .rspo("87654321")
                 .type("Private")
                 .name("XYZ Academy")
@@ -108,7 +108,7 @@ class SchoolRepresentationValidatorTest {
                 .build();
         schools.add(school2);
 
-        SchoolCsvRepresentation school3 = SchoolCsvRepresentation.builder()
+        SchoolCsvRepresentationDTO school3 = SchoolCsvRepresentationDTO.builder()
                 .rspo("11112222")
                 .type("Public")
                 .name("PQR High School")
