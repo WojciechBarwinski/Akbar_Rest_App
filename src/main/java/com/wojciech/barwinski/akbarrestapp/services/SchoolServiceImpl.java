@@ -10,7 +10,6 @@ import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
-import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,15 +24,13 @@ import java.util.stream.Collectors;
 public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
-    //private final SchoolMapper schoolMapper;
     private final MapperFacade mapperFacade;
     private final CsvCustomReader csvCustomReader;
     private final SchoolRepresentationValidator schoolRepresentationValidator;
 
 
-    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolMapper schoolMapper, CsvCustomReader csvCustomReader, SchoolRepresentationValidator schoolRepresentationValidator) {
+    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, CsvCustomReader csvCustomReader, SchoolRepresentationValidator schoolRepresentationValidator) {
         this.schoolRepository = SCHOOL_REPOSITORY;
-        //this.schoolMapper = schoolMapper;
         this.csvCustomReader = csvCustomReader;
         this.schoolRepresentationValidator = schoolRepresentationValidator;
         this.mapperFacade = MapperFacade.getInstance();

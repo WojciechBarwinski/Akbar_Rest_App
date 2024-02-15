@@ -3,7 +3,6 @@ package com.wojciech.barwinski.akbarrestapp.csv;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.ColumnsNameValidator;
-import com.wojciech.barwinski.akbarrestapp.mappers.SchoolMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

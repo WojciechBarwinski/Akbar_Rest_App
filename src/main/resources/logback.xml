@@ -24,10 +24,9 @@
     <appender name="RollingFileAppenderForDeveloper" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/developerLog/devLogs.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- Ustawiamy nazwę pliku oraz format daty -->
-            <fileNamePattern>logs/developerLog/devLogs-%d{yyyy-MM-dd HH-mm}.log</fileNamePattern>
+            <fileNamePattern>logs/developerLog/devLogs-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>1</maxHistory>
-            <cleanHistoryOnStart>true</cleanHistoryOnStart> <!-- Czyszczenie historii przy uruchomieniu -->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>%d{MM-dd HH-mm-ss} [%thread] %-5level [%-45.45logger{35}] - %msg%n</pattern>
@@ -41,7 +40,6 @@
     <root level="INFO">
         <appender-ref ref="ConsoleAppender"/>
     </root>
-
 
     <logger name="com.wojciech.barwinski.akbarrestapp" level="TRACE">
         <appender-ref ref="RollingFileAppender"/>

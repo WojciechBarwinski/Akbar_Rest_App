@@ -16,16 +16,15 @@ public class MapperFacade {
     private final CsvSchoolMapper csvSchoolMapper;
 
     private MapperFacade() {
-        log.info("star - create MapperFacade");
+        log.trace("MapperFacade create");
         ModelMapper modelMapper = new ModelMapper();
         fullSchoolDTOMapper = new FullSchoolDTOMapper(modelMapper);
         shortSchoolDTOMapper = new ShortSchoolDTOMapper(modelMapper);
         csvSchoolMapper = new CsvSchoolMapper(modelMapper);
-        log.info("finish - create MapperFacade");
     }
 
     public static MapperFacade getInstance() {
-        log.info("using getInstance from MapperFacade");
+        log.trace("using getInstance from MapperFacade");
         if (INSTANCE == null) {
             synchronized (MapperFacade.class) {
                 if (INSTANCE == null) {
@@ -37,7 +36,6 @@ public class MapperFacade {
     }
 
     public FullSchoolDTO mapSchoolToFullSchoolDTO(School school){
-        //Log tutaj czy w środku metody fullSchoolDTOMapper.mapSchoolToFullSchoolDTO?
         return fullSchoolDTOMapper.mapSchoolToFullSchoolDTO(school);
     }
 
