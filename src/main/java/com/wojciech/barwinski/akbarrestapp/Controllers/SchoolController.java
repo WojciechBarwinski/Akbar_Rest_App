@@ -38,6 +38,8 @@ public class SchoolController {
     public ResponseEntity<UploadSchoolResult> uploadStudents(@RequestPart("file") MultipartFile file){
         csvChecks(file.getOriginalFilename());
 
+
+        System.out.println("Po uzyciu metody z apacha");
         return ResponseEntity.ok(schoolService.uploadSchool(file));
     }
 

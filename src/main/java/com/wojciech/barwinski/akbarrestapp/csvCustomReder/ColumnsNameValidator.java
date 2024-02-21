@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
 
 
+import com.wojciech.barwinski.akbarrestapp.exception.CsvReaderException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,21 +12,25 @@ import java.util.List;
 @Slf4j
 class ColumnsNameValidator {
 
-    String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
+    private static String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
 
-    List<String> checkForMissingColumnNames(String columnNames) {
+    static void validateColumnsName(String columnNames) {
         log.debug("Check columns name from .csv");
+        System.out.println("sprawdzanie nazw kolumn");
+        List<String> expectedColumnsName = Arrays.asList(NAMES.split(";"));
+        List<String> columnsNameToCheckSet = Arrays.asList(columnNames.split(";"));
+        List<String> missingNames = new ArrayList<>(expectedColumnsName);
 
-        String[] expectedColumnsName = NAMES.split(";");
-        List<String> columnsNameToCheck = Arrays.asList(columnNames.split(";"));
-        List<String> missingNames = new ArrayList<>();
-
-        for (String name : expectedColumnsName) {
-            if (!columnsNameToCheck.contains(name)) {
-                missingNames.add(name);
-            }
-        }
-
-        return missingNames;
+        missingNames.removeAll(columnsNameToCheckSet);
+        checkMissingNames(missingNames);
     }
+
+    private static void checkMissingNames(List<String> missingNames) {
+        if (!missingNames.isEmpty()) {
+            CsvReaderException wrongColumnsNameException = new CsvReaderException("Brakuje następujących nazw kolumn " + missingNames);
+            log.warn(wrongColumnsNameException.getMessage(), wrongColumnsNameException);
+            throw wrongColumnsNameException;
+        }
+    }
+
 }

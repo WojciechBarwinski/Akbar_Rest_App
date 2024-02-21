@@ -1,8 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
 
-
 import com.wojciech.barwinski.akbarrestapp.exception.CsvReaderException;
-import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,47 +9,32 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import static com.wojciech.barwinski.akbarrestapp.csvCustomReder.ColumnsNameValidator.validateColumnsName;
+
 @Slf4j
 @Component
 public class CsvCustomReader {
 
-    private final ColumnsNameValidator validator;
-    private final MapperFacade mapperFacade;
-
-    public CsvCustomReader() {
-        this.validator = new ColumnsNameValidator();
-        this.mapperFacade = MapperFacade.getInstance();
-    }
-
-    //TODO zminic przyjmowany multipartFile!
     public List<SchoolCsvRepresentationDTO> getSchoolCsvRepresentationsFromFile(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            CsvReaderException lackOfFileException = new CsvReaderException("File is null/non exist or is empty");
-            log.warn(lackOfFileException.getMessage(), lackOfFileException);
-            throw lackOfFileException;
-        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            log.debug("Start read CSV file to check columns name");
 
-        log.debug("Start read CSV file to check columns name");
-        try (BufferedReader firstLine = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-            List<String> missingColumnsNames = validator.checkForMissingColumnNames(firstLine.readLine());
+            reader.mark(1);
+            validateColumnsName(reader.readLine());
+            reader.reset();
 
-            if (missingColumnsNames.isEmpty()) {
-                log.debug("All important columns exist");
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
-                    log.trace("     Read file for map...");
-                    return mapperFacade.mapCsvToSchoolCsvRepresentations(reader);
-                }
-            } else {
-                Exception wrongColumnsNameException = new CsvReaderException("Brakuje następujących nazw kolumn " + missingColumnsNames);
-                log.warn(wrongColumnsNameException.getMessage(), wrongColumnsNameException);
-                throw wrongColumnsNameException;
-            }
+            log.debug("All necessary columns exist");
+            return CsvFileMapper.mapCsvToSchoolCsvRepresentations(reader);
 
         } catch (Exception e) {
-            CsvReaderException wrongFileException = new CsvReaderException("Bład z wczytaniem pliku " + file.getName());
-            log.warn(wrongFileException.getMessage(), wrongFileException);
-            throw wrongFileException;
+            throw csvReaderExceptionWhenReadingFile(file);
         }
+    }
+
+    private CsvReaderException csvReaderExceptionWhenReadingFile(MultipartFile file) {
+        CsvReaderException wrongFileException = new CsvReaderException("Bład z wczytaniem pliku " + file.getOriginalFilename());
+        log.warn(wrongFileException.getMessage(), wrongFileException);
+        return wrongFileException;
     }
 
 }

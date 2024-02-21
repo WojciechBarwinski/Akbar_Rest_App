@@ -1,6 +1,5 @@
 package com.wojciech.barwinski.akbarrestapp;
 
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -25,13 +24,10 @@ import java.util.List;
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private final SchoolRepository schoolRepository;
-    private final CsvCustomReader csvCustomReader;
 
-    public DataInitializer(SchoolRepository schoolRepository, CsvCustomReader csvCustomReader) {
+    public DataInitializer(SchoolRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
-        this.csvCustomReader = csvCustomReader;
     }
-
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -91,19 +87,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         schools.add(school2);
 
         schoolRepository.saveAll(schools);
-
-        /*for (SchoolCsvRepresentation school : csvCustomReader.parseCsvByFilePath()) {
-            System.out.println(school.getName());
-            System.out.println(school.getRspo());
-            System.out.println(school.getStreet());
-            System.out.println(school.getPhone());
-        }*/
-
-        log.trace("for tracing purpose");
-        log.debug("for debugging purpose");
-        log.info("for informational purpose");
-        log.warn("for warning purpose");
-        log.error("for logging errors");
     }
 }
 
