@@ -60,10 +60,9 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public UploadSchoolResult uploadSchool(MultipartFile file) {
-        List<SchoolCsvRepresentationDTO> schoolCsvRepresentationDTOS = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
+    public UploadSchoolResult uploadSchool(List<SchoolCsvRepresentationDTO> schoolsFromCsv) {
 
-        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolCsvRepresentationDTOS);
+        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolsFromCsv);
 
         List<SchoolRepValidateReport> validateReport = schoolRepValidationResult.getSchoolValidateReports();
         List<SchoolCsvRepresentationDTO> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();

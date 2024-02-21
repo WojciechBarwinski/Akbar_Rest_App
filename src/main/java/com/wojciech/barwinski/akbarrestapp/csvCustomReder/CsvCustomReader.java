@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
 
-import com.wojciech.barwinski.akbarrestapp.exception.CsvReaderException;
+import com.wojciech.barwinski.akbarrestapp.exception.CsvFileReadException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,8 +31,8 @@ public class CsvCustomReader {
         }
     }
 
-    private CsvReaderException csvReaderExceptionWhenReadingFile(MultipartFile file) {
-        CsvReaderException wrongFileException = new CsvReaderException("Bład z wczytaniem pliku " + file.getOriginalFilename());
+    private CsvFileReadException csvReaderExceptionWhenReadingFile(MultipartFile file) {
+        CsvFileReadException wrongFileException = new CsvFileReadException("Bład z wczytaniem pliku " + file.getOriginalFilename());
         log.warn(wrongFileException.getMessage(), wrongFileException);
         return wrongFileException;
     }

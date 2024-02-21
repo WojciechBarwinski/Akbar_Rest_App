@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,5 +13,5 @@ public interface SchoolService {
 
     FullSchoolDTO getSchoolById(Long id);
 
-    UploadSchoolResult uploadSchool(MultipartFile file);
+    UploadSchoolResult uploadSchool(List<SchoolCsvRepresentationDTO> schoolsFromCsv);
 }

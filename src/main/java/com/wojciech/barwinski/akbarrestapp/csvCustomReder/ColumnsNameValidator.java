@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
 
 
-import com.wojciech.barwinski.akbarrestapp.exception.CsvReaderException;
+import com.wojciech.barwinski.akbarrestapp.exception.InvalidCsvDataException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ class ColumnsNameValidator {
 
     private static void checkMissingNames(List<String> missingNames) {
         if (!missingNames.isEmpty()) {
-            CsvReaderException wrongColumnsNameException = new CsvReaderException("Brakuje następujących nazw kolumn " + missingNames);
+            InvalidCsvDataException wrongColumnsNameException = new InvalidCsvDataException("Brakuje następujących nazw kolumn " + missingNames);
             log.warn(wrongColumnsNameException.getMessage(), wrongColumnsNameException);
             throw wrongColumnsNameException;
         }

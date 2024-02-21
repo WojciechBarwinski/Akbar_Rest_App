@@ -1,26 +1,34 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.CsvCustomReader;
+import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.exception.CsvFileReadException;
+import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Slf4j
 @Tag(name = "Akbar API")
 @RestController()
 @RequestMapping("/schools")
 public class SchoolController {
 
     private final SchoolService schoolService;
+    private final CsvCustomReader csvCustomReader;
 
-    public SchoolController(SchoolService SCHOOL_SERVICE) {
-        this.schoolService = SCHOOL_SERVICE;
+    public SchoolController(SchoolService schoolService, CsvCustomReader csvCustomReader) {
+        this.schoolService = schoolService;
+        this.csvCustomReader = csvCustomReader;
     }
 
     @GetMapping()
@@ -35,22 +43,20 @@ public class SchoolController {
     }
 
     @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
-    public ResponseEntity<UploadSchoolResult> uploadStudents(@RequestPart("file") MultipartFile file){
-        csvChecks(file.getOriginalFilename());
+    public ResponseEntity<UploadSchoolResult> uploadStudents(@RequestPart("file") MultipartFile file) {
+        checkIfFileIsCsv(file);
+        List<SchoolCsvRepresentationDTO> schoolsCsvRepresentations = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
 
-
-        System.out.println("Po uzyciu metody z apacha");
-        return ResponseEntity.ok(schoolService.uploadSchool(file));
+        return ResponseEntity.ok(schoolService.uploadSchool(schoolsCsvRepresentations));
     }
 
 
-    private void csvChecks(String fileName){
-        if (fileName == null){
-            throw new IllegalArgumentException("No file was send");
-        }
-        if (!fileName.endsWith(".csv")){
-            throw new IllegalArgumentException("Only .csv files are allowed!");
+    private void checkIfFileIsCsv(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if ((originalFilename == null) || (!originalFilename.toLowerCase().endsWith(".csv"))) {
+            WrongFileTypeException fileIsNotCsvFile = new WrongFileTypeException("Przesłany plik nie jest plikiem .csv");
+            log.warn(fileIsNotCsvFile.getMessage(), fileIsNotCsvFile);
+            throw fileIsNotCsvFile;
         }
     }
-
 }
