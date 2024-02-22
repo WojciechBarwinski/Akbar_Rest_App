@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo;
+package com.wojciech.barwinski.akbarrestapp.validator.dtos;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UploadSchoolResult {
+public class UploadSchoolResultDTO {
 
-    private List<SchoolRepValidateReport> schoolValidateReports;
+    private List<ValidationReportFromSchoolImportDTO> schoolValidateReports;
     private List<ShortSchoolDTO> shortSchoolDTOS;
 
 }

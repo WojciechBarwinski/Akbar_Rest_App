@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 class ColumnsNameValidator {
 
-    private static String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
+    private static final String NAMES = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
 
     static void validateColumnsName(String columnNames) {
         log.debug("Check columns name from .csv");

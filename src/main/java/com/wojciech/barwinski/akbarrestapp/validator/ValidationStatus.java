@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.csv.Validators;
+package com.wojciech.barwinski.akbarrestapp.validator;
 
 public enum ValidationStatus {
 

@@ -1,19 +1,19 @@
-package com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo;
+package com.wojciech.barwinski.akbarrestapp.validator.dtos;
 
 
-import com.wojciech.barwinski.akbarrestapp.csv.Validators.ValidationStatus;
+import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FieldReport {
+public class FieldReportDTO {
 
     private String fieldName;
     private ValidationStatus status;
     private String comment;
 
-    public FieldReport(String fieldName) {
+    public FieldReportDTO(String fieldName) {
         this.fieldName = fieldName;
         this.status = ValidationStatus.OK;
         this.comment = "OK";

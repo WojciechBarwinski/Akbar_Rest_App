@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
-import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
@@ -12,5 +12,5 @@ public interface SchoolService {
 
     FullSchoolDTO getSchoolById(Long id);
 
-    UploadSchoolResult uploadSchool(List<SchoolRepresentation> schoolsFromCsv);
+    UploadSchoolResultDTO uploadSchool(List<SchoolRepresentation> schoolsFromCsv);
 }

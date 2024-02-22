@@ -20,13 +20,5 @@ class CsvFileMapper {
                 .parse();
     }
 
-    /*    static List<CsvSchoolRepresentation> mapCsvToSchoolCsvRepresentations(Reader reader) {
-        log.debug("Map Csv file to SchoolCsvRepresentation");
-        return new CsvToBeanBuilder<CsvSchoolRepresentation>(reader)
-                .withType(CsvSchoolRepresentation.class)
-                .withSeparator(';')
-                .build()
-                .parse();
-    }*/
 }
 

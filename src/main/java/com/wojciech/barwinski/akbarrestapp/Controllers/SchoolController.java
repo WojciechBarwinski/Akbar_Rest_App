@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
-import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.customReader.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.JsonSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
@@ -44,7 +44,7 @@ public class SchoolController {
     }
 
     @PostMapping(value = "/uploadByCsv", consumes = {"multipart/form-data"})
-    public ResponseEntity<UploadSchoolResult> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
+    public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
 
         checkIfFileIsCsv(file);
         List<SchoolRepresentation> schoolRepresentations = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
@@ -53,7 +53,7 @@ public class SchoolController {
     }
 
     @PostMapping(value = "/uploadByJson", consumes = {"application/json"})
-    public ResponseEntity<UploadSchoolResult> uploadSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
+    public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
 
         List<SchoolRepresentation> schoolRepresentations = new ArrayList<>(schoolsJsonRepresentations);
 

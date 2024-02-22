@@ -1,6 +1,6 @@
-package com.wojciech.barwinski.akbarrestapp.csv.Validators;
+package com.wojciech.barwinski.akbarrestapp.validator;
 
-import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.FieldReport;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -22,7 +22,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "RSPO";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkRSPO(rspo);
+        FieldReportDTO report = FieldsChecker.checkRSPO(rspo);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -34,7 +34,7 @@ class FieldsCheckerTest {
         String rspo = " 123456 ";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkRSPO(rspo);
+        FieldReportDTO report = FieldsChecker.checkRSPO(rspo);
 
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
     }
@@ -45,8 +45,8 @@ class FieldsCheckerTest {
         String longRSPO = "123456789";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport shortReport = FieldsChecker.checkRSPO(shortRSPO);
-        FieldReport longReport = FieldsChecker.checkRSPO(longRSPO);
+        FieldReportDTO shortReport = FieldsChecker.checkRSPO(shortRSPO);
+        FieldReportDTO longReport = FieldsChecker.checkRSPO(longRSPO);
 
         assertThat(shortReport.getComment()).isEqualTo(untypicalSize);
         assertThat(shortReport.getStatus()).isEqualTo(expectedStatus);
@@ -59,7 +59,7 @@ class FieldsCheckerTest {
         String rspo = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkRSPO(rspo);
+        FieldReportDTO report = FieldsChecker.checkRSPO(rspo);
 
         assertThat(report.getComment()).isEqualTo(empty);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -71,7 +71,7 @@ class FieldsCheckerTest {
 
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkRSPO(rspo);
+        FieldReportDTO report = FieldsChecker.checkRSPO(rspo);
 
         assertThat(report.getComment()).isEqualTo("RSPO has non-digit signs");
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -81,7 +81,7 @@ class FieldsCheckerTest {
     public void shouldCheckNoneRPSO_ERROR() {
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkRSPO(null);
+        FieldReportDTO report = FieldsChecker.checkRSPO(null);
 
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
     }
@@ -91,7 +91,7 @@ class FieldsCheckerTest {
         String rspo = "1234@5";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkRSPO(rspo);
+        FieldReportDTO report = FieldsChecker.checkRSPO(rspo);
 
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
     }
@@ -103,7 +103,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "School Type";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolType(schoolType);
+        FieldReportDTO report = FieldsChecker.checkSchoolType(schoolType);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -116,7 +116,7 @@ class FieldsCheckerTest {
         String schoolType = "abc";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolType(schoolType);
+        FieldReportDTO report = FieldsChecker.checkSchoolType(schoolType);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -127,7 +127,7 @@ class FieldsCheckerTest {
         String schoolType = "Szkoła Podstawowa #1";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolType(schoolType);
+        FieldReportDTO report = FieldsChecker.checkSchoolType(schoolType);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -138,8 +138,8 @@ class FieldsCheckerTest {
         String schoolType = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolType(schoolType);
-        FieldReport nullReport = FieldsChecker.checkSchoolType(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolType(schoolType);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolType(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -155,7 +155,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "School Name";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolName(schoolName);
+        FieldReportDTO report = FieldsChecker.checkSchoolName(schoolName);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -168,7 +168,7 @@ class FieldsCheckerTest {
         String schoolName = "abc";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolName(schoolName);
+        FieldReportDTO report = FieldsChecker.checkSchoolName(schoolName);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -179,7 +179,7 @@ class FieldsCheckerTest {
         String schoolName = "Szkoła Podstawow@ nr. #1";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolName(schoolName);
+        FieldReportDTO report = FieldsChecker.checkSchoolName(schoolName);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -190,8 +190,8 @@ class FieldsCheckerTest {
         String schoolName = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolName(schoolName);
-        FieldReport nullReport = FieldsChecker.checkSchoolName(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolName(schoolName);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolName(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -207,7 +207,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "School street";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolStreet(schoolStreet);
+        FieldReportDTO report = FieldsChecker.checkSchoolStreet(schoolStreet);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -220,7 +220,7 @@ class FieldsCheckerTest {
         String schoolStreet = "abc";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolStreet(schoolStreet);
+        FieldReportDTO report = FieldsChecker.checkSchoolStreet(schoolStreet);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -231,7 +231,7 @@ class FieldsCheckerTest {
         String schoolStreet = "XYZ @*";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolStreet(schoolStreet);
+        FieldReportDTO report = FieldsChecker.checkSchoolStreet(schoolStreet);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -242,8 +242,8 @@ class FieldsCheckerTest {
         String schoolStreet = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolStreet(schoolStreet);
-        FieldReport nullReport = FieldsChecker.checkSchoolStreet(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolStreet(schoolStreet);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolStreet(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -259,7 +259,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Building Number";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -271,7 +271,7 @@ class FieldsCheckerTest {
         String buildNumber = "12345";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -282,7 +282,7 @@ class FieldsCheckerTest {
         String buildNumber = "12$";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -293,8 +293,8 @@ class FieldsCheckerTest {
         String buildNumber = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
-        FieldReport nullReport = FieldsChecker.checkSchoolBuildingNumber(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolBuildingNumber(buildNumber);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolBuildingNumber(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -310,7 +310,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Local number";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolLocalNumber(localNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolLocalNumber(localNumber);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -322,7 +322,7 @@ class FieldsCheckerTest {
         String localNumber = "12345";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolLocalNumber(localNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolLocalNumber(localNumber);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -333,7 +333,7 @@ class FieldsCheckerTest {
         String localNumber = "12$";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolLocalNumber(localNumber);
+        FieldReportDTO report = FieldsChecker.checkSchoolLocalNumber(localNumber);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -344,8 +344,8 @@ class FieldsCheckerTest {
         String localNumber = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolLocalNumber(localNumber);
-        FieldReport nullReport = FieldsChecker.checkSchoolLocalNumber(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolLocalNumber(localNumber);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolLocalNumber(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -361,7 +361,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
+        FieldReportDTO report = FieldsChecker.checkSchoolZipCode(zipCode);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -373,8 +373,8 @@ class FieldsCheckerTest {
         String zipCode1 = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolZipCode(zipCode1);
-        FieldReport nullReport = FieldsChecker.checkSchoolZipCode(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolZipCode(zipCode1);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolZipCode(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -389,7 +389,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
+        FieldReportDTO report = FieldsChecker.checkSchoolZipCode(zipCode);
 
         assertThat(report.getComment()).isEqualTo(wrongFormat);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -402,7 +402,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
+        FieldReportDTO report = FieldsChecker.checkSchoolZipCode(zipCode);
 
         assertThat(report.getComment()).isEqualTo(wrongFormat);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -415,7 +415,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
+        FieldReportDTO report = FieldsChecker.checkSchoolZipCode(zipCode);
 
         assertThat(report.getComment()).isEqualTo(wrongFormat);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -428,7 +428,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Zip code";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report = FieldsChecker.checkSchoolZipCode(zipCode);
+        FieldReportDTO report = FieldsChecker.checkSchoolZipCode(zipCode);
 
         assertThat(report.getComment()).isEqualTo(wrongFormat);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -445,9 +445,9 @@ class FieldsCheckerTest {
         String expectedFieldName = "Phone";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report1 = FieldsChecker.checkSchoolPhone(phone1);
-        FieldReport report2 = FieldsChecker.checkSchoolPhone(phone2);
-        FieldReport report3 = FieldsChecker.checkSchoolPhone(phone3);
+        FieldReportDTO report1 = FieldsChecker.checkSchoolPhone(phone1);
+        FieldReportDTO report2 = FieldsChecker.checkSchoolPhone(phone2);
+        FieldReportDTO report3 = FieldsChecker.checkSchoolPhone(phone3);
 
 
         assertThat(report1.getComment()).isEqualTo(ok);
@@ -463,8 +463,8 @@ class FieldsCheckerTest {
         String longPhone = "1234567890123";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport shortReport = FieldsChecker.checkRSPO(shortPhone);
-        FieldReport longReport = FieldsChecker.checkRSPO(longPhone);
+        FieldReportDTO shortReport = FieldsChecker.checkRSPO(shortPhone);
+        FieldReportDTO longReport = FieldsChecker.checkRSPO(longPhone);
 
         assertThat(shortReport.getComment()).isEqualTo(untypicalSize);
         assertThat(shortReport.getStatus()).isEqualTo(expectedStatus);
@@ -476,8 +476,8 @@ class FieldsCheckerTest {
         String phone = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolPhone(phone);
-        FieldReport nullReport = FieldsChecker.checkSchoolPhone(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolPhone(phone);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolPhone(null);
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
         assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
@@ -493,8 +493,8 @@ class FieldsCheckerTest {
         String expectedFieldName = "Phone";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport report1 = FieldsChecker.checkSchoolPhone(phone1);
-        FieldReport report2 = FieldsChecker.checkSchoolPhone(phone2);
+        FieldReportDTO report1 = FieldsChecker.checkSchoolPhone(phone1);
+        FieldReportDTO report2 = FieldsChecker.checkSchoolPhone(phone2);
 
 
         assertThat(report1.getComment()).isEqualTo(specialSigns);
@@ -510,7 +510,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "City";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+        FieldReportDTO report = FieldsChecker.checkSchoolCity(cityName);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -523,7 +523,7 @@ class FieldsCheckerTest {
         String cityName = "abc";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+        FieldReportDTO report = FieldsChecker.checkSchoolCity(cityName);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -534,7 +534,7 @@ class FieldsCheckerTest {
         String cityName = "Ł@d&";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolCity(cityName);
+        FieldReportDTO report = FieldsChecker.checkSchoolCity(cityName);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -545,8 +545,8 @@ class FieldsCheckerTest {
         String cityName = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolCity(cityName);
-        FieldReport nullReport = FieldsChecker.checkSchoolCity(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolCity(cityName);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolCity(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -562,7 +562,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Email";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolEmail(email);
+        FieldReportDTO report = FieldsChecker.checkSchoolEmail(email);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -574,8 +574,8 @@ class FieldsCheckerTest {
         String email = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolEmail(email);
-        FieldReport nullReport = FieldsChecker.checkSchoolEmail(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolEmail(email);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolEmail(null);
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
         assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
@@ -588,8 +588,8 @@ class FieldsCheckerTest {
         String email2 = "@@absd$";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report1 = FieldsChecker.checkSchoolEmail(email1);
-        FieldReport report2 = FieldsChecker.checkSchoolEmail(email2);
+        FieldReportDTO report1 = FieldsChecker.checkSchoolEmail(email1);
+        FieldReportDTO report2 = FieldsChecker.checkSchoolEmail(email2);
 
         assertThat(report1.getComment()).isEqualTo(untypicalField);
         assertThat(report1.getStatus()).isEqualTo(expectedStatus);
@@ -608,9 +608,9 @@ class FieldsCheckerTest {
         String expectedFieldName = "Website";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report1 = FieldsChecker.checkSchoolWebsite(website1);
-        FieldReport report2 = FieldsChecker.checkSchoolWebsite(website2);
-        FieldReport report3 = FieldsChecker.checkSchoolWebsite(website3);
+        FieldReportDTO report1 = FieldsChecker.checkSchoolWebsite(website1);
+        FieldReportDTO report2 = FieldsChecker.checkSchoolWebsite(website2);
+        FieldReportDTO report3 = FieldsChecker.checkSchoolWebsite(website3);
 
 
         assertThat(report1.getComment()).isEqualTo(ok);
@@ -629,9 +629,9 @@ class FieldsCheckerTest {
         String expectedFieldName = "Website";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report1 = FieldsChecker.checkSchoolWebsite(website1);
-        FieldReport report2 = FieldsChecker.checkSchoolWebsite(website2);
-        FieldReport report3 = FieldsChecker.checkSchoolWebsite(website3);
+        FieldReportDTO report1 = FieldsChecker.checkSchoolWebsite(website1);
+        FieldReportDTO report2 = FieldsChecker.checkSchoolWebsite(website2);
+        FieldReportDTO report3 = FieldsChecker.checkSchoolWebsite(website3);
 
 
         assertThat(report1.getComment()).isEqualTo(untypicalField);
@@ -646,8 +646,8 @@ class FieldsCheckerTest {
         String website = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolEmail(website);
-        FieldReport nullReport = FieldsChecker.checkSchoolEmail(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolEmail(website);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolEmail(null);
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
         assertThat(emptyReport.getStatus()).isEqualTo(expectedStatus);
@@ -661,7 +661,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Voivodeship";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+        FieldReportDTO report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -674,7 +674,7 @@ class FieldsCheckerTest {
         String voivodeship = "Łód";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+        FieldReportDTO report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -685,7 +685,7 @@ class FieldsCheckerTest {
         String voivodeship = "Ł@d&";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+        FieldReportDTO report = FieldsChecker.checkSchoolVoivodeship(voivodeship);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -696,8 +696,8 @@ class FieldsCheckerTest {
         String voivodeship = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolVoivodeship(voivodeship);
-        FieldReport nullReport = FieldsChecker.checkSchoolVoivodeship(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolVoivodeship(voivodeship);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolVoivodeship(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -713,7 +713,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "County";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+        FieldReportDTO report = FieldsChecker.checkSchoolCounty(county);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -726,7 +726,7 @@ class FieldsCheckerTest {
         String county = "Sie";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+        FieldReportDTO report = FieldsChecker.checkSchoolCounty(county);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -737,7 +737,7 @@ class FieldsCheckerTest {
         String county = "Si#";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolCounty(county);
+        FieldReportDTO report = FieldsChecker.checkSchoolCounty(county);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -748,8 +748,8 @@ class FieldsCheckerTest {
         String county = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolCounty(county);
-        FieldReport nullReport = FieldsChecker.checkSchoolCounty(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolCounty(county);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolCounty(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -765,7 +765,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "Borough";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+        FieldReportDTO report = FieldsChecker.checkSchoolBorough(borough);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -778,7 +778,7 @@ class FieldsCheckerTest {
         String borough = "Łod";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+        FieldReportDTO report = FieldsChecker.checkSchoolBorough(borough);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -789,7 +789,7 @@ class FieldsCheckerTest {
         String borough = "Lo$";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolBorough(borough);
+        FieldReportDTO report = FieldsChecker.checkSchoolBorough(borough);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -800,8 +800,8 @@ class FieldsCheckerTest {
         String borough = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolBorough(borough);
-        FieldReport nullReport = FieldsChecker.checkSchoolBorough(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolBorough(borough);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolBorough(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
@@ -817,7 +817,7 @@ class FieldsCheckerTest {
         String expectedFieldName = "School status";
         ValidationStatus expectedStatus = ValidationStatus.OK;
 
-        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+        FieldReportDTO report = FieldsChecker.checkSchoolStatus(schoolStatus);
 
         assertThat(report.getComment()).isEqualTo(ok);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -830,7 +830,7 @@ class FieldsCheckerTest {
         String schoolStatus = "abc";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+        FieldReportDTO report = FieldsChecker.checkSchoolStatus(schoolStatus);
 
         assertThat(report.getComment()).isEqualTo(untypicalSize);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -841,7 +841,7 @@ class FieldsCheckerTest {
         String schoolStatus = "Ł@d&";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
-        FieldReport report = FieldsChecker.checkSchoolStatus(schoolStatus);
+        FieldReportDTO report = FieldsChecker.checkSchoolStatus(schoolStatus);
 
         assertThat(report.getComment()).isEqualTo(specialSigns);
         assertThat(report.getStatus()).isEqualTo(expectedStatus);
@@ -852,8 +852,8 @@ class FieldsCheckerTest {
         String schoolStatus = "";
         ValidationStatus expectedStatus = ValidationStatus.ERROR;
 
-        FieldReport emptyReport = FieldsChecker.checkSchoolStatus(schoolStatus);
-        FieldReport nullReport = FieldsChecker.checkSchoolStatus(null);
+        FieldReportDTO emptyReport = FieldsChecker.checkSchoolStatus(schoolStatus);
+        FieldReportDTO nullReport = FieldsChecker.checkSchoolStatus(null);
 
 
         assertThat(emptyReport.getComment()).isEqualTo(empty);
