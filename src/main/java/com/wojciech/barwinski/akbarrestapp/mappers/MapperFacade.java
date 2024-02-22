@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
 
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -44,7 +44,7 @@ public class MapperFacade {
         return shortSchoolDTOMapper.mapSchoolToShortSchoolDTO(school);
     }
 
-    public School mapSchoolCsvRepresentationToSchool(SchoolCsvRepresentationDTO csvRepresentation) {
+    public School mapSchoolCsvRepresentationToSchool(SchoolRepresentation csvRepresentation) {
         return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(csvRepresentation);
     }
 

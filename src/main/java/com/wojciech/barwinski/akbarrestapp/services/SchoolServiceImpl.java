@@ -1,11 +1,10 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.CsvCustomReader;
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -13,7 +12,6 @@ import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,13 +23,11 @@ public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
     private final MapperFacade mapperFacade;
-    private final CsvCustomReader csvCustomReader;
     private final SchoolRepresentationValidator schoolRepresentationValidator;
 
 
-    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, CsvCustomReader csvCustomReader, SchoolRepresentationValidator schoolRepresentationValidator) {
+    public SchoolServiceImpl(SchoolRepository SCHOOL_REPOSITORY, SchoolRepresentationValidator schoolRepresentationValidator) {
         this.schoolRepository = SCHOOL_REPOSITORY;
-        this.csvCustomReader = csvCustomReader;
         this.schoolRepresentationValidator = schoolRepresentationValidator;
         this.mapperFacade = MapperFacade.getInstance();
     }
@@ -60,12 +56,12 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public UploadSchoolResult uploadSchool(List<SchoolCsvRepresentationDTO> schoolsFromCsv) {
+    public UploadSchoolResult uploadSchool(List<SchoolRepresentation> schoolsToImport) {
 
-        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolsFromCsv);
+        SchoolRepValidationResult schoolRepValidationResult = schoolRepresentationValidator.schoolsValidate(schoolsToImport);
 
         List<SchoolRepValidateReport> validateReport = schoolRepValidationResult.getSchoolValidateReports();
-        List<SchoolCsvRepresentationDTO> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();
+        List<SchoolRepresentation> correctSchoolsRepresentation = schoolRepValidationResult.getSchoolsAfterValidate();
 
         List<School> schoolsToSave = correctSchoolsRepresentation.stream()
                 .map(mapperFacade::mapSchoolCsvRepresentationToSchool).toList();

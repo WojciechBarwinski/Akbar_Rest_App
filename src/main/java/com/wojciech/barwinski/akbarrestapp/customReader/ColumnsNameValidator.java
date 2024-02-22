@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
+package com.wojciech.barwinski.akbarrestapp.customReader;
 
 
 import com.wojciech.barwinski.akbarrestapp.exception.InvalidCsvDataException;

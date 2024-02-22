@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
@@ -17,7 +17,7 @@ public class CsvSchoolMapper {
         this.modelMapper = modelMapper;
     }
 
-    School mapSchoolCsvRepresentationToSchool(SchoolCsvRepresentationDTO csvRepresentation) {
+    School mapSchoolCsvRepresentationToSchool(SchoolRepresentation csvRepresentation) {
         log.debug("Mapping CSV representation to School: " + csvRepresentation.getName());
 
         School school = modelMapper.map(csvRepresentation, School.class);

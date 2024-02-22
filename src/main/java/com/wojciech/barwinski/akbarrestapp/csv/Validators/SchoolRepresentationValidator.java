@@ -1,9 +1,9 @@
 package com.wojciech.barwinski.akbarrestapp.csv.Validators;
 
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.FieldReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidateReport;
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.SchoolRepValidationResult;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ import static com.wojciech.barwinski.akbarrestapp.csv.Validators.FieldsChecker.*
 public class SchoolRepresentationValidator {
 
 
-    public SchoolRepValidationResult schoolsValidate(List<SchoolCsvRepresentationDTO> schoolsRep) {
+    public SchoolRepValidationResult schoolsValidate(List<SchoolRepresentation> schoolsRep) {
         List<SchoolRepValidateReport> reports = new ArrayList<>();
-        List<SchoolCsvRepresentationDTO> correctSchools = new ArrayList<>();
+        List<SchoolRepresentation> correctSchools = new ArrayList<>();
 
         for (int i = 0; i < schoolsRep.size(); i++) {
-            SchoolCsvRepresentationDTO school = schoolsRep.get(i);
+            SchoolRepresentation school = schoolsRep.get(i);
             SchoolRepValidateReport report = validateOneSchool(school, i);
             reports.add(report);
             if (report.getStatus() != ERROR) {
@@ -31,7 +31,7 @@ public class SchoolRepresentationValidator {
         return new SchoolRepValidationResult(reports, correctSchools);
     }
 
-    private SchoolRepValidateReport validateOneSchool(SchoolCsvRepresentationDTO school, int index) {
+    private SchoolRepValidateReport validateOneSchool(SchoolRepresentation school, int index) {
         SchoolRepValidateReport report = new SchoolRepValidateReport(index);
         List<FieldReport> fields = new ArrayList<>();
 

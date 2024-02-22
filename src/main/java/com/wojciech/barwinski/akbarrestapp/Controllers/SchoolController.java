@@ -1,11 +1,11 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 import com.wojciech.barwinski.akbarrestapp.csv.Validators.pojo.UploadSchoolResult;
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.CsvCustomReader;
-import com.wojciech.barwinski.akbarrestapp.csvCustomReder.SchoolCsvRepresentationDTO;
+import com.wojciech.barwinski.akbarrestapp.customReader.CsvCustomReader;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.JsonSchoolRepresentation;
+import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.exception.CsvFileReadException;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -42,14 +43,22 @@ public class SchoolController {
         return schoolService.getSchoolById(id);
     }
 
-    @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
-    public ResponseEntity<UploadSchoolResult> uploadStudents(@RequestPart("file") MultipartFile file) {
-        checkIfFileIsCsv(file);
-        List<SchoolCsvRepresentationDTO> schoolsCsvRepresentations = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
+    @PostMapping(value = "/uploadByCsv", consumes = {"multipart/form-data"})
+    public ResponseEntity<UploadSchoolResult> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
 
-        return ResponseEntity.ok(schoolService.uploadSchool(schoolsCsvRepresentations));
+        checkIfFileIsCsv(file);
+        List<SchoolRepresentation> schoolRepresentations = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
+
+        return ResponseEntity.ok(schoolService.uploadSchool(schoolRepresentations));
     }
 
+    @PostMapping(value = "/uploadByJson", consumes = {"application/json"})
+    public ResponseEntity<UploadSchoolResult> uploadSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
+
+        List<SchoolRepresentation> schoolRepresentations = new ArrayList<>(schoolsJsonRepresentations);
+
+        return ResponseEntity.ok(schoolService.uploadSchool(schoolRepresentations));
+    }
 
     private void checkIfFileIsCsv(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();

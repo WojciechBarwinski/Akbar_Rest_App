@@ -1,15 +1,9 @@
-package com.wojciech.barwinski.akbarrestapp.csvCustomReder;
+package com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.*;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class SchoolCsvRepresentationDTO {
+public class CsvSchoolRepresentation extends SchoolRepresentation {
 
     @CsvBindByName(column = "Numer RSPO")
     private String rspo;
