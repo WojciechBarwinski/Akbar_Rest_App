@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp;
+package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;

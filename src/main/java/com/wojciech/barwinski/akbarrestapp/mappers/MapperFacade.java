@@ -44,8 +44,8 @@ public class MapperFacade {
         return shortSchoolDTOMapper.mapSchoolToShortSchoolDTO(school);
     }
 
-    public School mapSchoolCsvRepresentationToSchool(SchoolRepresentation csvRepresentation) {
-        return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(csvRepresentation);
+    public School mapSchoolRepresentationToSchool(SchoolRepresentation representation) {
+        return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(representation);
     }
 
 }
