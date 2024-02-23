@@ -17,13 +17,13 @@ public class CsvSchoolMapper {
         this.modelMapper = modelMapper;
     }
 
-    School mapSchoolCsvRepresentationToSchool(SchoolRepresentation csvRepresentation) {
-        log.debug("Mapping CSV representation to School: " + csvRepresentation.getName());
+    School mapSchoolRepresentationToSchool(SchoolRepresentation schoolRepresentation) {
+        log.debug("Mapping CSV representation to School: " + schoolRepresentation.getName());
 
-        School school = modelMapper.map(csvRepresentation, School.class);
-        Address address = modelMapper.map(csvRepresentation, Address.class);
-        address.setVoivodeship(getVoivodeshipFromString(csvRepresentation.getVoivodeship()));
-        school.addPhone(getPhoneFromCsv(csvRepresentation.getPhone()));
+        School school = modelMapper.map(schoolRepresentation, School.class);
+        Address address = modelMapper.map(schoolRepresentation, Address.class);
+        address.setVoivodeship(getVoivodeshipFromString(schoolRepresentation.getVoivodeship()));
+        school.addPhone(getPhoneFromCsv(schoolRepresentation.getPhone()));
         school.setAddress(address);
 
         log.debug("Mapping completed");
@@ -31,7 +31,7 @@ public class CsvSchoolMapper {
     }
 
     private Phone getPhoneFromCsv(String phone) {
-        log.trace("     Mapping phone");
+        log.trace("     Mapping phone " + phone);
 
         if (phone == null || phone.isEmpty()) {
             return new Phone.PhoneBuilder()
@@ -45,7 +45,7 @@ public class CsvSchoolMapper {
     }
 
     private Voivodeship getVoivodeshipFromString(String voivodeship) {
-        log.trace("     Mapping voivodeship");
+        log.trace("     Mapping voivodeship " + voivodeship);
 
         for (Voivodeship v : Voivodeship.values()) {
             if (v.getName().equalsIgnoreCase(voivodeship)) {

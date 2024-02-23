@@ -45,7 +45,7 @@ public class MapperFacade {
     }
 
     public School mapSchoolRepresentationToSchool(SchoolRepresentation representation) {
-        return csvSchoolMapper.mapSchoolCsvRepresentationToSchool(representation);
+        return csvSchoolMapper.mapSchoolRepresentationToSchool(representation);
     }
 
 }

@@ -17,8 +17,8 @@ class ColumnsNameValidator {
     static void validateColumnsName(String columnNames) {
         log.debug("Check columns name from .csv");
         System.out.println("sprawdzanie nazw kolumn");
-        List<String> expectedColumnsName = Arrays.asList(NAMES.split(";"));
-        List<String> columnsNameToCheckSet = Arrays.asList(columnNames.split(";"));
+        List<String> expectedColumnsName = Arrays.asList(NAMES.toLowerCase().split(";"));
+        List<String> columnsNameToCheckSet = Arrays.asList(columnNames.toLowerCase().split(";"));
         List<String> missingNames = new ArrayList<>(expectedColumnsName);
 
         missingNames.removeAll(columnsNameToCheckSet);
