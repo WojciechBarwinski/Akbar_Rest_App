@@ -26,26 +26,26 @@ public class SchoolRepresentationValidator {
     private ValidationReportFromSchoolImportDTO validateSchool(SchoolRepresentation school, int index) {
 
         ValidationReportFromSchoolImportDTO report = new ValidationReportFromSchoolImportDTO(index);
-        List<FieldReportDTO> fields = new ArrayList<>();
+        List<FieldReportDTO> reportFields = new ArrayList<>();
 
-        fields.add(FieldsChecker.checkRSPO(school.getRspo()));
-        fields.add(FieldsChecker.checkSchoolType(school.getType()));
-        fields.add(FieldsChecker.checkSchoolName(school.getName()));
-        fields.add(FieldsChecker.checkSchoolStreet(school.getStreet()));
-        fields.add(FieldsChecker.checkSchoolBuildingNumber(school.getBuildingNumber()));
-        fields.add(FieldsChecker.checkSchoolLocalNumber(school.getLocalNumber()));
-        fields.add(FieldsChecker.checkSchoolZipCode(school.getZipCode()));
-        fields.add(FieldsChecker.checkSchoolCity(school.getCity()));
-        fields.add(FieldsChecker.checkSchoolPhone(school.getPhone()));
-        fields.add(FieldsChecker.checkSchoolEmail(school.getEmail()));
-        fields.add(FieldsChecker.checkSchoolWebsite(school.getWebsite()));
-        fields.add(FieldsChecker.checkSchoolVoivodeship(school.getVoivodeship()));
-        fields.add(FieldsChecker.checkSchoolCounty(school.getCounty()));
-        fields.add(FieldsChecker.checkSchoolBorough(school.getBorough()));
-        fields.add(FieldsChecker.checkSchoolStatus(school.getStatus()));
+        reportFields.add(FieldsChecker.checkRSPO(school.getRspo()));
+        reportFields.add(FieldsChecker.checkSchoolType(school.getType()));
+        reportFields.add(FieldsChecker.checkSchoolName(school.getName()));
+        reportFields.add(FieldsChecker.checkSchoolStreet(school.getStreet()));
+        reportFields.add(FieldsChecker.checkSchoolBuildingNumber(school.getBuildingNumber()));
+        reportFields.add(FieldsChecker.checkSchoolLocalNumber(school.getLocalNumber()));
+        reportFields.add(FieldsChecker.checkSchoolZipCode(school.getZipCode()));
+        reportFields.add(FieldsChecker.checkSchoolCity(school.getCity()));
+        reportFields.add(FieldsChecker.checkSchoolPhone(school.getPhone()));
+        reportFields.add(FieldsChecker.checkSchoolEmail(school.getEmail()));
+        reportFields.add(FieldsChecker.checkSchoolWebsite(school.getWebsite()));
+        reportFields.add(FieldsChecker.checkSchoolVoivodeship(school.getVoivodeship()));
+        reportFields.add(FieldsChecker.checkSchoolCounty(school.getCounty()));
+        reportFields.add(FieldsChecker.checkSchoolBorough(school.getBorough()));
+        reportFields.add(FieldsChecker.checkSchoolStatus(school.getStatus()));
 
-        report.setStatus(setReportStatus(fields));
-        report.setFieldsReports(fields);
+        report.setStatus(setReportStatus(reportFields));
+        report.setFieldsReports(reportFields);
 
         return report;
     }

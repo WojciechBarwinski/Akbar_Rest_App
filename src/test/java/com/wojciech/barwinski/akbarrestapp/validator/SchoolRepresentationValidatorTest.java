@@ -2,6 +2,8 @@ package com.wojciech.barwinski.akbarrestapp.validator;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.CsvSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromSchoolImportDTO;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,52 +18,59 @@ class SchoolRepresentationValidatorTest {
 
     @Test
     public void testSchoolsValidate() {
-        /*List<SchoolRepresentation> schools = createValidSchoolForTests();
-        int expectedNumberOfValidSchool = 3;
+        List<SchoolRepresentation> schools = createValidSchoolForTests();
+        int expectedNumberOfReports = 3;
 
-        List<ValidationReportFromSchoolImport> result = validator.schoolsValidate(schools);
-        List<CsvSchoolRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
-        List<ValidationReportFromSchoolImport> reports = result.getSchoolValidateReports();
 
-        assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
-        Assertions.assertThat(reports).noneSatisfy(report -> {
+        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
+
+
+        assertThat(resultOfValidation.size()).isEqualTo(expectedNumberOfReports);
+        Assertions.assertThat(resultOfValidation).noneSatisfy(report -> {
             Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.ERROR);
-        });*/
+        });
     }
 
     @Test
     public void shouldValidateSchoolWithWarning(){
-        /*List<CsvSchoolRepresentation> schools = createValidSchoolForTests();
-        schools.get(0).setRspo("10");
-        int expectedNumberOfValidSchool = 3;
+        List<SchoolRepresentation> schools = createValidSchoolForTests();
+        String rspoThatShouldReturnWarning = "10";
+        schools.get(0).setRspo(rspoThatShouldReturnWarning);
 
 
-        SchoolRepValidationResult result = validator.schoolsValidate(schools);
-        List<CsvSchoolRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
-        List<ValidationReportFromSchoolImport> reports = result.getSchoolValidateReports();
+        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
 
-        assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
-        Assertions.assertThat(reports).anySatisfy(report -> {
+
+        Assertions.assertThat(resultOfValidation).anySatisfy(report -> {
             Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.WARNING);
-        });*/
+        });
     }
 
     @Test
     public void shouldValidateOnlyCorrectSchoolAndGetErrorInReport(){
-        /*List<CsvSchoolRepresentation> schools = createValidSchoolForTests();
-        schools.get(0).setRspo("");
-        int expectedNumberOfValidSchool = 2;
+        List<SchoolRepresentation> schools = createValidSchoolForTests();
+        String rspoThatShouldReturnError = " ";
+        schools.get(0).setRspo(rspoThatShouldReturnError);
 
 
-        SchoolRepValidationResult result = validator.schoolsValidate(schools);
-        List<CsvSchoolRepresentation> schoolsAfterValidate = result.getSchoolsAfterValidate();
-        List<ValidationReportFromSchoolImport> reports = result.getSchoolValidateReports();
+        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
 
-        assertThat(schoolsAfterValidate.size()).isEqualTo(expectedNumberOfValidSchool);
-        Assertions.assertThat(reports).anySatisfy(report -> {
+
+        Assertions.assertThat(resultOfValidation).anySatisfy(report -> {
             Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.ERROR);
-        });*/
+        });
     }
+
+    @Test
+    public void testEmptySchoolsList() {
+        List<SchoolRepresentation> emptySchools = new ArrayList<>();
+        int expectedNumberOfReports = 0;
+
+        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(emptySchools);
+
+        assertThat(resultOfValidation.size()).isEqualTo(expectedNumberOfReports);
+    }
+
 
     private List<SchoolRepresentation> createValidSchoolForTests() {
 
