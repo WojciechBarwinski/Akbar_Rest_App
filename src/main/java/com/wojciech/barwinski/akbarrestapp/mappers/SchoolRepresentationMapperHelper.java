@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class SchoolRepresentationMapperHelper {
 
-    static Phone mapPhone(String phone) {
+    static Phone mapStringToPhone(String phone) {
         log.trace("     Mapping phone " + phone);
 
         if (phone == null || phone.trim().isEmpty()) {
@@ -21,13 +21,8 @@ class SchoolRepresentationMapperHelper {
                 .build();
     }
 
-    static Voivodeship mapVoivodeship(String voivodeship) {
+    static Voivodeship mapStringToVoivodeship(String voivodeship) {
         log.trace("     Mapping voivodeship " + voivodeship);
-
-        if (voivodeship == null){
-            log.warn("Voivodeship IS NULL!");
-            return null;
-        }
 
         String voivodeshipAfterTrimAndReplace = voivodeship.trim().replaceAll("[.,;:/+`]", "");
         Voivodeship correctVoivodeship = null;

@@ -25,8 +25,8 @@ public class SchoolRepresentationMapper {
         School school = modelMapper.map(schoolRepresentation, School.class);
         Address address = modelMapper.map(schoolRepresentation, Address.class);
 
-        Phone phone = mapPhone(schoolRepresentation.getPhone());
-        Voivodeship voivodeship = mapVoivodeship(schoolRepresentation.getVoivodeship());
+        Phone phone = mapStringToPhone(schoolRepresentation.getPhone());
+        Voivodeship voivodeship = mapStringToVoivodeship(schoolRepresentation.getVoivodeship());
 
         school.addPhone(phone);
         address.setVoivodeship(voivodeship);

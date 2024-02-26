@@ -10,6 +10,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class SchoolRepresentationMapperHelperTest {
 
+    /*
+     * These tests assume only dates that pass validation stage
+     * */
 
     @Test
     void shouldCheckMappingPhoneWithValue() {
@@ -17,7 +20,7 @@ class SchoolRepresentationMapperHelperTest {
         String phoneNumberToTest = "123-45-67";
         String basePhoneOwner = "Główny numer szkoły";
 
-        Phone phone = SchoolRepresentationMapperHelper.mapPhone(phoneNumberToTest);
+        Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
         Assertions.assertThat(phone.getNumber()).isEqualTo(phoneNumberToTest);
         Assertions.assertThat(phone.getOwner()).isEqualTo(basePhoneOwner);
@@ -29,7 +32,7 @@ class SchoolRepresentationMapperHelperTest {
 
         String phoneNote = "brak numeru szkoły z bazy danych ministerstwa";
 
-        Phone phone = SchoolRepresentationMapperHelper.mapPhone(phoneNumberToTest);
+        Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
         Assertions.assertThat(phone.getPhoneNote()).isEqualTo(phoneNote);
         Assertions.assertThat(phone.getOwner()).isEqualTo(null);
@@ -41,7 +44,7 @@ class SchoolRepresentationMapperHelperTest {
         String phoneNumberToTest = null;
         String phoneNote = "brak numeru szkoły z bazy danych ministerstwa";
 
-        Phone phone = SchoolRepresentationMapperHelper.mapPhone(phoneNumberToTest);
+        Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
         Assertions.assertThat(phone.getPhoneNote()).isEqualTo(phoneNote);
         Assertions.assertThat(phone.getOwner()).isEqualTo(null);
@@ -53,7 +56,7 @@ class SchoolRepresentationMapperHelperTest {
     void shouldCheckMappingCorrectVoivodeship(String voivodeshipToTest) {
         Voivodeship[] values = Voivodeship.values();
 
-        Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapVoivodeship(voivodeshipToTest);
+        Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapStringToVoivodeship(voivodeshipToTest);
 
         Assertions.assertThat(voivodeship).isNotNull();
         Assertions.assertThat(voivodeship).isIn(values);
@@ -64,18 +67,10 @@ class SchoolRepresentationMapperHelperTest {
     @ValueSource(strings = {"", "   ", "Sieradz"})
     void shouldCheckMappingIncorrectVoivodeship(String voivodeshipToTest) {
 
-        Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapVoivodeship(voivodeshipToTest);
+        Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapStringToVoivodeship(voivodeshipToTest);
 
         Assertions.assertThat(voivodeship).isNull();
     }
 
-    @Test
-    void shouldCheckMappingNullVoivodeship() {
-        String voivodeshipToTest = null;
-
-        Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapVoivodeship(voivodeshipToTest);
-
-        Assertions.assertThat(voivodeship).isNull();
-    }
 
 }

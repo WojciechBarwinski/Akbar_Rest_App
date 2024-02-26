@@ -20,7 +20,7 @@ public class ShortSchoolDTOMapper {
         ShortSchoolDTO dto = modelMapper.map(school, ShortSchoolDTO.class);
         modelMapper.map(school.getAddress(), dto);
         if (!school.getPhones().isEmpty()) {
-            modelMapper.map(school.getPhones().get(0), dto);
+            dto.setPhone(school.getPhones().get(0).getNumber());
         }
 
         log.debug("Mapping completed");

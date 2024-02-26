@@ -40,10 +40,15 @@ class SchoolUploaderService {
         List<School> schoolsToSave = schoolUploaderHelper.prepareSchoolToSave(schoolsToImport, validateReports);
 
         log.debug("save all correct schools, and map result of save to shortSchoolDTO");
-        List<ShortSchoolDTO> shortSchoolDTOS = schoolRepository.saveAll(schoolsToSave)
+        /*List<ShortSchoolDTO> shortSchoolDTOS = schoolRepository.saveAll(schoolsToSave)
                 .stream()
                 .map(mapperFacade::mapSchoolToShortSchoolDTO)
+                .toList();*/
+
+        List<School> schoolList = schoolRepository.saveAll(schoolsToSave);
+        List<ShortSchoolDTO> shortSchoolDTOS = schoolList.stream().map(mapperFacade::mapSchoolToShortSchoolDTO)
                 .toList();
+
 
         return new UploadSchoolResultDTO(validateReports, shortSchoolDTOS);
     }
