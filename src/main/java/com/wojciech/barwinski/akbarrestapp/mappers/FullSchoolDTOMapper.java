@@ -28,7 +28,7 @@ class FullSchoolDTOMapper {
     }
 
     private AdditionalSchoolInformationDTO mapInfoToInfoDTO(AdditionalSchoolInformation info) {
-        log.trace("     Mapping additional info for schoolDTO"); //Taki pomysł. Robiąc takie wcięcia zdecydowanie łatwiej i czytalniej widać to w logach. Może zamiast tego "->" czy coś takiego?
+        log.trace("     Mapping additional info for schoolDTO");
 
         if (info == null) {
             return new AdditionalSchoolInformationDTO();

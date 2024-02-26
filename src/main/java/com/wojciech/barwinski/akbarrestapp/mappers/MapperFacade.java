@@ -14,14 +14,14 @@ public class MapperFacade {
     private static MapperFacade INSTANCE;
     private final FullSchoolDTOMapper fullSchoolDTOMapper;
     private final ShortSchoolDTOMapper shortSchoolDTOMapper;
-    private final CsvSchoolMapper csvSchoolMapper;
+    private final SchoolRepresentationMapper csvSchoolMapper;
 
     private MapperFacade() {
         log.trace("MapperFacade create");
         ModelMapper modelMapper = new ModelMapper();
         fullSchoolDTOMapper = new FullSchoolDTOMapper(modelMapper);
         shortSchoolDTOMapper = new ShortSchoolDTOMapper(modelMapper);
-        csvSchoolMapper = new CsvSchoolMapper(modelMapper);
+        csvSchoolMapper = new SchoolRepresentationMapper(modelMapper);
     }
 
     public static MapperFacade getInstance() {

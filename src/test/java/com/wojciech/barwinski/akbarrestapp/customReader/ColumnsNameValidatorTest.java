@@ -27,7 +27,7 @@ class ColumnsNameValidatorTest {
     }
 
     @Test
-    void shouldCheckThatListOfMissingNamesIsCorrect(){
+    void shouldCheckThatListOfMissingNamesIsCorrect() {
         String missingNames = "Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
         String correctMissingAnswer = "Brakuje następujących nazw kolumn [numer rspo, miejscowość]";
 
