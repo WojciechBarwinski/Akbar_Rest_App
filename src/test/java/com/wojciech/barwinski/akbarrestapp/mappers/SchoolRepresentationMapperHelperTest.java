@@ -2,10 +2,14 @@ package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class SchoolRepresentationMapperHelperTest {
@@ -22,8 +26,8 @@ class SchoolRepresentationMapperHelperTest {
 
         Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
-        Assertions.assertThat(phone.getNumber()).isEqualTo(phoneNumberToTest);
-        Assertions.assertThat(phone.getOwner()).isEqualTo(basePhoneOwner);
+        assertEquals(phone.getNumber(), phoneNumberToTest);
+        assertEquals(phone.getOwner(), basePhoneOwner);
     }
 
     @ParameterizedTest
@@ -34,9 +38,9 @@ class SchoolRepresentationMapperHelperTest {
 
         Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
-        Assertions.assertThat(phone.getPhoneNote()).isEqualTo(phoneNote);
-        Assertions.assertThat(phone.getOwner()).isEqualTo(null);
-        Assertions.assertThat(phone.getNumber()).isEqualTo(null);
+        assertEquals(phone.getPhoneNote(), phoneNote);
+        assertNull(phone.getOwner());
+        assertNull(phone.getNumber());
     }
 
     @Test
@@ -46,21 +50,20 @@ class SchoolRepresentationMapperHelperTest {
 
         Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
 
-        Assertions.assertThat(phone.getPhoneNote()).isEqualTo(phoneNote);
-        Assertions.assertThat(phone.getOwner()).isEqualTo(null);
-        Assertions.assertThat(phone.getNumber()).isEqualTo(null);
+        assertEquals(phone.getPhoneNote(), phoneNote);
+        assertNull(phone.getOwner());
+        assertNull(phone.getNumber());
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"Lubelskie", "  Pomorskie  ", "Łódzkie."})
     void shouldCheckMappingCorrectVoivodeship(String voivodeshipToTest) {
-        Voivodeship[] values = Voivodeship.values();
+        List<Voivodeship> voivodeshipsList = Arrays.asList(Voivodeship.values());
 
         Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapStringToVoivodeship(voivodeshipToTest);
 
-        Assertions.assertThat(voivodeship).isNotNull();
-        Assertions.assertThat(voivodeship).isIn(values);
-
+        assertNotEquals(voivodeship, null);
+        assertTrue(voivodeshipsList.contains(voivodeship));
     }
 
     @ParameterizedTest
@@ -69,7 +72,7 @@ class SchoolRepresentationMapperHelperTest {
 
         Voivodeship voivodeship = SchoolRepresentationMapperHelper.mapStringToVoivodeship(voivodeshipToTest);
 
-        Assertions.assertThat(voivodeship).isNull();
+        assertNull(voivodeship);
     }
 
 

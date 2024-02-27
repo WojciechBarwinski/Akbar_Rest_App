@@ -13,8 +13,8 @@ class SchoolRepresentationMapperTest {
     SchoolRepresentationMapper mapper = new SchoolRepresentationMapper(new ModelMapper());
 
     /*
-    * These test assume only SchoolRepresentation obj that pass validation stage
-    * */
+     * These test assume only SchoolRepresentation obj that pass validation stage
+     * */
 
     @Test
     void shouldMapCorrectSchoolRepresentationFromCSVFile() {

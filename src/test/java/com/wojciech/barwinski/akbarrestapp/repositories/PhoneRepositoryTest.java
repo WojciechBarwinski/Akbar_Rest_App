@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @ActiveProfiles("test")
 @SpringBootTest()
@@ -33,15 +34,15 @@ class PhoneRepositoryTest {
 
 
     @Test
-    void shouldCheckIfTestProfileIsActive(){
+    void shouldCheckIfTestProfileIsActive() {
         LOGGER.info("Check profile test start");
         String checkProfile = Arrays.stream(env.getActiveProfiles()).toList().get(0);
-        assertThat(checkProfile)
-                .isEqualTo("test");
+
+        assertEquals(checkProfile, "test");
     }
 
     @Test
-    void shouldGetAllPhonesBySchoolRspo(){
+    void shouldGetAllPhonesBySchoolRspo() {
         LOGGER.info("save and take school");
         //given
         Long schoolRspo = 11111L;
@@ -68,9 +69,10 @@ class PhoneRepositoryTest {
         LOGGER.info("find all phones by school rspo");
         List<Phone> phones = phoneRepository.findAllPhoneBySchoolRspo(schoolRspo);
 
-        assertThat(phones)
-                .hasSize(2)
-                .isNotEmpty();
+        assertAll("phones",
+                () -> assertEquals(2, phones.size()),
+                () -> assertFalse(phones.isEmpty())
+        );
     }
 
 

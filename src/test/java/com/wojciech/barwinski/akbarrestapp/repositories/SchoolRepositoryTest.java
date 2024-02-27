@@ -4,8 +4,6 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @ActiveProfiles("test")
@@ -37,8 +36,8 @@ class SchoolRepositoryTest {
     void shouldCheckIfTestProfileIsActive() {
         log.info("check profile test start");
         String checkProfile = Arrays.stream(env.getActiveProfiles()).toList().get(0);
-        assertThat(checkProfile)
-                .isEqualTo("test");
+
+        assertEquals(checkProfile, "test");
     }
 
     @Test
@@ -46,9 +45,8 @@ class SchoolRepositoryTest {
     void testSchoolsSaved() {
         log.info("check if schools are save test start");
         List<School> schools = schoolRepository.findAll();
-        assertThat(schools)
-                .hasSize(2)
-                .isNotEmpty();
+
+        assertEquals(schools.size(), 2);
     }
 
     @Test
@@ -76,11 +74,12 @@ class SchoolRepositoryTest {
         schoolRepository.saveAndFlush(school);
 
         log.info("finding phones");
-        assertThat(phoneRepository.findAll())
-                .hasSize(2)
-                .extracting(Phone::getId)
-                .doesNotContainNull();
-    }
+        List<Phone> phones = phoneRepository.findAll();
 
+        assertAll("phones",
+                () -> assertEquals(2, phones.size(), "Expected size is 2"),
+                () -> assertNotNull(phones.stream().map(Phone::getId))
+        );
+    }
 
 }

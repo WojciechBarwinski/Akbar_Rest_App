@@ -3,13 +3,13 @@ package com.wojciech.barwinski.akbarrestapp.validator;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.CsvSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromSchoolImportDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SchoolRepresentationValidatorTest {
 
@@ -21,44 +21,38 @@ class SchoolRepresentationValidatorTest {
         List<SchoolRepresentation> schools = createValidSchoolForTests();
         int expectedNumberOfReports = 3;
 
-
         List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
 
-
-        assertThat(resultOfValidation.size()).isEqualTo(expectedNumberOfReports);
-        Assertions.assertThat(resultOfValidation).noneSatisfy(report -> {
-            Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.ERROR);
+        assertEquals(resultOfValidation.size(), expectedNumberOfReports);
+        resultOfValidation.forEach(report -> {
+            assertEquals(ValidationStatus.OK, report.getStatus(), "Expected status is OK");
         });
     }
 
     @Test
-    public void shouldValidateSchoolWithWarning(){
+    public void shouldValidateSchoolWithWarning() {
         List<SchoolRepresentation> schools = createValidSchoolForTests();
         String rspoThatShouldReturnWarning = "10";
         schools.get(0).setRspo(rspoThatShouldReturnWarning);
 
-
         List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
 
-
-        Assertions.assertThat(resultOfValidation).anySatisfy(report -> {
-            Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.WARNING);
-        });
+        assertTrue(resultOfValidation.stream()
+                        .anyMatch(report -> report.getStatus() == ValidationStatus.WARNING),
+                "At least one report should have status WARNING");
     }
 
     @Test
-    public void shouldValidateOnlyCorrectSchoolAndGetErrorInReport(){
+    public void shouldValidateOnlyCorrectSchoolAndGetErrorInReport() {
         List<SchoolRepresentation> schools = createValidSchoolForTests();
         String rspoThatShouldReturnError = " ";
         schools.get(0).setRspo(rspoThatShouldReturnError);
 
-
         List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
 
-
-        Assertions.assertThat(resultOfValidation).anySatisfy(report -> {
-            Assertions.assertThat(report.getStatus()).isEqualTo(ValidationStatus.ERROR);
-        });
+        assertTrue(resultOfValidation.stream()
+                        .anyMatch(report -> report.getStatus() == ValidationStatus.ERROR),
+                "At least one report should have status ERROR");
     }
 
     @Test
@@ -68,7 +62,7 @@ class SchoolRepresentationValidatorTest {
 
         List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(emptySchools);
 
-        assertThat(resultOfValidation.size()).isEqualTo(expectedNumberOfReports);
+        assertEquals(resultOfValidation.size(), expectedNumberOfReports);
     }
 
 

@@ -36,7 +36,7 @@ class ColumnsNameValidatorTest {
         assertEquals(correctMissingAnswer, exception.getMessage());
     }
 
-    public static Stream<String> getCorrectColumnsNamesStrings() {
+    static Stream<String> getCorrectColumnsNamesStrings() {
 
         String correctNames = "Numer RSPO;Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
         String moreThenNecessaryNames = "Numer RSPO;Typ;Dodatkowa nazwa;Nazwa;Ulica;Numer budynku;Numer lokalu;kolejna niepotrzebna nazwa;Kod pocztowy;Miejscowość;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
@@ -48,7 +48,7 @@ class ColumnsNameValidatorTest {
         );
     }
 
-    public static Stream<String> getIncorrectColumnsNamesStrings() {
+    static Stream<String> getIncorrectColumnsNamesStrings() {
         String empty = "";
         String wrongSeparator = "Numer RSPO:Typ:Nazwa:Ulica:Numer budynku:Numer lokalu:Kod pocztowy:Miejscowość:Telefon:E-mail:Strona www:Województwo:Powiat:Gmina:Publiczność status:";
         String missingNames = "Typ;Nazwa;Ulica;Numer budynku;Numer lokalu;Kod pocztowy;;Telefon;E-mail;Strona www;Województwo;Powiat;Gmina;Publiczność status;";
