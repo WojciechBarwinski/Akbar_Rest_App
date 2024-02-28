@@ -11,10 +11,12 @@ import java.util.List;
 public class ValidationReportFromSchoolImportDTO {
 
     private ValidationStatus status;
+    private String rspo;
     private int indexInCsv;
     private List<FieldReportDTO> fieldsReports;
 
-    public ValidationReportFromSchoolImportDTO(int indexInCsv) {
+    public ValidationReportFromSchoolImportDTO(int indexInCsv, String rspo) {
+        this.rspo = rspo;
         this.indexInCsv = indexInCsv;
     }
 }

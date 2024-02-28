@@ -25,7 +25,7 @@ public class SchoolRepresentationValidator {
 
     private ValidationReportFromSchoolImportDTO validateSchool(SchoolRepresentation school, int index) {
 
-        ValidationReportFromSchoolImportDTO report = new ValidationReportFromSchoolImportDTO(index);
+        ValidationReportFromSchoolImportDTO report = new ValidationReportFromSchoolImportDTO(index, school.getRspo());
         List<FieldReportDTO> reportFields = new ArrayList<>();
 
         reportFields.add(FieldsChecker.checkRSPO(school.getRspo()));
