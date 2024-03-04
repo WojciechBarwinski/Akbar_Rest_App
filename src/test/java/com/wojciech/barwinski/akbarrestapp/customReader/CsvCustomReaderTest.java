@@ -51,7 +51,7 @@ class CsvCustomReaderTest {
     }
 
     @Test
-    void ShouldNotReadFileAndThrowException() throws IOException {
+    void shouldNotReadFileAndThrowException() throws IOException {
         InputStream inputStream = null;
         MockMultipartFile incorrectFile = new MockMultipartFile("file", "test.csv", "text/csv", inputStream);
 

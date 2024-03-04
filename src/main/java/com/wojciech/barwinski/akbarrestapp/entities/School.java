@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import static jakarta.persistence.FetchType.LAZY;
-//TODO BUILDER!
 
 @Getter
 @Setter
@@ -110,12 +110,13 @@ public class School {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof School school)) return false;
-        return rspo.equals(school.rspo);
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        School school = (School) o;
+        return getRspo() != null && Objects.equals(getRspo(), school.getRspo());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rspo);
+        return getClass().hashCode();
     }
 }

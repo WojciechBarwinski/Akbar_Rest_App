@@ -28,7 +28,7 @@ public class SchoolServiceFacade {
         return baseSchoolService.getSchoolById(id);
     }
 
-    public UploadSchoolResultDTO uploadSchools(List<SchoolRepresentation> schoolsToImport) {
+    public UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {
         return schoolUploader.uploadSchools(schoolsToImport);
     }
 }

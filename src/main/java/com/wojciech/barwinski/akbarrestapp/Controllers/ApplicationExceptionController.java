@@ -16,19 +16,19 @@ public class ApplicationExceptionController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) //400
     @ExceptionHandler(WrongFileTypeException.class)
-    public String wrongFileTypeException(Exception e) {
+    public String wrongFileTypeException(WrongFileTypeException e) {
         return e.getMessage();
     }
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) //422
     @ExceptionHandler(InvalidCsvDataException.class)
-    public String invalidCsvDataException(Exception e) {
+    public String invalidCsvDataException(InvalidCsvDataException e) {
         return e.getMessage();
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500
     @ExceptionHandler(ReaderException.class)
-    public String readerException(Exception e) {
+    public String readerException(ReaderException e) {
         return e.getMessage();
     }
 

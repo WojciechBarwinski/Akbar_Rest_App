@@ -57,7 +57,7 @@ public class SchoolController {
 
         List<SchoolRepresentation> schoolRepresentations = new ArrayList<>(schoolsJsonRepresentations);
 
-        return ResponseEntity.ok(schoolServiceFacade.uploadSchools(schoolRepresentations));
+        return ResponseEntity.ok(schoolServiceFacade.uploadSchools(schoolsJsonRepresentations));
     }
 
     private void checkIfFileIsCsv(MultipartFile file) {

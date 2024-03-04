@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,11 +25,13 @@ class BaseSchoolService {
     }
 
     List<ShortSchoolDTO> getAllSchools() {
-        List<School> allSchools = schoolRepository.findAll();
-        log.debug("get all schools. Number of schools:  " + allSchools.size());
-        return allSchools.stream()
+        //List<School> allSchools = schoolRepository.findAll();
+        List<ShortSchoolDTO> allShortSchool = schoolRepository.findAllShortSchool();
+        log.debug("get all schools. Number of schools:  " + allShortSchool.size());
+        /*return allSchools.stream()
                 .map(mapperFacade::mapSchoolToShortSchoolDTO)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
+        return allShortSchool;
     }
 
     FullSchoolDTO getSchoolById(Long id) {

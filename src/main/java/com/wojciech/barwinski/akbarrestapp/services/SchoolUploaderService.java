@@ -33,11 +33,12 @@ class SchoolUploaderService {
     }
 
 
-    UploadSchoolResultDTO uploadSchools(List<SchoolRepresentation> schoolsToImport) {
+    UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {
 
-        List<ValidationReportFromSchoolImportDTO> validateReports = schoolRepresentationValidator.schoolsValidate(schoolsToImport);
+        List<SchoolRepresentation> schools = (List<SchoolRepresentation>) schoolsToImport;
+        List<ValidationReportFromSchoolImportDTO> validateReports = schoolRepresentationValidator.schoolsValidate(schools);
 
-        List<School> schoolsToSave = schoolUploaderHelper.prepareSchoolToSave(schoolsToImport, validateReports);
+        List<School> schoolsToSave = schoolUploaderHelper.prepareSchoolToSave(schools, validateReports);
 
         log.debug("save all correct schools, and map result of save to shortSchoolDTO");
 
