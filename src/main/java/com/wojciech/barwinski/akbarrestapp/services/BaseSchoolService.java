@@ -34,8 +34,10 @@ class BaseSchoolService {
         return allShortSchool;
     }
 
+    //SchoolProjection getSchoolById(Long id) {
     FullSchoolDTO getSchoolById(Long id) {
         log.info("get school by id " + id);
+        //SchoolProjection school = schoolRepository.findByRspo(id);
         Optional<School> optionalSchool = schoolRepository.findByRspo(id);
         if (optionalSchool.isPresent()) {
             School byRspo = optionalSchool.get();

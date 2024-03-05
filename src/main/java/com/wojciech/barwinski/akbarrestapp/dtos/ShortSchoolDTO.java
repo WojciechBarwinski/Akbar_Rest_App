@@ -19,14 +19,4 @@ public class ShortSchoolDTO {
     private String street;
     private String phone;
 
-/*    public ShortSchoolDTO(Long rspo, String name, Voivodeship voivodeship, String county, String borough, String city, String street, String phone) {
-        this.rspo = rspo;
-        this.name = name;
-        this.voivodeship = voivodeship;
-        this.county = county;
-        this.borough = borough;
-        this.city = city;
-        this.street = street;
-        this.phone = phone;
-    }*/
 }
