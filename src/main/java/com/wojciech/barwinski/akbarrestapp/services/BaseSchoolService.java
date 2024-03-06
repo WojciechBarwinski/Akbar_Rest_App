@@ -25,12 +25,9 @@ class BaseSchoolService {
     }
 
     List<ShortSchoolDTO> getAllSchools() {
-        //List<School> allSchools = schoolRepository.findAll();
+        //TODO ograniczenie ilości wyświetlanych szkół!
         List<ShortSchoolDTO> allShortSchool = schoolRepository.findAllShortSchool();
         log.debug("get all schools. Number of schools:  " + allShortSchool.size());
-        /*return allSchools.stream()
-                .map(mapperFacade::mapSchoolToShortSchoolDTO)
-                .collect(Collectors.toList());*/
         return allShortSchool;
     }
 

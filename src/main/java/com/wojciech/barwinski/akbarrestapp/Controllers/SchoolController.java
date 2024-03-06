@@ -4,6 +4,7 @@ import com.wojciech.barwinski.akbarrestapp.customReader.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.JsonSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolServiceFacade;
@@ -15,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -32,7 +32,7 @@ public class SchoolController {
         this.csvCustomReader = csvCustomReader;
     }
 
-    @GetMapping()
+    @GetMapping(value = "/all")
     public List<ShortSchoolDTO> readAllSchools() {
         return schoolServiceFacade.getAllSchools();
     }
@@ -43,6 +43,13 @@ public class SchoolController {
         return schoolServiceFacade.getSchoolById(id);
     }
 
+    @PostMapping(consumes = {"application/json"})
+    public List<ShortSchoolDTO> getSchoolsBySearchRequest(@RequestBody SchoolSearchRequest searchRequest){
+
+        SchoolSearchRequest request = searchRequest;
+
+        return null;
+    }
     @PostMapping(value = "/uploadByCsv", consumes = {"multipart/form-data"})
     public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
 
@@ -54,8 +61,6 @@ public class SchoolController {
 
     @PostMapping(value = "/uploadByJson", consumes = {"application/json"})
     public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
-
-        List<SchoolRepresentation> schoolRepresentations = new ArrayList<>(schoolsJsonRepresentations);
 
         return ResponseEntity.ok(schoolServiceFacade.uploadSchools(schoolsJsonRepresentations));
     }
