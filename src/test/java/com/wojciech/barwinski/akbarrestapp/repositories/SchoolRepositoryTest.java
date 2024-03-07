@@ -4,7 +4,9 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest()
 class SchoolRepositoryTest {
 
@@ -31,6 +34,11 @@ class SchoolRepositoryTest {
 
     @Autowired
     Environment env;
+
+    @BeforeAll
+    void createDataForTests(){
+        schoolRepository.saveAll(schoolsToTest());
+    }
 
     @Test
     void shouldCheckIfTestProfileIsActive() {
@@ -80,6 +88,13 @@ class SchoolRepositoryTest {
                 () -> assertEquals(2, phones.size(), "Expected size is 2"),
                 () -> assertNotNull(phones.stream().map(Phone::getId))
         );
+    }
+
+    private static List<School> schoolsToTest() {
+        return Arrays.asList(
+                new School(11111L, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"),
+                new School(22222L, "Middle School", "Test Middle School", "test2@example.com", "www.test2.com", "PUBLIC"));
+
     }
 
 }

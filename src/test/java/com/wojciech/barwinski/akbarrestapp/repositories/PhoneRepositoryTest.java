@@ -2,9 +2,10 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -17,7 +18,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@Slf4j
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest()
 class PhoneRepositoryTest {
 
@@ -27,15 +30,17 @@ class PhoneRepositoryTest {
     @Autowired
     private PhoneRepository phoneRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchoolRepositoryTest.class);
-
     @Autowired
     Environment env;
 
+    @BeforeAll
+    void createDataForTests() {
+        schoolRepository.saveAll(schoolsToTest());
+    }
 
     @Test
     void shouldCheckIfTestProfileIsActive() {
-        LOGGER.info("Check profile test start");
+        log.info("Check profile test start");
         String checkProfile = Arrays.stream(env.getActiveProfiles()).toList().get(0);
 
         assertEquals(checkProfile, "test");
@@ -43,7 +48,7 @@ class PhoneRepositoryTest {
 
     @Test
     void shouldGetAllPhonesBySchoolRspo() {
-        LOGGER.info("save and take school");
+        log.info("save and take school");
         //given
         Long schoolRspo = 11111L;
         School school = schoolRepository.save(new School(schoolRspo, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"));
@@ -62,11 +67,11 @@ class PhoneRepositoryTest {
 
         //when
         school.setPhones(phoneList);
-        LOGGER.info("saving school with phones");
+        log.info("saving school with phones");
         schoolRepository.saveAndFlush(school);
 
         //then
-        LOGGER.info("find all phones by school rspo");
+        log.info("find all phones by school rspo");
         List<Phone> phones = phoneRepository.findAllPhoneBySchoolRspo(schoolRspo);
 
         assertAll("phones",
@@ -75,5 +80,11 @@ class PhoneRepositoryTest {
         );
     }
 
+    private static List<School> schoolsToTest() {
+        return Arrays.asList(
+                new School(11111L, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"),
+                new School(22222L, "Middle School", "Test Middle School", "test2@example.com", "www.test2.com", "PUBLIC"));
+
+    }
 
 }

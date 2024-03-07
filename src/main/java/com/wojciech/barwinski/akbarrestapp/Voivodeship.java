@@ -27,4 +27,13 @@ public enum Voivodeship {
     public String getName() {
         return name;
     }
+
+    public static Voivodeship getVoivodeshipByString(String name) {
+        for (Voivodeship value : Voivodeship.values()) {
+            if (value.getName().equals(name.trim())) {
+                return value;
+            }
+        }
+        return null;
+    }
 }

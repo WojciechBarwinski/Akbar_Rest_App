@@ -89,7 +89,7 @@ class ShortSchoolDTOMapperTest {
         ShortSchoolDTO schoolDTO = new ShortSchoolDTO();
         schoolDTO.setRspo(1234L);
         schoolDTO.setName("Central High School");
-        schoolDTO.setVoivodeship(String.valueOf(Voivodeship.WARMINSKO_MAZURSKIE));
+        schoolDTO.setVoivodeship(Voivodeship.WARMINSKO_MAZURSKIE);
         schoolDTO.setCounty("Olsztyn County");
         schoolDTO.setBorough("Olsztyn");
         schoolDTO.setCity("Olsztyn");

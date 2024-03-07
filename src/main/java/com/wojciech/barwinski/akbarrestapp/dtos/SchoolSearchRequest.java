@@ -1,10 +1,14 @@
 package com.wojciech.barwinski.akbarrestapp.dtos;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class SchoolSearchRequest {
 
+    //Main Data
+    private String type;
     private String schoolName;
     private String email;
     private String phoneNumber;
@@ -17,9 +21,9 @@ public class SchoolSearchRequest {
     private String street;
 
     //Status
-    private boolean isOurs;
-    private boolean isContracted;
-    private boolean isPhoto;
-    private boolean isSettle;
+    private String isOurs;
+    private String isContracted;
+    private String isPhoto;
+    private String isSettle;
 
 }

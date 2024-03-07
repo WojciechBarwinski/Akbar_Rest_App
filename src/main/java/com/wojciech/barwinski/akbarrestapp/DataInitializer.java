@@ -35,7 +35,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         Environment environment = event.getApplicationContext().getEnvironment();
         if (environment.matchesProfiles("test")) {
             log.info("Test DataInitializer starts");
-            initialDataForTests();
+            //initialDataForTests();
         } else {
             log.info("DataInitializer starts");
             initialDataForProd();
