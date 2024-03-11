@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,17 +26,9 @@ class BaseSchoolService {
         this.mapperFacade = MapperFacade.getInstance();
     }
 
-    List<ShortSchoolDTO> getAllSchools() {
-        //TODO ograniczenie ilości wyświetlanych szkół!
-        List<ShortSchoolDTO> allShortSchool = schoolRepository.findAllShortSchool();
-        log.debug("get all schools. Number of schools:  " + allShortSchool.size());
-        return allShortSchool;
-    }
 
-    //SchoolProjection getSchoolById(Long id) {
     FullSchoolDTO getSchoolById(Long id) {
         log.info("get school by id " + id);
-        //SchoolProjection school = schoolRepository.findByRspo(id);
         Optional<School> optionalSchool = schoolRepository.findByRspo(id);
         if (optionalSchool.isPresent()) {
             School byRspo = optionalSchool.get();
@@ -45,5 +39,20 @@ class BaseSchoolService {
             log.error(exception.getMessage(), exception);
             throw exception;
         }
+    }
+
+    List<ShortSchoolDTO> getAllSchools() {
+        //TODO ograniczenie ilości wyświetlanych szkół!
+        List<ShortSchoolDTO> allShortSchool = schoolRepository.findAllShortSchool();
+        log.debug("get all schools. Number of schools:  " + allShortSchool.size());
+        return allShortSchool;
+    }
+
+    List<ShortSchoolDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){
+        List<School> schoolBySearchRequest = schoolRepository.findSchoolBySearchRequest(request);
+
+        return schoolBySearchRequest.stream()
+                .map(mapperFacade::mapSchoolToShortSchoolDTO)
+                .collect(Collectors.toList());
     }
 }

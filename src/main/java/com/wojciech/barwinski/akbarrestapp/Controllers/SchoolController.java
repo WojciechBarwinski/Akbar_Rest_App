@@ -45,11 +45,9 @@ public class SchoolController {
 
     @PostMapping(consumes = {"application/json"})
     public List<ShortSchoolDTO> getSchoolsBySearchRequest(@RequestBody SchoolSearchRequest searchRequest){
-
-        SchoolSearchRequest request = searchRequest;
-
-        return null;
+        return schoolServiceFacade.getSchoolsBySearchRequest(searchRequest);
     }
+
     @PostMapping(value = "/uploadByCsv", consumes = {"multipart/form-data"})
     public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
 
