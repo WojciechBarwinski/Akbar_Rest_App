@@ -35,7 +35,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIsOursStatus() {
-        String isOurs = "true";
+        Boolean isOurs = true;
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .isOurs(isOurs)
                 .build();
@@ -50,7 +50,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIsNotOursInSpecificVoivodeship() {
-        String isOurs = "false";
+        Boolean isOurs = false;
         String schoolVoivodeshipToSearch = "Warmińsko-Mazurskie";
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .voivodeship(schoolVoivodeshipToSearch)
@@ -66,7 +66,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIsContractedStatus() {
-        String isContracted = "true";
+        Boolean isContracted = true;
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .isContracted(isContracted)
                 .build();
@@ -82,7 +82,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIsNotPhotoStatus() {
-        String isPhoto = "false";
+        Boolean isPhoto = false;
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .isPhoto(isPhoto)
                 .build();
@@ -97,7 +97,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIncorrectIsPhotoStatus() {
-        String isPhoto = "incorrect";
+        Boolean isPhoto = null;
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .isPhoto(isPhoto)
                 .build();
@@ -110,7 +110,7 @@ public class CustomSchoolRepositoryImplWithStatusDataTest {
 
     @Test
     void shouldSearchRequestOnlyByIsSettleStatus() {
-        String isSettle = "true";
+        Boolean isSettle = true;
         SchoolSearchRequest request = SchoolSearchRequest.builder()
                 .isSettle(isSettle)
                 .build();

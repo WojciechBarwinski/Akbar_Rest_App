@@ -112,36 +112,25 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
                                                             CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (isValueCorrect(searchRequest.getIsOurs())) {
-            String isOurs = searchRequest.getIsOurs();
-            if (isOurs.equals("true") || isOurs.equals("false")) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("additionalSchoolInformation").get("status").get("isOurs"), Boolean.valueOf(isOurs)));
-            }
+
+        if (searchRequest.getIsOurs() != null) {
+            predicates.add(criteriaBuilder.equal(
+                    root.get("additionalSchoolInformation").get("status").get("isOurs"), searchRequest.getIsOurs()));
         }
 
-        if (isValueCorrect(searchRequest.getIsContracted())) {
-            String isContracted = searchRequest.getIsContracted();
-            if (isContracted.equals("true") || isContracted.equals("false")) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("additionalSchoolInformation").get("status").get("isContracted"), Boolean.valueOf(isContracted)));
-            }
+        if (searchRequest.getIsContracted() != null) {
+            predicates.add(criteriaBuilder.equal(
+                    root.get("additionalSchoolInformation").get("status").get("isContracted"), searchRequest.getIsContracted()));
         }
 
-        if (isValueCorrect(searchRequest.getIsPhoto())) {
-            String isPhoto = searchRequest.getIsPhoto();
-            if (isPhoto.equals("true") || isPhoto.equals("false")) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("additionalSchoolInformation").get("status").get("isPhoto"), Boolean.valueOf(isPhoto)));
-            }
+        if (searchRequest.getIsPhoto() != null) {
+            predicates.add(criteriaBuilder.equal(
+                    root.get("additionalSchoolInformation").get("status").get("isPhoto"), searchRequest.getIsPhoto()));
         }
 
-        if (isValueCorrect(searchRequest.getIsSettle())) {
-            String isSettle = searchRequest.getIsSettle();
-            if (isSettle.equals("true") || isSettle.equals("false")) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("additionalSchoolInformation").get("status").get("isSettle"), Boolean.valueOf(isSettle)));
-            }
+        if (searchRequest.getIsSettle() != null) {
+            predicates.add(criteriaBuilder.equal(
+                    root.get("additionalSchoolInformation").get("status").get("isSettle"), searchRequest.getIsSettle()));
         }
 
         return predicates;

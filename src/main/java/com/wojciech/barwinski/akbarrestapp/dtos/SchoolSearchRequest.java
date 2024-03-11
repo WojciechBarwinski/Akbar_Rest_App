@@ -21,9 +21,9 @@ public class SchoolSearchRequest {
     private String street;
 
     //Status
-    private String isOurs;
-    private String isContracted;
-    private String isPhoto;
-    private String isSettle;
+    private Boolean isOurs;
+    private Boolean isContracted;
+    private Boolean isPhoto;
+    private Boolean isSettle;
 
 }
