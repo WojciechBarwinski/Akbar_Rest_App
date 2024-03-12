@@ -37,7 +37,6 @@ public class SchoolController {
         return schoolServiceFacade.getAllSchools();
     }
 
-    @Operation(summary = "Get a school by id/rspo", description = "Returns a school as per the id/rspo")
     @GetMapping(value = "/{id}")
     public FullSchoolDTO readSchoolById(@PathVariable Long id) {
         return schoolServiceFacade.getSchoolById(id);
@@ -49,18 +48,26 @@ public class SchoolController {
     }
 
     @PostMapping(value = "/uploadByCsv", consumes = {"multipart/form-data"})
-    public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByCsv(@RequestPart("file") MultipartFile file) {
+    public UploadSchoolResultDTO uploadNewSchoolsByCsv(@RequestPart("file") MultipartFile file) {
 
         checkIfFileIsCsv(file);
         List<SchoolRepresentation> schoolRepresentations = csvCustomReader.getSchoolCsvRepresentationsFromFile(file);
 
-        return ResponseEntity.ok(schoolServiceFacade.uploadSchools(schoolRepresentations));
+        return schoolServiceFacade.uploadSchools(schoolRepresentations);
     }
 
     @PostMapping(value = "/uploadByJson", consumes = {"application/json"})
-    public ResponseEntity<UploadSchoolResultDTO> uploadSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
+    public UploadSchoolResultDTO uploadNewSchoolsByJson(@RequestBody List<JsonSchoolRepresentation> schoolsJsonRepresentations) {
 
-        return ResponseEntity.ok(schoolServiceFacade.uploadSchools(schoolsJsonRepresentations));
+        return schoolServiceFacade.uploadSchools(schoolsJsonRepresentations);
+    }
+
+    @PutMapping("/{id}")
+    public FullSchoolDTO updateSchool(@PathVariable Long id, @RequestBody FullSchoolDTO school){
+
+        FullSchoolDTO school1 = school;
+
+        return null;
     }
 
     private void checkIfFileIsCsv(MultipartFile file) {

@@ -2,6 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -48,7 +49,7 @@ class CustomSchoolRepositoryImplWithMainDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<School> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -63,7 +64,7 @@ class CustomSchoolRepositoryImplWithMainDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<School> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -81,11 +82,11 @@ class CustomSchoolRepositoryImplWithMainDataTest {
                 .build();
         int expectedNumberOfSchools = 1;
 
-        List<School> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
-        assertEquals(schoolPhoneSearch, schoolBySearchRequest.get(0).getPhones().get(0).getNumber());
+        assertEquals(schoolPhoneSearch, schoolBySearchRequest.get(0).getPhone());
     }
 
     @Test
@@ -96,7 +97,7 @@ class CustomSchoolRepositoryImplWithMainDataTest {
                 .build();
         int expectedNumberOfSchools = 1;
 
-        List<School> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -119,12 +120,12 @@ class CustomSchoolRepositoryImplWithMainDataTest {
 
         int expectedNumberOfSchools = 1;
 
-        List<School> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
-        assertEquals(schoolEmailToSearch, schoolBySearchRequest.get(0).getEmail());
-        assertEquals(schoolPhoneSearch, schoolBySearchRequest.get(0).getPhones().get(0).getNumber());
+        //assertEquals(schoolEmailToSearch, schoolBySearchRequest.get(0).ge);
+        assertEquals(schoolPhoneSearch, schoolBySearchRequest.get(0).getPhone());
     }
 
 

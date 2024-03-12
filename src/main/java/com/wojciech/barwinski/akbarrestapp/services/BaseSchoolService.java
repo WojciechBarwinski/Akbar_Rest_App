@@ -49,10 +49,6 @@ class BaseSchoolService {
     }
 
     List<ShortSchoolDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){
-        List<School> schoolBySearchRequest = schoolRepository.findSchoolBySearchRequest(request);
-
-        return schoolBySearchRequest.stream()
-                .map(mapperFacade::mapSchoolToShortSchoolDTO)
-                .collect(Collectors.toList());
+        return schoolRepository.findSchoolBySearchRequest(request);
     }
 }

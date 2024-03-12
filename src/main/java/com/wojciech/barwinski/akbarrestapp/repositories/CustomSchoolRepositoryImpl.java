@@ -2,6 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
+import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import jakarta.persistence.EntityManager;
@@ -22,13 +23,49 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
     }
 
 
-    @Override
+    /*@Override
     public List<School> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<School> criteriaQuery = criteriaBuilder.createQuery(School.class);
 
         Root<School> root = criteriaQuery.from(School.class);
         List<Predicate> predicates = new ArrayList<>();
+
+        predicates.addAll(createPredicatesForMainSchoolData(searchRequest, root, criteriaBuilder));
+        predicates.addAll(createPredicatesForSchoolAddress(searchRequest, root, criteriaBuilder));
+        predicates.addAll(createPredicatesForSchoolStatus(searchRequest, root, criteriaBuilder));
+
+
+        if (predicates.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+        return em.createQuery(criteriaQuery).getResultList();
+    }*/
+
+    @Override
+    public List<ShortSchoolDTO> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ShortSchoolDTO> criteriaQuery = criteriaBuilder.createQuery(ShortSchoolDTO.class);
+
+        Root<School> root = criteriaQuery.from(School.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        Join<School, Phone> phoneJoin = root.join("phones", JoinType.LEFT);
+        Expression<Integer> maxPhoneExpression = criteriaBuilder.max(phoneJoin.get("number"));
+
+        criteriaQuery.multiselect(
+                root.get("rspo"),
+                root.get("name"),
+                root.get("address").get("voivodeship"),
+                root.get("address").get("county"),
+                root.get("address").get("borough"),
+                root.get("address").get("city"),
+                root.get("address").get("street"),
+                maxPhoneExpression
+        );
+        criteriaQuery.groupBy(root.get("id"));
 
         predicates.addAll(createPredicatesForMainSchoolData(searchRequest, root, criteriaBuilder));
         predicates.addAll(createPredicatesForSchoolAddress(searchRequest, root, criteriaBuilder));
@@ -136,11 +173,23 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
         return predicates;
     }
 
+/*    private Predicate createPhonePredicate(CriteriaBuilder criteriaBuilder,
+                                           Root<School> root,
+                                           String phoneNumber) {
+        Join<School, Phone> phoneJoin = root.join("phones", JoinType.LEFT);
+        return criteriaBuilder.equal(phoneJoin.get("number"), phoneNumber);
+    }*/
+
     private Predicate createPhonePredicate(CriteriaBuilder criteriaBuilder,
                                            Root<School> root,
                                            String phoneNumber) {
-        Join<School, Phone> phoneJoin = root.join("phones", JoinType.INNER);
-        return criteriaBuilder.equal(phoneJoin.get("number"), phoneNumber);
+        Subquery<School> subQuery = criteriaBuilder.createQuery().subquery(School.class);
+        Root<School> subRoot = subQuery.correlate(root);
+        Join<School, Phone> phoneJoin = subRoot.join("phones", JoinType.INNER);
+        subQuery.select(subRoot);
+        subQuery.where(criteriaBuilder.equal(phoneJoin.get("number"), phoneNumber));
+
+        return criteriaBuilder.exists(subQuery);
     }
 
     private boolean isValueCorrect(String searchRequest) {
