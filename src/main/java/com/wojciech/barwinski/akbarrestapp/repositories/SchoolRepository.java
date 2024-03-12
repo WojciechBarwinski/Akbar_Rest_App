@@ -26,7 +26,7 @@ public interface SchoolRepository extends JpaRepository<School, Long>, CustomSch
             "ph.number AS phone) " +
             "FROM School s " +
             "LEFT JOIN s.phones ph " +
-            "WHERE ph.number = (SELECT MIN(p.number) FROM s.phones p) OR ph.number IS NULL")
+            "WHERE ph.isMain = true OR ph.number IS NULL")
     List<ShortSchoolDTO> findAllShortSchool();
 
 }

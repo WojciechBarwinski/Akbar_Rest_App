@@ -19,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,6 @@ class CustomSchoolRepositoryImplWithMainDataTest {
     }
 
 
-
     private List<School> schoolsToTest() {
         List<School> schools = new ArrayList<>();
         School school1 = new School(1L, "High School", "Central High School", "info@centralhigh.edu", "www.centralhigh.edu", "Public",
@@ -142,12 +140,13 @@ class CustomSchoolRepositoryImplWithMainDataTest {
                 new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
+                .isMain(true)
                 .number("123456789")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")

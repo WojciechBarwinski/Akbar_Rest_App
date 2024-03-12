@@ -41,12 +41,13 @@ class FullSchoolDTOMapperTest {
                 new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("123456789")
+                        .isMain(true)
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")
@@ -79,8 +80,8 @@ class FullSchoolDTOMapperTest {
         schoolDTO.setCity("Olsztyn");
         schoolDTO.setStreet("Słoneczna 15");
 
-        PhoneDTO workPhone = new PhoneDTO("Work phone", "John Doe", "Work phone");
-        PhoneDTO personalPhone = new PhoneDTO("Personal phone", "Jane Doe", "Personal phone");
+        PhoneDTO workPhone = new PhoneDTO("Work phone", true, "John Doe", "Work phone");
+        PhoneDTO personalPhone = new PhoneDTO("Personal phone", false, "Jane Doe", "Personal phone");
 
         schoolDTO.setPhones(List.of(workPhone, personalPhone));
 

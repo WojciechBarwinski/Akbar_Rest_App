@@ -58,12 +58,13 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
                 new Address(Voivodeship.LUBELSKIE, "Lublin County", "Lublin", "Lublin", "Lipowa 5", "20-002"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
+                .isMain(true)
                 .number("123456789")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")

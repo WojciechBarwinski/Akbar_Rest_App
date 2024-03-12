@@ -52,12 +52,12 @@ class ShortSchoolDTOMapperTest {
                 new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("123456789")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")

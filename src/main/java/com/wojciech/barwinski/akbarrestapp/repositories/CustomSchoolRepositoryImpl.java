@@ -23,27 +23,6 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
     }
 
 
-    /*@Override
-    public List<School> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<School> criteriaQuery = criteriaBuilder.createQuery(School.class);
-
-        Root<School> root = criteriaQuery.from(School.class);
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.addAll(createPredicatesForMainSchoolData(searchRequest, root, criteriaBuilder));
-        predicates.addAll(createPredicatesForSchoolAddress(searchRequest, root, criteriaBuilder));
-        predicates.addAll(createPredicatesForSchoolStatus(searchRequest, root, criteriaBuilder));
-
-
-        if (predicates.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        criteriaQuery.where(predicates.toArray(new Predicate[0]));
-        return em.createQuery(criteriaQuery).getResultList();
-    }*/
-
     @Override
     public List<ShortSchoolDTO> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -53,7 +32,12 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
         List<Predicate> predicates = new ArrayList<>();
 
         Join<School, Phone> phoneJoin = root.join("phones", JoinType.LEFT);
-        Expression<Integer> maxPhoneExpression = criteriaBuilder.max(phoneJoin.get("number"));
+
+
+        Predicate mainPhonePredicate = criteriaBuilder.isTrue(phoneJoin.get("isMain"));
+        Predicate nullPhonePredicate = criteriaBuilder.isNull(phoneJoin.get("number"));
+        Predicate phoneIsMainOrIsNull = criteriaBuilder.or(mainPhonePredicate, nullPhonePredicate);
+
 
         criteriaQuery.multiselect(
                 root.get("rspo"),
@@ -63,19 +47,18 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
                 root.get("address").get("borough"),
                 root.get("address").get("city"),
                 root.get("address").get("street"),
-                maxPhoneExpression
+                phoneJoin.get("number")
         );
-        criteriaQuery.groupBy(root.get("id"));
 
         predicates.addAll(createPredicatesForMainSchoolData(searchRequest, root, criteriaBuilder));
         predicates.addAll(createPredicatesForSchoolAddress(searchRequest, root, criteriaBuilder));
         predicates.addAll(createPredicatesForSchoolStatus(searchRequest, root, criteriaBuilder));
 
-
         if (predicates.isEmpty()) {
             return Collections.emptyList();
         }
 
+        predicates.add(phoneIsMainOrIsNull);
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
         return em.createQuery(criteriaQuery).getResultList();
     }
@@ -172,13 +155,6 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
 
         return predicates;
     }
-
-/*    private Predicate createPhonePredicate(CriteriaBuilder criteriaBuilder,
-                                           Root<School> root,
-                                           String phoneNumber) {
-        Join<School, Phone> phoneJoin = root.join("phones", JoinType.LEFT);
-        return criteriaBuilder.equal(phoneJoin.get("number"), phoneNumber);
-    }*/
 
     private Predicate createPhonePredicate(CriteriaBuilder criteriaBuilder,
                                            Root<School> root,

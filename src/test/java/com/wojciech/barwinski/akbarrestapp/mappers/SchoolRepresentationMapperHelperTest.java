@@ -31,31 +31,6 @@ class SchoolRepresentationMapperHelperTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {" ", ""})
-    void shouldCheckMappingForEmptyStrings(String phoneNumberToTest) {
-
-        String phoneNote = "brak numeru szkoły z bazy danych ministerstwa";
-
-        Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
-
-        assertEquals(phone.getPhoneNote(), phoneNote);
-        assertNull(phone.getOwner());
-        assertNull(phone.getNumber());
-    }
-
-    @Test
-    void shouldCheckMappingForNull() {
-        String phoneNumberToTest = null;
-        String phoneNote = "brak numeru szkoły z bazy danych ministerstwa";
-
-        Phone phone = SchoolRepresentationMapperHelper.mapStringToPhone(phoneNumberToTest);
-
-        assertEquals(phone.getPhoneNote(), phoneNote);
-        assertNull(phone.getOwner());
-        assertNull(phone.getNumber());
-    }
-
-    @ParameterizedTest
     @ValueSource(strings = {"Lubelskie", "  Pomorskie  ", "Łódzkie."})
     void shouldCheckMappingCorrectVoivodeship(String voivodeshipToTest) {
         List<Voivodeship> voivodeshipsList = Arrays.asList(Voivodeship.values());

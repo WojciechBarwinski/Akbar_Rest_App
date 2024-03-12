@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class PhoneDTO {
 
     private String phone;
+    private boolean isMain;
     private String owner;
     private String phoneNote;
 }

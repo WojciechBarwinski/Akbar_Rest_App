@@ -54,12 +54,12 @@ class PhoneRepositoryTest {
         School school = schoolRepository.save(new School(schoolRspo, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"));
 
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("970018363")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("246667788")
                 .owner("JJane Doe")
                 .phoneNote("Personal phone")

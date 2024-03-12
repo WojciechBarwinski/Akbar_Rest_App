@@ -10,13 +10,9 @@ class SchoolRepresentationMapperHelper {
     static Phone mapStringToPhone(String phone) {
         log.trace("     Mapping phone " + phone);
 
-        if (phone == null || phone.trim().isEmpty()) {
-            return new Phone.PhoneBuilder()
-                    .phoneNote("brak numeru szkoły z bazy danych ministerstwa")
-                    .build();
-        }
-        return new Phone.PhoneBuilder()
+        return Phone.builder()
                 .number(phone.trim())
+                .isMain(true)
                 .owner("Główny numer szkoły")
                 .build();
     }

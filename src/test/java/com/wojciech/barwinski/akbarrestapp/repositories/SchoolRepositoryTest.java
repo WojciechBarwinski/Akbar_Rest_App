@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
@@ -36,7 +35,7 @@ class SchoolRepositoryTest {
     Environment env;
 
     @BeforeAll
-    void createDataForTests(){
+    void createDataForTests() {
         schoolRepository.saveAll(schoolsToTest());
     }
 
@@ -65,12 +64,12 @@ class SchoolRepositoryTest {
         School school = schoolRepository.findByRspo(11111L)
                 .orElseThrow();
         List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("123456789")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(new Phone.PhoneBuilder()
+        phoneList.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")
