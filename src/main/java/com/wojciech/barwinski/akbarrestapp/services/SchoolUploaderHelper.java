@@ -5,7 +5,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.exception.SchoolException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromSchoolImportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ class SchoolUploaderHelper {
 
 
     List<School> prepareSchoolToSave(List<SchoolRepresentation> schoolsToImport,
-                                     List<ValidationReportFromSchoolImportDTO> validateReports) {
+                                     List<ValidationReportFromImportingSchool> validateReports) {
 
         checkThatBothListsHaveTheSameSize(schoolsToImport, validateReports);
 
@@ -33,7 +33,7 @@ class SchoolUploaderHelper {
     }
 
     private List<SchoolRepresentation> getCorrectSchoolsRepresentations(List<SchoolRepresentation> schoolsToImport,
-                                                                        List<ValidationReportFromSchoolImportDTO> validateReports) {
+                                                                        List<ValidationReportFromImportingSchool> validateReports) {
         log.debug("create list of correct schools base on validation report");
         List<SchoolRepresentation> listOfCorrectSchoolsRepresentation = new ArrayList<>();
 
@@ -47,7 +47,7 @@ class SchoolUploaderHelper {
     }
 
     private void checkThatBothListsHaveTheSameSize(List<SchoolRepresentation> schoolsToImport,
-                                                   List<ValidationReportFromSchoolImportDTO> validateReports) {
+                                                   List<ValidationReportFromImportingSchool> validateReports) {
 
         if (schoolsToImport.size() != validateReports.size()) {
             SchoolException exception = new SchoolException("SchoolsToImport and ValidateReport have diffrent size. Something is wrong");
@@ -56,7 +56,7 @@ class SchoolUploaderHelper {
         }
     }
 
-    private boolean checkIfSchoolCanBeSave(ValidationReportFromSchoolImportDTO report, SchoolRepresentation school) {
+    private boolean checkIfSchoolCanBeSave(ValidationReportFromImportingSchool report, SchoolRepresentation school) {
         return (report.getStatus() != ValidationStatus.ERROR) && (report.getRspo().equals(school.getRspo()));
     }
 }

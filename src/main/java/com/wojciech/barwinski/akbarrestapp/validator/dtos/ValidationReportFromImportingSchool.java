@@ -8,14 +8,14 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ValidationReportFromSchoolImportDTO {
+public class ValidationReportFromImportingSchool {
 
     private ValidationStatus status;
     private String rspo;
     private int indexInCsv;
     private List<FieldReportDTO> fieldsReports;
 
-    public ValidationReportFromSchoolImportDTO(int indexInCsv, String rspo) {
+    public ValidationReportFromImportingSchool(int indexInCsv, String rspo) {
         this.rspo = rspo;
         this.indexInCsv = indexInCsv;
     }

@@ -14,10 +14,12 @@ public class SchoolServiceFacade {
 
     private final BaseSchoolService baseSchoolService;
     private final SchoolUploaderService schoolUploader;
+    private final SchoolUpdaterService schoolUpdater;
 
-    public SchoolServiceFacade(BaseSchoolService baseSchoolService, SchoolUploaderService schoolUploader) {
+    public SchoolServiceFacade(BaseSchoolService baseSchoolService, SchoolUploaderService schoolUploader, SchoolUpdaterService schoolUpdater) {
         this.baseSchoolService = baseSchoolService;
         this.schoolUploader = schoolUploader;
+        this.schoolUpdater = schoolUpdater;
     }
 
 
@@ -35,5 +37,9 @@ public class SchoolServiceFacade {
 
     public UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {
         return schoolUploader.uploadSchools(schoolsToImport);
+    }
+
+    public FullSchoolDTO updateSchool(FullSchoolDTO fullSchoolDTO){
+        return schoolUpdater.updateSchool(fullSchoolDTO);
     }
 }

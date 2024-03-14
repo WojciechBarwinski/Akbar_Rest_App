@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UploadSchoolResultDTO {
 
-    private List<ValidationReportFromSchoolImportDTO> schoolValidateReports;
+    private List<ValidationReportFromImportingSchool> schoolValidateReports;
     private List<ShortSchoolDTO> shortSchoolDTOS;
 
 }

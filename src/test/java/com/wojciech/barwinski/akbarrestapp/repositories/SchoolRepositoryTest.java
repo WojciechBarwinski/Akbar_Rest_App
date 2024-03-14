@@ -3,6 +3,7 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,9 +28,6 @@ class SchoolRepositoryTest {
 
     @Autowired
     private SchoolRepository schoolRepository;
-
-    @Autowired
-    private PhoneRepository phoneRepository;
 
     @Autowired
     Environment env;
@@ -66,6 +64,7 @@ class SchoolRepositoryTest {
         List<Phone> phoneList = new ArrayList<>();
         phoneList.add(Phone.builder()
                 .number("123456789")
+                .isMain(true)
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
@@ -81,7 +80,7 @@ class SchoolRepositoryTest {
         schoolRepository.saveAndFlush(school);
 
         log.info("finding phones");
-        List<Phone> phones = phoneRepository.findAll();
+        List<Phone> phones = schoolRepository.findByRspo(11111L).get().getPhones();
 
         assertAll("phones",
                 () -> assertEquals(2, phones.size(), "Expected size is 2"),

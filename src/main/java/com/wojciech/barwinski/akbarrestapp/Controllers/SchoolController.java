@@ -6,6 +6,7 @@ import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.Sc
 import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolServiceFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
@@ -64,10 +65,9 @@ public class SchoolController {
 
     @PutMapping("/{id}")
     public FullSchoolDTO updateSchool(@PathVariable Long id, @RequestBody FullSchoolDTO school){
+        checkIfIdAndRSPOAreTheSame(id, school.getRspo());
 
-        FullSchoolDTO school1 = school;
-
-        return null;
+        return schoolServiceFacade.updateSchool(school);
     }
 
     private void checkIfFileIsCsv(MultipartFile file) {
@@ -76,6 +76,14 @@ public class SchoolController {
             WrongFileTypeException fileIsNotCsvFile = new WrongFileTypeException("Przesłany plik nie jest plikiem .csv");
             log.warn(fileIsNotCsvFile.getMessage(), fileIsNotCsvFile);
             throw fileIsNotCsvFile;
+        }
+    }
+
+    private void checkIfIdAndRSPOAreTheSame(Long id, Long rspo){
+        if (!id.equals(rspo)){
+            IdMismatchException exception = new IdMismatchException("id i rspo są różne!");
+            log.warn(exception.getMessage(), exception);
+            throw exception;
         }
     }
 }

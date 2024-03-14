@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PhoneDTO {
 
+    private Long id;
+    private boolean isToRemove;
     private String phone;
     private boolean isMain;
     private String owner;

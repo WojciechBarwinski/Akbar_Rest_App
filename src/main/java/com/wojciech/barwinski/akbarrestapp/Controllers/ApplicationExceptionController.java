@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 
+import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
 import com.wojciech.barwinski.akbarrestapp.exception.InvalidCsvDataException;
 import com.wojciech.barwinski.akbarrestapp.exception.ReaderException;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
@@ -32,4 +33,9 @@ public class ApplicationExceptionController {
         return e.getMessage();
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
+    @ExceptionHandler(IdMismatchException.class)
+    public String idAndRspoMismatch(IdMismatchException e) {
+        return e.getMessage();
+    }
 }

@@ -13,10 +13,10 @@ import java.time.LocalDate;
 public class AdditionalSchoolInformationDTO {
 
     //Status
-    private boolean isOurs;
-    private boolean isContracted;
-    private boolean isPhoto;
-    private boolean isSettle;
+    private Boolean isOurs;
+    private Boolean isContracted;
+    private Boolean isPhoto;
+    private Boolean isSettle;
     private String statusNote;
     //Schedule
     private LocalDate contact;

@@ -4,10 +4,10 @@ import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.Sc
 import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
-import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
+import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
 import com.wojciech.barwinski.akbarrestapp.validator.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromSchoolImportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ class SchoolUploaderService {
     UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {
 
         List<SchoolRepresentation> schools = (List<SchoolRepresentation>) schoolsToImport;
-        List<ValidationReportFromSchoolImportDTO> validateReports = schoolRepresentationValidator.schoolsValidate(schools);
+        List<ValidationReportFromImportingSchool> validateReports = schoolRepresentationValidator.schoolsValidate(schools);
 
         List<School> schoolsToSave = schoolUploaderHelper.prepareSchoolToSave(schools, validateReports);
 

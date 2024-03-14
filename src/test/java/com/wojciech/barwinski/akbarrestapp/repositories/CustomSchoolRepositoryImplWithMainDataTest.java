@@ -10,6 +10,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notation;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
+import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

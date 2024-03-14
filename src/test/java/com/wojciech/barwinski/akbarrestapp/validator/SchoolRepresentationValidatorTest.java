@@ -2,7 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.validator;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.CsvSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromSchoolImportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ class SchoolRepresentationValidatorTest {
         List<SchoolRepresentation> schools = createValidSchoolForTests();
         int expectedNumberOfReports = 3;
 
-        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
+        List<ValidationReportFromImportingSchool> resultOfValidation = validator.schoolsValidate(schools);
 
         assertEquals(resultOfValidation.size(), expectedNumberOfReports);
         resultOfValidation.forEach(report -> {
@@ -35,7 +35,7 @@ class SchoolRepresentationValidatorTest {
         String rspoThatShouldReturnWarning = "10";
         schools.get(0).setRspo(rspoThatShouldReturnWarning);
 
-        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
+        List<ValidationReportFromImportingSchool> resultOfValidation = validator.schoolsValidate(schools);
 
         assertTrue(resultOfValidation.stream()
                         .anyMatch(report -> report.getStatus() == ValidationStatus.WARNING),
@@ -48,7 +48,7 @@ class SchoolRepresentationValidatorTest {
         String rspoThatShouldReturnError = " ";
         schools.get(0).setRspo(rspoThatShouldReturnError);
 
-        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(schools);
+        List<ValidationReportFromImportingSchool> resultOfValidation = validator.schoolsValidate(schools);
 
         assertTrue(resultOfValidation.stream()
                         .anyMatch(report -> report.getStatus() == ValidationStatus.ERROR),
@@ -60,7 +60,7 @@ class SchoolRepresentationValidatorTest {
         List<SchoolRepresentation> emptySchools = new ArrayList<>();
         int expectedNumberOfReports = 0;
 
-        List<ValidationReportFromSchoolImportDTO> resultOfValidation = validator.schoolsValidate(emptySchools);
+        List<ValidationReportFromImportingSchool> resultOfValidation = validator.schoolsValidate(emptySchools);
 
         assertEquals(resultOfValidation.size(), expectedNumberOfReports);
     }

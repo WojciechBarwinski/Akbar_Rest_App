@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.repositories;
+package com.wojciech.barwinski.akbarrestapp.mappers.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
