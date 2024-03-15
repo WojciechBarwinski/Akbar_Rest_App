@@ -1,10 +1,10 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
-import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
+import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import com.wojciech.barwinski.akbarrestapp.validator.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
@@ -44,10 +44,10 @@ class SchoolUploaderService {
 
 
         List<School> schoolList = schoolRepository.saveAll(schoolsToSave);
-        List<ShortSchoolDTO> shortSchoolDTOS = schoolList.stream().map(mapperFacade::mapSchoolToShortSchoolDTO)
+        List<SchoolToRosterDTO> schoolToRosterDTOS = schoolList.stream().map(mapperFacade::mapSchoolToSchoolToRosterDTO)
                 .toList();
 
 
-        return new UploadSchoolResultDTO(validateReports, shortSchoolDTOS);
+        return new UploadSchoolResultDTO(validateReports, schoolToRosterDTOS);
     }
 }

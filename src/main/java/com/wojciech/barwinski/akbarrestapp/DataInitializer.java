@@ -7,7 +7,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notation;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
-import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
+import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

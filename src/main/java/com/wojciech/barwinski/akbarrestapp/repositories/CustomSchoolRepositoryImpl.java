@@ -1,8 +1,8 @@
-package com.wojciech.barwinski.akbarrestapp.mappers.repositories;
+package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import jakarta.persistence.EntityManager;
@@ -24,9 +24,9 @@ public class CustomSchoolRepositoryImpl implements CustomSchoolRepository {
 
 
     @Override
-    public List<ShortSchoolDTO> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
+    public List<SchoolToRosterDTO> findSchoolBySearchRequest(SchoolSearchRequest searchRequest) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<ShortSchoolDTO> criteriaQuery = criteriaBuilder.createQuery(ShortSchoolDTO.class);
+        CriteriaQuery<SchoolToRosterDTO> criteriaQuery = criteriaBuilder.createQuery(SchoolToRosterDTO.class);
 
         Root<School> root = criteriaQuery.from(School.class);
         List<Predicate> predicates = new ArrayList<>();

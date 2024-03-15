@@ -3,10 +3,9 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -57,7 +56,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 0;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
     }
@@ -70,7 +69,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -85,7 +84,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 1;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Washington Middle School", schoolBySearchRequest.get(0).getName());
@@ -99,7 +98,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -114,7 +113,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 2;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());
@@ -129,7 +128,7 @@ public class CustomSchoolRepositoryImplWithAddressDataTest {
                 .build();
         int expectedNumberOfSchools = 1;
 
-        List<ShortSchoolDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
+        List<SchoolToRosterDTO> schoolBySearchRequest = repository.findSchoolBySearchRequest(request);
 
         assertEquals(expectedNumberOfSchools, schoolBySearchRequest.size());
         assertEquals("Central High School", schoolBySearchRequest.get(0).getName());

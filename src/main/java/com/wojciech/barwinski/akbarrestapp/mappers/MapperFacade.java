@@ -2,8 +2,9 @@ package com.wojciech.barwinski.akbarrestapp.mappers;
 
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToUpdateDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -12,15 +13,15 @@ import org.modelmapper.ModelMapper;
 public class MapperFacade {
 
     private static MapperFacade INSTANCE;
-    private final FullSchoolDTOMapper fullSchoolDTOMapper;
-    private final ShortSchoolDTOMapper shortSchoolDTOMapper;
+    private final SchoolToRosterMapper schoolToRosterMapper;
+    private final SchoolToViewAndToUpdateMapper schoolToViewAndToUpdateMapper;
     private final SchoolRepresentationMapper csvSchoolMapper;
 
     private MapperFacade() {
         log.trace("MapperFacade create");
         ModelMapper modelMapper = new ModelMapper();
-        fullSchoolDTOMapper = new FullSchoolDTOMapper(modelMapper);
-        shortSchoolDTOMapper = new ShortSchoolDTOMapper(modelMapper);
+        schoolToRosterMapper = new SchoolToRosterMapper(modelMapper);
+        schoolToViewAndToUpdateMapper = new SchoolToViewAndToUpdateMapper(modelMapper);
         csvSchoolMapper = new SchoolRepresentationMapper(modelMapper);
     }
 
@@ -36,12 +37,15 @@ public class MapperFacade {
         return INSTANCE;
     }
 
-    public FullSchoolDTO mapSchoolToFullSchoolDTO(School school) {
-        return fullSchoolDTOMapper.mapSchoolToFullSchoolDTO(school);
+    public SchoolToViewDTO mapSchoolToSchoolToViewDTO(School school) {
+        return schoolToViewAndToUpdateMapper.mapSchoolToSchoolToViewDTO(school);
     }
 
-    public ShortSchoolDTO mapSchoolToShortSchoolDTO(School school) {
-        return shortSchoolDTOMapper.mapSchoolToShortSchoolDTO(school);
+    public SchoolToUpdateDTO mapSchoolToSchoolToUpdateDTO(School school){
+        return schoolToViewAndToUpdateMapper.mapSchoolToSchoolToUpdateDTO(school);
+    }
+    public SchoolToRosterDTO mapSchoolToSchoolToRosterDTO(School school) {
+        return schoolToRosterMapper.mapSchoolToSchoolToRosterDTO(school);
     }
 
     public School mapSchoolRepresentationToSchool(SchoolRepresentation representation) {

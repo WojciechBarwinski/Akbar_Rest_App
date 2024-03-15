@@ -3,7 +3,6 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.mappers.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

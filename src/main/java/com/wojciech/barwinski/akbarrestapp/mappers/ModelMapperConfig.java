@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,9 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setFieldMatchingEnabled(false);
 
-        modelMapper.createTypeMap(Phone.class, ShortSchoolDTO.class)
+        modelMapper.createTypeMap(Phone.class, SchoolToRosterDTO.class)
                 .addMappings(mapper -> {
-                    mapper.map(Phone::getNumber, ShortSchoolDTO::setPhone);
+                    mapper.map(Phone::getNumber, SchoolToRosterDTO::setPhone);
                 });
 
         return modelMapper;

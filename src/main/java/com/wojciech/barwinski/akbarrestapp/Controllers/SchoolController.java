@@ -3,17 +3,16 @@ package com.wojciech.barwinski.akbarrestapp.Controllers;
 import com.wojciech.barwinski.akbarrestapp.customReader.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.JsonSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToUpdateDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolServiceFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,17 +33,17 @@ public class SchoolController {
     }
 
     @GetMapping(value = "/all")
-    public List<ShortSchoolDTO> readAllSchools() {
+    public List<SchoolToRosterDTO> readAllSchools() {
         return schoolServiceFacade.getAllSchools();
     }
 
     @GetMapping(value = "/{id}")
-    public FullSchoolDTO readSchoolById(@PathVariable Long id) {
+    public SchoolToViewDTO readSchoolById(@PathVariable Long id) {
         return schoolServiceFacade.getSchoolById(id);
     }
 
     @PostMapping(consumes = {"application/json"})
-    public List<ShortSchoolDTO> getSchoolsBySearchRequest(@RequestBody SchoolSearchRequest searchRequest){
+    public List<SchoolToRosterDTO> getSchoolsBySearchRequest(@RequestBody SchoolSearchRequest searchRequest){
         return schoolServiceFacade.getSchoolsBySearchRequest(searchRequest);
     }
 
@@ -63,8 +62,14 @@ public class SchoolController {
         return schoolServiceFacade.uploadSchools(schoolsJsonRepresentations);
     }
 
-    @PutMapping("/{id}")
-    public FullSchoolDTO updateSchool(@PathVariable Long id, @RequestBody FullSchoolDTO school){
+    @GetMapping(value = "update/{id}")
+    public SchoolToUpdateDTO getSchoolToUpdateById(@PathVariable Long id) {
+        return schoolServiceFacade.getSchoolToUpdateDTO(id);
+    }
+
+
+    @PutMapping("update/{id}")
+    public SchoolToViewDTO updateSchool(@PathVariable Long id, @RequestBody SchoolToUpdateDTO school){
         checkIfIdAndRSPOAreTheSame(id, school.getRspo());
 
         return schoolServiceFacade.updateSchool(school);

@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.validator.dtos;
 
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,6 @@ import java.util.List;
 public class UploadSchoolResultDTO {
 
     private List<ValidationReportFromImportingSchool> schoolValidateReports;
-    private List<ShortSchoolDTO> shortSchoolDTOS;
+    private List<SchoolToRosterDTO> schoolToRosterDTOS;
 
 }

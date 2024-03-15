@@ -2,35 +2,30 @@ package com.wojciech.barwinski.akbarrestapp.mappers;
 
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notation;
-import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
-import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ShortSchoolDTOMapperTest {
+class SchoolToRosterDTOMapperTest {
 
     //TODO test dla mapowania obiektu z oraz bez numeru telefonu, oraz sprawdzenie mapowania
 
-    private final ShortSchoolDTOMapper mapper = new ShortSchoolDTOMapper(new ModelMapper());
+    private final SchoolToRosterMapper mapper = new SchoolToRosterMapper(new ModelMapper());
 
     @Test
     void shouldMapSchoolToShortSchoolDTOWithPhoneNumberAndAddress() {
         School schoolToMapping = getSchoolToMapping();
-        ShortSchoolDTO expectedMapResult = getShortSchoolDTO();
+        SchoolToRosterDTO expectedMapResult = getShortSchoolDTO();
 
-        ShortSchoolDTO mapResult = mapper.mapSchoolToShortSchoolDTO(schoolToMapping);
+        SchoolToRosterDTO mapResult = mapper.mapSchoolToSchoolToRosterDTO(schoolToMapping);
 
         assertEquals(expectedMapResult, mapResult);
     }
@@ -41,7 +36,7 @@ class ShortSchoolDTOMapperTest {
 
         String expectedPhone = "";
 
-        ShortSchoolDTO mapResult = mapper.mapSchoolToShortSchoolDTO(schoolToMapping);
+        SchoolToRosterDTO mapResult = mapper.mapSchoolToSchoolToRosterDTO(schoolToMapping);
 
         assertEquals(expectedPhone, mapResult.getPhone());
     }
@@ -85,8 +80,8 @@ class ShortSchoolDTOMapperTest {
                 new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
     }
 
-    private ShortSchoolDTO getShortSchoolDTO() {
-        ShortSchoolDTO schoolDTO = new ShortSchoolDTO();
+    private SchoolToRosterDTO getShortSchoolDTO() {
+        SchoolToRosterDTO schoolDTO = new SchoolToRosterDTO();
         schoolDTO.setRspo(1234L);
         schoolDTO.setName("Central High School");
         schoolDTO.setVoivodeship(Voivodeship.WARMINSKO_MAZURSKIE);

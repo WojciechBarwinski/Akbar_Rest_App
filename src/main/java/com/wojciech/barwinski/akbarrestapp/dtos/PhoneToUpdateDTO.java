@@ -1,6 +1,5 @@
 package com.wojciech.barwinski.akbarrestapp.dtos;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneDTO {
+public class PhoneToUpdateDTO {
 
     private Long id;
     private boolean isToRemove;
-    private String phone;
+    private String number;
     private boolean isMain;
     private String owner;
     private String phoneNote;
+
 }

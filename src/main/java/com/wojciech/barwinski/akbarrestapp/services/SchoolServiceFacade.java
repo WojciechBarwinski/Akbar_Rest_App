@@ -1,9 +1,10 @@
 package com.wojciech.barwinski.akbarrestapp.services;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToUpdateDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
-import com.wojciech.barwinski.akbarrestapp.dtos.ShortSchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +24,27 @@ public class SchoolServiceFacade {
     }
 
 
-    public List<ShortSchoolDTO> getAllSchools() {
+    public List<SchoolToRosterDTO> getAllSchools() {
         return baseSchoolService.getAllSchools();
     }
 
-    public List<ShortSchoolDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){
+    public List<SchoolToRosterDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){
         return baseSchoolService.getSchoolsBySearchRequest(request);
     }
 
-    public FullSchoolDTO getSchoolById(Long id) {
+    public SchoolToViewDTO getSchoolById(Long id) {
         return baseSchoolService.getSchoolById(id);
+    }
+
+    public SchoolToUpdateDTO getSchoolToUpdateDTO(Long id){
+        return baseSchoolService.getSchoolToUpdateById(id);
     }
 
     public UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {
         return schoolUploader.uploadSchools(schoolsToImport);
     }
 
-    public FullSchoolDTO updateSchool(FullSchoolDTO fullSchoolDTO){
-        return schoolUpdater.updateSchool(fullSchoolDTO);
+    public SchoolToViewDTO updateSchool(SchoolToUpdateDTO schoolToUpdateDTO){
+        return schoolUpdater.updateSchool(schoolToUpdateDTO);
     }
 }

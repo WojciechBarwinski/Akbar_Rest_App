@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.validator;
 
-import com.wojciech.barwinski.akbarrestapp.dtos.PhoneDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.PhoneToUpdateDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.PhoneToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
 
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class PhoneToUpdateValidator {
 
-    static List<FieldReportDTO> validatePhones(List<PhoneDTO> phones) {
+    static List<FieldReportDTO> validatePhones(List<PhoneToUpdateDTO> phones) {
         List<FieldReportDTO> reportFields = new ArrayList<>();
 
-        for (PhoneDTO phone : phones) {
+        for (PhoneToUpdateDTO phone : phones) {
             if (phone.isToRemove()) {
                 continue;
             }
@@ -28,11 +29,11 @@ public class PhoneToUpdateValidator {
         return reportFields;
     }
 
-    static private FieldReportDTO checkIfThereIsOnlyOneMainPhone(List<PhoneDTO> phones) {
+    static private FieldReportDTO checkIfThereIsOnlyOneMainPhone(List<PhoneToUpdateDTO> phones) {
         FieldReportDTO fieldReport = new FieldReportDTO("Phones");
 
         long numberOfMainPhone = phones.stream()
-                .filter(PhoneDTO::isMain)
+                .filter(PhoneToUpdateDTO::isMain)
                 .count();
 
         if (numberOfMainPhone != 1) {
@@ -45,8 +46,8 @@ public class PhoneToUpdateValidator {
         return fieldReport;
     }
 
-    static private boolean checkCorrectPhoneData(PhoneDTO phone) {
-        return (phone.getPhone() != null && phone.getPhone().isEmpty()) ||
+    static private boolean checkCorrectPhoneData(PhoneToUpdateDTO phone) {
+        return (phone.getNumber() != null && phone.getNumber().isEmpty()) ||
                 (phone.getOwner() != null && phone.getOwner().isEmpty()) ||
                 (phone.getPhoneNote() != null && phone.getPhoneNote().isEmpty());
 

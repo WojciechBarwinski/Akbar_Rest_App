@@ -2,8 +2,8 @@ package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
 import com.wojciech.barwinski.akbarrestapp.dtos.AdditionalSchoolInformationDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.FullSchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.dtos.PhoneDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
+import com.wojciech.barwinski.akbarrestapp.dtos.PhoneToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -20,16 +20,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullSchoolDTOMapperTest {
+class SchoolToViewDTOMapperTest {
 
-    private final FullSchoolDTOMapper mapper = new FullSchoolDTOMapper(new ModelMapper());
+    private final SchoolToViewAndToUpdateMapper mapper = new SchoolToViewAndToUpdateMapper(new ModelMapper());
 
     @Test
     void shouldMapSchoolToFullSchoolDTO() {
         School schoolToMapping = getSchoolToMapping();
-        FullSchoolDTO expectedMapResult = getFullSchoolDTO();
+        SchoolToViewDTO expectedMapResult = getFullSchoolDTO();
 
-        FullSchoolDTO mapResult = mapper.mapSchoolToFullSchoolDTO(schoolToMapping);
+        SchoolToViewDTO mapResult = mapper.mapSchoolToSchoolToViewDTO(schoolToMapping);
 
         assertEquals(expectedMapResult, mapResult);
     }
@@ -70,8 +70,8 @@ class FullSchoolDTOMapperTest {
         return school;
     }
 
-    private FullSchoolDTO getFullSchoolDTO(){
-        FullSchoolDTO schoolDTO = new FullSchoolDTO();
+    private SchoolToViewDTO getFullSchoolDTO(){
+        SchoolToViewDTO schoolDTO = new SchoolToViewDTO();
         schoolDTO.setRspo(1234L);
         schoolDTO.setName("Central High School");
         schoolDTO.setVoivodeship(Voivodeship.WARMINSKO_MAZURSKIE);
@@ -80,8 +80,8 @@ class FullSchoolDTOMapperTest {
         schoolDTO.setCity("Olsztyn");
         schoolDTO.setStreet("Słoneczna 15");
 
-        PhoneDTO workPhone = new PhoneDTO("Work phone", true, "John Doe", "Work phone");
-        PhoneDTO personalPhone = new PhoneDTO("Personal phone", false, "Jane Doe", "Personal phone");
+        PhoneToViewDTO workPhone = new PhoneToViewDTO("Work phone", true, "John Doe", "Work phone");
+        PhoneToViewDTO personalPhone = new PhoneToViewDTO("Personal phone", false, "Jane Doe", "Personal phone");
 
         schoolDTO.setPhones(List.of(workPhone, personalPhone));
 
@@ -97,10 +97,10 @@ class FullSchoolDTOMapperTest {
         additionalInfoDTO.setNotation1("note1");
         additionalInfoDTO.setNotation2("note2");
         additionalInfoDTO.setNotation3("note3");
-        additionalInfoDTO.setPhoto(false);
-        additionalInfoDTO.setContracted(true);
-        additionalInfoDTO.setSettle(false);
-        additionalInfoDTO.setOurs(true);
+        additionalInfoDTO.setIsPhoto(false);
+        additionalInfoDTO.setIsContracted(true);
+        additionalInfoDTO.setIsSettle(false);
+        additionalInfoDTO.setIsOurs(true);
 
         schoolDTO.setAdditionalSchoolInformationDTO(additionalInfoDTO);
 

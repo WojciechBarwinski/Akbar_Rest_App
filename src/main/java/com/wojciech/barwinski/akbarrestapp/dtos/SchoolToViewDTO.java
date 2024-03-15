@@ -5,18 +5,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ShortSchoolDTO {
+@NoArgsConstructor
+public class SchoolToViewDTO {
 
     private Long rspo;
     private String name;
+    private String type;
+    private String email;
+    private String website;
+    private String status;
     private Voivodeship voivodeship;
     private String county;
     private String borough;
     private String city;
     private String street;
-    private String phone;
+    private String zipCode;
+    private String addressNote;
+    private List<PhoneToViewDTO> phones;
+    private AdditionalSchoolInformationDTO additionalSchoolInformationDTO;
 
 }
