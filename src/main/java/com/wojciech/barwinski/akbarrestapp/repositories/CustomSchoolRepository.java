@@ -8,5 +8,5 @@ import java.util.List;
 public interface CustomSchoolRepository {
 
     List<SchoolToRosterDTO> findSchoolBySearchRequest(SchoolSearchRequest searchRequest);
-    //List<School> findSchoolBySearchRequest(SchoolSearchRequest searchRequest);
+
 }

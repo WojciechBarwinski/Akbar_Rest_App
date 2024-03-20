@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.exception;
 
 public class SchoolException extends ApplicationException{
+
     public SchoolException(String message) {
         super(message);
     }

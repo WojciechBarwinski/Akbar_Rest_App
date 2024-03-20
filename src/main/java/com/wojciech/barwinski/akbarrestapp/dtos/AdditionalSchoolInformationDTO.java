@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 public class AdditionalSchoolInformationDTO {
 
+    private Long id;
     //Status
     private Boolean isOurs;
     private Boolean isContracted;

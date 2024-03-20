@@ -5,13 +5,11 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notatio
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
