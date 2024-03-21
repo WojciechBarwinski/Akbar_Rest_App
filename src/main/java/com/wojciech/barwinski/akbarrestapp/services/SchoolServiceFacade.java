@@ -5,7 +5,8 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToUpdateDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class SchoolServiceFacade {
         return schoolUploader.uploadSchools(schoolsToImport);
     }
 
-    public SchoolToViewDTO updateSchool(SchoolToUpdateDTO schoolToUpdateDTO){
+    public UpdateSchoolResultDTO updateSchool(SchoolToUpdateDTO schoolToUpdateDTO){
         return schoolUpdater.updateSchool(schoolToUpdateDTO);
     }
 }

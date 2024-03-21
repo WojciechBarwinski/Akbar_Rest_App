@@ -2,7 +2,8 @@ package com.wojciech.barwinski.akbarrestapp.validator;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.CsvSchoolRepresentation;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.ValidationReportFromImportingSchool;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.SchoolRepresentationValidator;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

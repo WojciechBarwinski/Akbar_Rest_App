@@ -5,7 +5,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.exception.SchoolException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.ValidationReportFromImportingSchool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

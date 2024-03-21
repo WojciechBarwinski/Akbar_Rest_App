@@ -1,6 +1,7 @@
-package com.wojciech.barwinski.akbarrestapp.validator;
+package com.wojciech.barwinski.akbarrestapp.validator.toUpdate;
 
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
+import com.wojciech.barwinski.akbarrestapp.validator.FieldReportDTO;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

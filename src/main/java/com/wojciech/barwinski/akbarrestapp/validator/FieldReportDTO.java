@@ -1,7 +1,8 @@
-package com.wojciech.barwinski.akbarrestapp.validator.dtos;
+package com.wojciech.barwinski.akbarrestapp.validator;
 
 
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

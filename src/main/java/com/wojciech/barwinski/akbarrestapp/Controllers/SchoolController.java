@@ -10,7 +10,8 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
 import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
 import com.wojciech.barwinski.akbarrestapp.services.SchoolServiceFacade;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +70,7 @@ public class SchoolController {
 
 
     @PutMapping("update/{id}")
-    public SchoolToViewDTO updateSchool(@PathVariable Long id, @RequestBody SchoolToUpdateDTO school){
+    public UpdateSchoolResultDTO updateSchool(@PathVariable Long id, @RequestBody SchoolToUpdateDTO school){
         checkIfIdAndRSPOAreTheSame(id, school.getRspo());
 
         return schoolServiceFacade.updateSchool(school);

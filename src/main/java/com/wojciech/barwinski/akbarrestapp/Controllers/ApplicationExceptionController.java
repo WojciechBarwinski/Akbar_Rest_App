@@ -1,10 +1,8 @@
 package com.wojciech.barwinski.akbarrestapp.Controllers;
 
 
-import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
-import com.wojciech.barwinski.akbarrestapp.exception.InvalidCsvDataException;
-import com.wojciech.barwinski.akbarrestapp.exception.ReaderException;
-import com.wojciech.barwinski.akbarrestapp.exception.WrongFileTypeException;
+import com.wojciech.barwinski.akbarrestapp.exception.*;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.ValidationReportFromUpdateSchool;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,5 +35,11 @@ public class ApplicationExceptionController {
     @ExceptionHandler(IdMismatchException.class)
     public String idAndRspoMismatch(IdMismatchException e) {
         return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
+    @ExceptionHandler(SchoolUpdateException.class)
+    public ValidationReportFromUpdateSchool wrongDataFromUpdateSchool(SchoolUpdateException e){
+        return e.getReportFromValidation();
     }
 }

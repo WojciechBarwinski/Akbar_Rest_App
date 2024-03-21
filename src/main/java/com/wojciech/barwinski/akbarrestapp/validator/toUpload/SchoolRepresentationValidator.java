@@ -1,7 +1,7 @@
-package com.wojciech.barwinski.akbarrestapp.validator;
+package com.wojciech.barwinski.akbarrestapp.validator.toUpload;
 
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
+
+import com.wojciech.barwinski.akbarrestapp.validator.FieldReportDTO;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.SchoolRepresentation;
 import org.springframework.stereotype.Component;
 

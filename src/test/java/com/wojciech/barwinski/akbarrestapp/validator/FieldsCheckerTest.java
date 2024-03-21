@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.validator;
 
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.FieldsChecker;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

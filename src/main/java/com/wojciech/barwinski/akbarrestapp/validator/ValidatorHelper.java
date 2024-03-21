@@ -1,12 +1,10 @@
 package com.wojciech.barwinski.akbarrestapp.validator;
 
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.FieldReportDTO;
-
 import java.util.List;
 
-class ValidatorHelper {
+public class ValidatorHelper {
 
-    static ValidationStatus setReportStatus(List<FieldReportDTO> fieldsReports) {
+    public static ValidationStatus setReportStatus(List<FieldReportDTO> fieldsReports) {
 
         if (fieldsReports.stream().anyMatch(report -> report.getStatus() == ValidationStatus.ERROR)) {
             return ValidationStatus.ERROR;

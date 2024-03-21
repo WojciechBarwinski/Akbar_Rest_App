@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.validator.dtos;
+package com.wojciech.barwinski.akbarrestapp.validator.toUpload;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import lombok.AllArgsConstructor;

@@ -5,9 +5,9 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
-import com.wojciech.barwinski.akbarrestapp.validator.SchoolRepresentationValidator;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.UploadSchoolResultDTO;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromImportingSchool;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.SchoolRepresentationValidator;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpload.ValidationReportFromImportingSchool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

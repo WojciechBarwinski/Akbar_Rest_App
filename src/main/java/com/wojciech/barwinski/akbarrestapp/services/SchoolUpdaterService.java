@@ -10,9 +10,10 @@ import com.wojciech.barwinski.akbarrestapp.exception.SchoolUpdateException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.PhoneRepository;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
-import com.wojciech.barwinski.akbarrestapp.validator.SchoolUpdateValidator;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.SchoolUpdateValidator;
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
-import com.wojciech.barwinski.akbarrestapp.validator.dtos.ValidationReportFromUpdateSchool;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResultDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.ValidationReportFromUpdateSchool;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,18 +41,20 @@ public class SchoolUpdaterService {
 
 
     @Transactional
-    SchoolToViewDTO updateSchool(SchoolToUpdateDTO schoolToUpdate) {
+    UpdateSchoolResultDTO updateSchool(SchoolToUpdateDTO schoolToUpdate) {
         log.debug("Start update school");
-        checkIfSchoolUpdateCanProceed(schoolToUpdate);
+        ValidationReportFromUpdateSchool reportFromValidation = validator.validateSchool(schoolToUpdate);
+        checkIfSchoolUpdateCanProceed(schoolToUpdate, reportFromValidation);
 
         School school = mapperFacade.mapSchoolToUpdateToSchool(schoolToUpdate);
         school.setPhones(updateSchool(schoolToUpdate.getPhones()));
 
+        SchoolToViewDTO schoolToViewDTO = mapperFacade.mapSchoolToSchoolToViewDTO(schoolRepository.save(school));
 
-        return mapperFacade.mapSchoolToSchoolToViewDTO(schoolRepository.save(school));
+        return new UpdateSchoolResultDTO(reportFromValidation, schoolToViewDTO);
     }
 
-    private void checkIfSchoolUpdateCanProceed(SchoolToUpdateDTO schoolToUpdate) {
+    private void checkIfSchoolUpdateCanProceed(SchoolToUpdateDTO schoolToUpdate, ValidationReportFromUpdateSchool reportFromValidation) {
         if (!schoolRepository.existsById(schoolToUpdate.getRspo())){
             throw new EntityNotFoundException("School with this rspo: " + schoolToUpdate.getRspo() + " was not found");
         }
@@ -62,8 +65,6 @@ public class SchoolUpdaterService {
         if (isMoreThenOneMainPhone){
             throw new PhoneException("There are invalid number od MAIN phone. There can be only one main phone");
         }
-
-        ValidationReportFromUpdateSchool reportFromValidation = validator.validateSchool(schoolToUpdate);
 
         if (reportFromValidation.getStatus() == ValidationStatus.ERROR) {
             throw new SchoolUpdateException(reportFromValidation, "There are some ERROR with data to update");
