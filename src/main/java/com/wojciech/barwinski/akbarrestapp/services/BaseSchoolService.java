@@ -8,6 +8,9 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,9 +58,10 @@ class BaseSchoolService {
         }
     }
 
-    List<SchoolToRosterDTO> getAllSchools() {
-        //TODO ograniczenie ilości wyświetlanych szkół!
-        List<SchoolToRosterDTO> allShortSchool = schoolRepository.findAllShortSchool();
+    List<SchoolToRosterDTO> getAllSchools(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name"));
+
+        List<SchoolToRosterDTO> allShortSchool = schoolRepository.findAllShortSchool(pageable);
         log.debug("get all schools. Number of schools:  " + allShortSchool.size());
         return allShortSchool;
     }

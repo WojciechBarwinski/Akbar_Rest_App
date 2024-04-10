@@ -26,7 +26,6 @@ class SchoolMapper {
     }
 
     private Address mapAddress(SchoolToUpdateDTO schoolToUpdateDTO) {
-
         return Address.builder()
                 .voivodeship(schoolToUpdateDTO.getVoivodeship())
                 .county(schoolToUpdateDTO.getCounty())
@@ -69,7 +68,5 @@ class SchoolMapper {
                 .notation(notation)
                 .schedule(schedule)
                 .build();
-
     }
-
 }

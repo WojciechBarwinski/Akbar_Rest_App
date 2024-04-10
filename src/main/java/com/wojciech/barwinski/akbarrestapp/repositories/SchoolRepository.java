@@ -3,6 +3,7 @@ package com.wojciech.barwinski.akbarrestapp.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,6 @@ public interface SchoolRepository extends JpaRepository<School, Long>, CustomSch
             "FROM School s " +
             "LEFT JOIN s.phones ph " +
             "WHERE ph.isMain = true OR ph.number IS NULL")
-    List<SchoolToRosterDTO> findAllShortSchool();
+    List<SchoolToRosterDTO> findAllShortSchool(Pageable pageable);
 
 }

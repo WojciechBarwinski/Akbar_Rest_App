@@ -1,6 +1,7 @@
-package com.wojciech.barwinski.akbarrestapp.validator;
+package com.wojciech.barwinski.akbarrestapp.validator.toUpload;
 
-import com.wojciech.barwinski.akbarrestapp.validator.toUpload.FieldsChecker;
+import com.wojciech.barwinski.akbarrestapp.validator.FieldReportDTO;
+import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -557,7 +558,7 @@ class FieldsCheckerTest {
 
     //Email
     @Test
-    public void shouldCheckCorrectEmail_OK(){
+    public void shouldCheckCorrectEmail_OK() {
         String email = "kontakt@sp000.lodz.edu.pl";
         String expectedFieldName = "Email";
         ValidationStatus expectedStatus = ValidationStatus.OK;
@@ -570,7 +571,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckNoneEmail_OK(){
+    public void shouldCheckNoneEmail_OK() {
         String email = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 
@@ -583,7 +584,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectEmail_OK(){
+    public void shouldCheckIncorrectEmail_OK() {
         String email1 = "absd";
         String email2 = "@@absd$";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
@@ -600,7 +601,7 @@ class FieldsCheckerTest {
 
     //Website
     @Test
-    public void shouldCheckCorrectWebsite_OK(){
+    public void shouldCheckCorrectWebsite_OK() {
         String website1 = "https://website.com";
         String website2 = "ftp://website.com";
         String website3 = "www.website.com";
@@ -621,7 +622,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckIncorrectWebsite_OK(){
+    public void shouldCheckIncorrectWebsite_OK() {
         String website1 = "website.com";
         String website2 = "ftp://website.comanama";
         String website3 = "www.website";
@@ -642,7 +643,7 @@ class FieldsCheckerTest {
     }
 
     @Test
-    public void shouldCheckNoneWebsite_OK(){
+    public void shouldCheckNoneWebsite_OK() {
         String website = "";
         ValidationStatus expectedStatus = ValidationStatus.WARNING;
 

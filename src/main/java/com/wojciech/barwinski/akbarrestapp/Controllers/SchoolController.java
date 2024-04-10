@@ -14,6 +14,7 @@ import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResult
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,8 +35,9 @@ public class SchoolController {
     }
 
     @GetMapping(value = "/all")
-    public List<SchoolToRosterDTO> readAllSchools() {
-        return schoolServiceFacade.getAllSchools();
+    public List<SchoolToRosterDTO> readAllSchools(@RequestParam(defaultValue = "0") Integer page,
+                                                  @RequestParam(defaultValue = "10") Integer size) {
+        return schoolServiceFacade.getAllSchools(page, size);
     }
 
     @GetMapping(value = "/{id}")
@@ -67,7 +69,6 @@ public class SchoolController {
     public SchoolToUpdateDTO getSchoolToUpdateById(@PathVariable Long id) {
         return schoolServiceFacade.getSchoolToUpdateDTO(id);
     }
-
 
     @PutMapping("update/{id}")
     public UpdateSchoolResultDTO updateSchool(@PathVariable Long id, @RequestBody SchoolToUpdateDTO school){

@@ -71,7 +71,6 @@ public class SchoolUpdaterService {
         }
     }
 
-
     private List<Phone> updateSchool(List<PhoneToUpdateDTO> phones) {
         List<Phone> phonesToSave = new ArrayList<>();
 

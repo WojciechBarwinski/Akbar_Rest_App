@@ -25,8 +25,8 @@ public class SchoolServiceFacade {
     }
 
 
-    public List<SchoolToRosterDTO> getAllSchools() {
-        return baseSchoolService.getAllSchools();
+    public List<SchoolToRosterDTO> getAllSchools(Integer page, Integer size) {
+        return baseSchoolService.getAllSchools(page, size);
     }
 
     public List<SchoolToRosterDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){

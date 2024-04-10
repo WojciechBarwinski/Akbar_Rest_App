@@ -3,7 +3,7 @@ package com.wojciech.barwinski.akbarrestapp.validator.toUpload;
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
 import com.wojciech.barwinski.akbarrestapp.validator.FieldReportDTO;
 
-class FieldsChecker {
+public class FieldsChecker {
 
     private static final String specialSigns = "field contains special characters or symbols";
     private static final String untypicalSize = "field has untypical size";
@@ -11,7 +11,7 @@ class FieldsChecker {
     private static final String untypicalField = "field has untypical format";
     private static final String specialSignsRegex = ".*[\\p{P}\\p{S}&&[^.-]]+.*";
 
-    static FieldReportDTO checkRSPO(String rspo) {
+    public static FieldReportDTO checkRSPO(String rspo) {
         FieldReportDTO fieldReport = new FieldReportDTO("RSPO");
         if (rspo == null || rspo.isBlank()){
             return setEmptyFieldERROR(fieldReport);
