@@ -89,6 +89,13 @@
 			<version>8.0.1.Final</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-envers</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+
 
 	</dependencies>
 

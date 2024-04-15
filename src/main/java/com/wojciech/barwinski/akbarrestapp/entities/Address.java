@@ -7,6 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 
 @Getter
@@ -15,6 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Embeddable
+@Audited
 public class Address {
 
     @Enumerated(EnumType.STRING)

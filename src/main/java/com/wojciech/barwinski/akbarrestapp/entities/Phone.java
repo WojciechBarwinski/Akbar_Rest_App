@@ -4,6 +4,7 @@ package com.wojciech.barwinski.akbarrestapp.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -13,6 +14,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Audited
 public class Phone {
 
     @Id

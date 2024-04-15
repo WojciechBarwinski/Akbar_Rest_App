@@ -6,6 +6,7 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedul
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 @Getter
 @Setter
@@ -13,6 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Audited
 public class AdditionalSchoolInformation {
 
     @Id

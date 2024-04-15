@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.envers.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.FetchType.LAZY;
+import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @Getter
 @Setter
@@ -23,6 +25,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Entity
 @Builder
+@Audited
 public class School {
 
     @Id
@@ -43,7 +46,6 @@ public class School {
 
     @Column(length = 50)
     @Size(max = 50)
-    //private String publicStatus;
     private String status;
 
     @Embedded()
@@ -52,11 +54,13 @@ public class School {
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Phone> phones;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+/*    @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @NotAudited
     private Set<Trade> trades;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Photography> photographs;
+    @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @NotAudited
+    private Set<Photography> photographs;*/
 
     @OneToOne(fetch = EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id", foreignKey = @ForeignKey(name = "FK_SCHOOL_INFO"))
