@@ -19,7 +19,4 @@ public class ValidationReportFromUpdateSchool {
     private Long rspo;
     private List<FieldReportDTO> fieldsReports;
 
-    public ValidationReportFromUpdateSchool(Long rspo) {
-        this.rspo = rspo;
-    }
 }

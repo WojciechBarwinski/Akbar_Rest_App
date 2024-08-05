@@ -2,6 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.auditor;
 
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.history.Revision;
 import org.springframework.data.history.Revisions;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AuditService {
 
     private final CustomRevisionRepository revisionRepository;
     private final MapperFacade mapperFacade;
 
-    public AuditService(CustomRevisionRepository revisionRepository) {
-        this.revisionRepository = revisionRepository;
-        this.mapperFacade = MapperFacade.getInstance();
-    }
 
     public List<SchoolAudit> getRevisionsForSchool(Long schoolId) {
         List<SchoolAudit> audits = new ArrayList<>();

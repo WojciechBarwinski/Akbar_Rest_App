@@ -15,6 +15,7 @@ import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.ValidationReportFromUpdateSchool;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +26,13 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SchoolUpdaterService {
 
     private final SchoolRepository schoolRepository;
     private final SchoolUpdateValidator validator;
     private final MapperFacade mapperFacade;
     private final PhoneRepository phoneRepository;
-
-    public SchoolUpdaterService(SchoolRepository schoolRepository, SchoolUpdateValidator validator, PhoneRepository phoneRepository) {
-        this.schoolRepository = schoolRepository;
-        this.validator = validator;
-        this.phoneRepository = phoneRepository;
-        this.mapperFacade = MapperFacade.getInstance();
-    }
 
 
     @Transactional
@@ -56,6 +51,7 @@ public class SchoolUpdaterService {
 
     private void checkIfSchoolUpdateCanProceed(SchoolToUpdateDTO schoolToUpdate, ValidationReportFromUpdateSchool reportFromValidation) {
         if (!schoolRepository.existsById(schoolToUpdate.getRspo())){
+            //TODO wyjatek
             throw new EntityNotFoundException("School with this rspo: " + schoolToUpdate.getRspo() + " was not found");
         }
 
@@ -63,6 +59,7 @@ public class SchoolUpdaterService {
                 .filter(PhoneToUpdateDTO::isMain)
                 .count() != 1;
         if (isMoreThenOneMainPhone){
+            //TODO wyjatek
             throw new PhoneException("There are invalid number od MAIN phone. There can be only one main phone");
         }
 

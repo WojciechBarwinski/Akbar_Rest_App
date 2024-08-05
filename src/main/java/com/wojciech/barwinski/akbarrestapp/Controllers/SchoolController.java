@@ -13,6 +13,7 @@ import com.wojciech.barwinski.akbarrestapp.services.SchoolServiceFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.UpdateSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,15 +24,11 @@ import java.util.List;
 @Tag(name = "Akbar API")
 @RestController()
 @RequestMapping("/schools")
+@RequiredArgsConstructor
 public class SchoolController {
 
     private final SchoolServiceFacade schoolServiceFacade;
     private final CsvCustomReader csvCustomReader;
-
-    public SchoolController(SchoolServiceFacade schoolServiceFacade, CsvCustomReader csvCustomReader) {
-        this.schoolServiceFacade = schoolServiceFacade;
-        this.csvCustomReader = csvCustomReader;
-    }
 
     @GetMapping(value = "/all")
     public List<SchoolToRosterDTO> readAllSchools(@RequestParam(defaultValue = "0") Integer page,

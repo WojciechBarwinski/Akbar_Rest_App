@@ -14,10 +14,12 @@ public class PhoneToUpdateDTO {
 
     @NotNull
     private Long id;
+
     private boolean isToRemove;
 
     @CorrectString
     private String number;
+
     private boolean isMain;
 
     @CorrectString

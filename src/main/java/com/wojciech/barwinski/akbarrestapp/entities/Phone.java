@@ -35,8 +35,4 @@ public class Phone {
     @JoinColumn(name = "school_rspo", foreignKey = @ForeignKey(name = "FK_PHONE_SCHOOL"))
     private School school;
 
-    public void setSchool(School school) {
-        this.school = school;
-    }
-
 }

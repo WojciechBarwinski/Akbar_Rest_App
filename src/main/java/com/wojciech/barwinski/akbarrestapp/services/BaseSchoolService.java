@@ -7,6 +7,7 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,15 +20,11 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 class BaseSchoolService {
 
     private final SchoolRepository schoolRepository;
     private final MapperFacade mapperFacade;
-
-    public BaseSchoolService(SchoolRepository schoolRepository) {
-        this.schoolRepository = schoolRepository;
-        this.mapperFacade = MapperFacade.getInstance();
-    }
 
 
     SchoolToViewDTO getSchoolById(Long id) {

@@ -1,23 +1,19 @@
 package com.wojciech.barwinski.akbarrestapp.entities;
 
 
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.envers.*;
+import org.hibernate.envers.Audited;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.FetchType.LAZY;
-import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @Getter
 @Setter
@@ -95,7 +91,7 @@ public class School {
         }
     }
 
-    public void addPhone(Phone phone){
+    public void addPhone(Phone phone) {
         if (this.phones == null) {
             this.phones = new ArrayList<>();
         }
@@ -108,9 +104,6 @@ public class School {
         additionalSchoolInformation.setSchool(this);
     }
 
-    public List<Phone> getPhones() {
-        return phones;
-    }
 
     @Override
     public boolean equals(Object o) {

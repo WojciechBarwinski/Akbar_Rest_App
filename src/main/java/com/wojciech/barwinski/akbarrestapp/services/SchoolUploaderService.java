@@ -8,6 +8,7 @@ import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.SchoolRepresentationValidator;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.UploadSchoolResultDTO;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.ValidationReportFromImportingSchool;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,21 +17,13 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 class SchoolUploaderService {
 
     private final SchoolRepository schoolRepository;
     private final SchoolRepresentationValidator schoolRepresentationValidator;
     private final MapperFacade mapperFacade;
     private final SchoolUploaderHelper schoolUploaderHelper;
-
-    public SchoolUploaderService(SchoolRepository schoolRepository,
-                                 SchoolRepresentationValidator schoolRepresentationValidator,
-                                 SchoolUploaderHelper schoolUploaderHelper) {
-        this.schoolRepository = schoolRepository;
-        this.schoolRepresentationValidator = schoolRepresentationValidator;
-        this.schoolUploaderHelper = schoolUploaderHelper;
-        this.mapperFacade = MapperFacade.getInstance();
-    }
 
 
     UploadSchoolResultDTO uploadSchools(List<? extends SchoolRepresentation> schoolsToImport) {

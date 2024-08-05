@@ -9,14 +9,13 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedul
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -30,26 +29,12 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-
-        Environment environment = event.getApplicationContext().getEnvironment();
-        if (environment.matchesProfiles("test")) {
-            log.info("Test DataInitializer starts");
-            //initialDataForTests();
-        } else {
-            log.info("DataInitializer starts");
-            initialDataForProd();
-        }
+    public void onApplicationEvent(@NotNull ContextRefreshedEvent event) {
+        log.info("initial data on app start");
+        initialDataForDev();
     }
 
-    private void initialDataForTests() {
-        List<School> schoolList = Arrays.asList(
-                new School(11111L, "High School123", "Test High School", "test1@example.com", "www.test1.com", "PUBLIC"),
-                new School(22222L, "Middle School", "Test Middle School", "test2@example.com", "www.test2.com", "PUBLIC"));
-        schoolRepository.saveAll(schoolList);
-    }
-
-    private void initialDataForProd() {
+    private void initialDataForDev() {
         List<School> schools = new ArrayList<>();
         School school1 = new School(1L, "High School", "Central High School", "info@centralhigh.edu", "www.centralhigh.edu", "Public",
                 new Address(Voivodeship.WARMINSKO_MAZURSKIE, "Olsztyn County", "Olsztyn", "Olsztyn", "Słoneczna 15", "10-123"));
@@ -57,19 +42,33 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         School school2 = new School(2L, "Middle School", "Washington Middle School", "info@washingtonmiddle.edu", "www.washingtonmiddle.edu", "Public",
                 new Address(Voivodeship.LUBELSKIE, "Lublin County", "Lublin", "Lublin", "Lipowa 5", "20-002"));
 
-        List<Phone> phoneList = new ArrayList<>();
-        phoneList.add(Phone.builder()
+        List<Phone> phoneList1 = new ArrayList<>();
+        phoneList1.add(Phone.builder()
                 .isMain(true)
                 .number("123456789")
                 .owner("John Doe")
                 .phoneNote("Work phone")
                 .build());
-        phoneList.add(Phone.builder()
+        phoneList1.add(Phone.builder()
                 .number("987654321")
                 .owner("Jane Doe")
                 .phoneNote("Personal phone")
                 .build());
-        school1.setPhones(phoneList);
+        school1.setPhones(phoneList1);
+
+        List<Phone> phoneList2 = new ArrayList<>();
+        phoneList2.add(Phone.builder()
+                .isMain(true)
+                .number("321654987")
+                .owner("Alice Wu")
+                .phoneNote("school phone")
+                .build());
+        phoneList2.add(Phone.builder()
+                .number("789456123")
+                .owner("Alice Wu")
+                .phoneNote("Personal phone")
+                .build());
+        school2.setPhones(phoneList2);
 
         AdditionalSchoolInformation addInfo = new AdditionalSchoolInformation(
                 new Status(true, true, false, false, "notka statusu"),
@@ -89,5 +88,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         schoolRepository.saveAll(schools);
     }
+
 }
 

@@ -14,5 +14,4 @@ public class UploadSchoolResultDTO {
 
     private List<ValidationReportFromImportingSchool> schoolValidateReports;
     private List<SchoolToRosterDTO> schoolToRosterDTOS;
-
 }

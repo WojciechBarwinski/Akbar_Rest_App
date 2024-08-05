@@ -9,7 +9,7 @@ public class FieldsChecker {
     private static final String untypicalSize = "field has untypical size";
     private static final String emptyField = "field is empty";
     private static final String untypicalField = "field has untypical format";
-    private static final String specialSignsRegex = ".*[\\p{P}\\p{S}&&[^.-]]+.*";
+    private static final String specialSignsRegex = ".*\\p{P}\\p{S}&&[^.-]+.*"; //".*[\\p{P}\\p{S}&&[^.-]]+.*"
 
     public static FieldReportDTO checkRSPO(String rspo) {
         FieldReportDTO fieldReport = new FieldReportDTO("RSPO");

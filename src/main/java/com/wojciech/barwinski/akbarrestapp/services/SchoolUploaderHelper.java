@@ -6,6 +6,7 @@ import com.wojciech.barwinski.akbarrestapp.exception.SchoolException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.validator.ValidationStatus;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpload.ValidationReportFromImportingSchool;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,16 +15,16 @@ import java.util.List;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 class SchoolUploaderHelper {
 
-    private final MapperFacade mapperFacade = MapperFacade.getInstance();
+    private final MapperFacade mapperFacade;
 
 
     List<School> prepareSchoolToSave(List<SchoolRepresentation> schoolsToImport,
                                      List<ValidationReportFromImportingSchool> validateReports) {
 
         checkThatBothListsHaveTheSameSize(schoolsToImport, validateReports);
-
 
         List<SchoolRepresentation> correctSchoolsRepresentation = getCorrectSchoolsRepresentations(schoolsToImport, validateReports);
         log.debug("map all correct schools representations to schools");
