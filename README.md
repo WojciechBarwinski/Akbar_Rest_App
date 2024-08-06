@@ -8,7 +8,7 @@ Akbar Rest App to aplikacja RESTowa napisana w Javie, służąca do zarządzania
 
 - **Zarządzanie Szkołami**: CRUD dla szkół
 - **Zarządzanie Personelem**: CRUD dla sprzedawców i fotografów
-- **Walidacja Danych**: Walidacja danych wejściowych przy użyciu niestandardowych walidatorów
+- **Walidacja Danych**: Walidacja danych wejściowych zarówno w formie json jak i .csv
 - **Obsługa Wyjątków**: Globalna obsługa wyjątków przy użyciu `ApplicationExceptionController`
 
 ## Technologia
