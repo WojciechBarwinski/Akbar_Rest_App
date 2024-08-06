@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.Controllers;
+package com.wojciech.barwinski.akbarrestapp.controllers;
 
 
 import com.wojciech.barwinski.akbarrestapp.exception.*;
@@ -13,33 +13,45 @@ import org.springframework.web.bind.annotation.RestController;
 @ControllerAdvice
 public class ApplicationExceptionController {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(WrongFileTypeException.class)
     public String wrongFileTypeException(WrongFileTypeException e) {
         return e.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) //422
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InvalidCsvDataException.class)
     public String invalidCsvDataException(InvalidCsvDataException e) {
         return e.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(ReaderException.class)
     public String readerException(ReaderException e) {
         return e.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IdMismatchException.class)
     public String idAndRspoMismatch(IdMismatchException e) {
         return e.getMessage();
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(SchoolUpdateException.class)
     public ValidationReportFromUpdateSchool wrongDataFromUpdateSchool(SchoolUpdateException e){
         return e.getReportFromValidation();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(SchoolNotFoundException.class)
+    public String schoolNotFoundException(SchoolNotFoundException e){
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PhoneNotFoundException.class)
+    public String schoolNotFoundException(PhoneNotFoundException e){
+        return e.getMessage();
     }
 }

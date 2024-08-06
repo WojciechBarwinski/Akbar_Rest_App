@@ -1,16 +1,20 @@
 package com.wojciech.barwinski.akbarrestapp.entities;
 
 
+import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
+import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.FetchType.LAZY;
@@ -50,13 +54,13 @@ public class School {
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Phone> phones;
 
-/*    @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+   @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @NotAudited
     private Set<Trade> trades;
 
     @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @NotAudited
-    private Set<Photography> photographs;*/
+    private Set<Photography> photographs;
 
     @OneToOne(fetch = EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id", foreignKey = @ForeignKey(name = "FK_SCHOOL_INFO"))

@@ -5,6 +5,7 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolSearchRequest;
 import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToRosterDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
+import com.wojciech.barwinski.akbarrestapp.exception.SchoolNotFoundException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,7 @@ class BaseSchoolService {
             School byRspo = optionalSchool.get();
             return mapperFacade.mapSchoolToSchoolToViewDTO(byRspo);
         } else {
-            //TODO wzrobić poprawny wyjątek oraz jego handler
-            NoSuchElementException exception = new NoSuchElementException("Nie można znaleźć szkoły o ID: " + id);
+            SchoolNotFoundException exception = new SchoolNotFoundException("Nie można znaleźć szkoły o ID: " + id);
             log.error(exception.getMessage(), exception);
             throw exception;
         }
@@ -48,8 +48,7 @@ class BaseSchoolService {
             School byRspo = optionalSchool.get();
             return mapperFacade.mapSchoolToSchoolToUpdateDTO(byRspo);
         } else {
-            //TODO wzrobić poprawny wyjątek oraz jego handler
-            NoSuchElementException exception = new NoSuchElementException("Nie można znaleźć szkoły o ID: " + id);
+            SchoolNotFoundException exception = new SchoolNotFoundException("Nie można znaleźć szkoły o ID: " + id);
             log.error(exception.getMessage(), exception);
             throw exception;
         }

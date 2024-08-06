@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.Controllers;
+package com.wojciech.barwinski.akbarrestapp.controllers;
 
 import com.wojciech.barwinski.akbarrestapp.customReader.CsvCustomReader;
 import com.wojciech.barwinski.akbarrestapp.customReader.schoolRepresentations.JsonSchoolRepresentation;

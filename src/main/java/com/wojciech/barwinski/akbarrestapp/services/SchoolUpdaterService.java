@@ -6,6 +6,8 @@ import com.wojciech.barwinski.akbarrestapp.dtos.SchoolToViewDTO;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.exception.PhoneException;
+import com.wojciech.barwinski.akbarrestapp.exception.PhoneNotFoundException;
+import com.wojciech.barwinski.akbarrestapp.exception.SchoolNotFoundException;
 import com.wojciech.barwinski.akbarrestapp.exception.SchoolUpdateException;
 import com.wojciech.barwinski.akbarrestapp.mappers.MapperFacade;
 import com.wojciech.barwinski.akbarrestapp.repositories.PhoneRepository;
@@ -51,16 +53,14 @@ public class SchoolUpdaterService {
 
     private void checkIfSchoolUpdateCanProceed(SchoolToUpdateDTO schoolToUpdate, ValidationReportFromUpdateSchool reportFromValidation) {
         if (!schoolRepository.existsById(schoolToUpdate.getRspo())){
-            //TODO wyjatek
-            throw new EntityNotFoundException("School with this rspo: " + schoolToUpdate.getRspo() + " was not found");
+            throw new SchoolNotFoundException("School with this rspo: " + schoolToUpdate.getRspo() + " was not found");
         }
 
         boolean isMoreThenOneMainPhone = schoolToUpdate.getPhones().stream()
                 .filter(PhoneToUpdateDTO::isMain)
                 .count() != 1;
         if (isMoreThenOneMainPhone){
-            //TODO wyjatek
-            throw new PhoneException("There are invalid number od MAIN phone. There can be only one main phone");
+            throw new PhoneNotFoundException("There are invalid number od MAIN phone. There can be only one main phone");
         }
 
         if (reportFromValidation.getStatus() == ValidationStatus.ERROR) {
