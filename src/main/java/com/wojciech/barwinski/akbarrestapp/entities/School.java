@@ -51,7 +51,7 @@ public class School {
     @Embedded()
     private Address address;
 
-    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Phone> phones;
 
    @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})

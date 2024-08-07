@@ -48,4 +48,8 @@ public class SchoolServiceFacade {
     public UpdateSchoolResultDTO updateSchool(SchoolToUpdateDTO schoolToUpdateDTO){
         return schoolUpdater.updateSchool(schoolToUpdateDTO);
     }
+
+    public void deleteSchool(Long id) {
+        baseSchoolService.deleteSchool(id);
+    }
 }

@@ -65,4 +65,8 @@ class BaseSchoolService {
     List<SchoolToRosterDTO> getSchoolsBySearchRequest(SchoolSearchRequest request){
         return schoolRepository.findSchoolBySearchRequest(request);
     }
+
+    public void deleteSchool(Long id) {
+        schoolRepository.deleteById(id);
+    }
 }

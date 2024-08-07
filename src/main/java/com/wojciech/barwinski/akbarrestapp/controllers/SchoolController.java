@@ -73,6 +73,12 @@ public class SchoolController {
         return schoolServiceFacade.updateSchool(school);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public void deleteSchool(@PathVariable Long id){
+        schoolServiceFacade.deleteSchool(id);
+    }
+
+
     private void checkIfFileIsCsv(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         if ((originalFilename == null) || (!originalFilename.toLowerCase().endsWith(".csv"))) {
