@@ -5,10 +5,12 @@ import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

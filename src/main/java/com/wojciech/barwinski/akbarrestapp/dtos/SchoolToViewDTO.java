@@ -27,5 +27,6 @@ public class SchoolToViewDTO {
     private String addressNote;
     private List<PhoneToViewDTO> phones;
     private AdditionalSchoolInformationDTO additionalSchoolInformationDTO;
+    private DeliverableDTO deliverableDTO;
 
 }
