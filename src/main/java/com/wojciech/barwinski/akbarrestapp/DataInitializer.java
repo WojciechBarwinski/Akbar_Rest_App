@@ -8,6 +8,11 @@ import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Notatio
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Schedule;
 import com.wojciech.barwinski.akbarrestapp.entities.additionalSchoolInfo.Status;
 import com.wojciech.barwinski.akbarrestapp.repositories.SchoolRepository;
+import com.wojciech.barwinski.akbarrestapp.staff.entities.Photographer;
+import com.wojciech.barwinski.akbarrestapp.staff.entities.Salesman;
+import com.wojciech.barwinski.akbarrestapp.staff.repositories.PhotographerRepository;
+import com.wojciech.barwinski.akbarrestapp.staff.repositories.SalesmanRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationListener;
@@ -19,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private final SchoolRepository schoolRepository;
+    private final PhotographerRepository photographerRepository;
+    private final SalesmanRepository salesmanRepository;
 
-    public DataInitializer(SchoolRepository schoolRepository) {
-        this.schoolRepository = schoolRepository;
-    }
 
     @Override
     public void onApplicationEvent(@NotNull ContextRefreshedEvent event) {
@@ -87,6 +92,29 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         schools.add(school2);
 
         schoolRepository.saveAll(schools);
+        initialStaffData();
+    }
+
+    private void initialStaffData() {
+        Salesman salesman = Salesman.builder()
+                .firstName("Jan")
+                .lastName("Kowalski")
+                .email("jan.kowalski@mail.com")
+                .phone("123-456-789")
+                .note("notka pana Kowalskiego")
+                .build();
+
+        salesmanRepository.save(salesman);
+
+        Photographer photograph = Photographer.builder()
+                .firstName("Tomasz")
+                .lastName("Bednarz")
+                .email("tom.bednarz@mail.com")
+                .phone("987-654-321")
+                .note("notatka pana Bednarza")
+                .build();
+
+        photographerRepository.save(photograph);
     }
 
 }

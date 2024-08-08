@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Slf4j
-@Tag(name = "Akbar API")
+@Tag(name = "Akbar API - schools")
 @RestController()
 @RequestMapping("/schools")
 @RequiredArgsConstructor

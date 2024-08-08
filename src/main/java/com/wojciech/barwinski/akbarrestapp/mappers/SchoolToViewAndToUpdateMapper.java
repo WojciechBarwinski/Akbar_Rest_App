@@ -1,10 +1,13 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.DeliverableDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.PhotographyDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.TradeDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.*;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Photography;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Trade;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
@@ -73,30 +76,36 @@ public class SchoolToViewAndToUpdateMapper {
     private List<PhotographyDTO> mapPhotographyToDTO(Set<Photography> photographs) {
         List<PhotographyDTO> photographyDTOS = new ArrayList<>();
 
-        for (Photography photograph : photographs) {
-            photographyDTOS.add(
-                    PhotographyDTO.builder()
-                            .photographer(photograph.getPhotographer().getFirstName() + " " + photograph.getPhotographer().getLastName())
-                            .photographingDate(photograph.getPhotographingDate())
-                            .photographyDaysCount(photograph.getPhotographyDaysCount())
-                            .photographyNote(photograph.getTradeNote())
-                            .build()
-            );
+        if (photographs != null){
+            for (Photography photograph : photographs) {
+                photographyDTOS.add(
+                        PhotographyDTO.builder()
+                                .photographer(photograph.getPhotographer().getFirstName() + " " + photograph.getPhotographer().getLastName())
+                                .photographingDate(photograph.getPhotographingDate())
+                                .photographyDaysCount(photograph.getPhotographyDaysCount())
+                                .photographyNote(photograph.getTradeNote())
+                                .build()
+                );
+            }
         }
+
         return photographyDTOS;
     }
 
     private List<TradeDTO> mapTradesToTradeDTOs(Set<Trade> trades) {
         List<TradeDTO> tradeDTOS = new ArrayList<>();
-        for (Trade trade : trades) {
-            tradeDTOS.add(
-                    TradeDTO.builder()
-                            .salesman(trade.getSalesman().getFirstName() + " " + trade.getSalesman().getLastName())
-                            .signContractDate(trade.getSignContractDate())
-                            .tradeNote(trade.getTradeNote())
-                            .build()
-            );
+        if (trades != null){
+            for (Trade trade : trades) {
+                tradeDTOS.add(
+                        TradeDTO.builder()
+                                .salesman(trade.getSalesman().getFirstName() + " " + trade.getSalesman().getLastName())
+                                .signContractDate(trade.getSignContractDate())
+                                .tradeNote(trade.getTradeNote())
+                                .build()
+                );
+            }
         }
+
         return tradeDTOS;
     }
 }

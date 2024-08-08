@@ -1,8 +1,8 @@
 package com.wojciech.barwinski.akbarrestapp.entities;
 
 
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Photography;
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Photography;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -54,7 +54,7 @@ public class School {
     @OneToMany(mappedBy = "school", fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Phone> phones;
 
-   @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @NotAudited
     private Set<Trade> trades;
 

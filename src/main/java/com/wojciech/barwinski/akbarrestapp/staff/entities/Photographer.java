@@ -1,20 +1,21 @@
-package com.wojciech.barwinski.akbarrestapp.entities.personnel;
+package com.wojciech.barwinski.akbarrestapp.staff.entities;
 
-
-import com.wojciech.barwinski.akbarrestapp.entities.deliverable.Trade;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Photography;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Salesman {
+public class Photographer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +35,10 @@ public class Salesman {
 
     private String email;
 
-    @OneToMany(mappedBy = "salesman", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Trade> trades;
+    @OneToMany(mappedBy = "photographer", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Photography> photographs;
 
     @Column(length = 500)
     @Size(max = 500)
-    private String salesmanNote;
-
+    private String note;
 }

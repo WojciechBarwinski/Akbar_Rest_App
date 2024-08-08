@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.dtos;
+package com.wojciech.barwinski.akbarrestapp.delivery.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

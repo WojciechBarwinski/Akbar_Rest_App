@@ -1,10 +1,9 @@
-package com.wojciech.barwinski.akbarrestapp.dtos;
+package com.wojciech.barwinski.akbarrestapp.delivery.dtos;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
 @Data
 @Builder

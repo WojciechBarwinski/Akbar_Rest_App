@@ -1,6 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.dtos;
 
 import com.wojciech.barwinski.akbarrestapp.Voivodeship;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.DeliverableDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

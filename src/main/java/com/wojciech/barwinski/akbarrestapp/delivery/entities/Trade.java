@@ -1,8 +1,8 @@
-package com.wojciech.barwinski.akbarrestapp.entities.deliverable;
+package com.wojciech.barwinski.akbarrestapp.delivery.entities;
 
 
 import com.wojciech.barwinski.akbarrestapp.entities.School;
-import com.wojciech.barwinski.akbarrestapp.entities.personnel.Salesman;
+import com.wojciech.barwinski.akbarrestapp.staff.entities.Salesman;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
