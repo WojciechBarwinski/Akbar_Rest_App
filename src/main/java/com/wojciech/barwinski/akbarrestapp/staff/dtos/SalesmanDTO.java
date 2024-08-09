@@ -14,5 +14,5 @@ public class SalesmanDTO {
     private String phone;
     private String email;
     private String note;
-    //private List<SalesmanDeliveryDTO> trades = new ArrayList<>();
+    private List<SalesmanDeliveryDTO> delivery = new ArrayList<>();
 }

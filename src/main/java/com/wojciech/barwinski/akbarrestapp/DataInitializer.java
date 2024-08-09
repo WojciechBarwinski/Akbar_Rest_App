@@ -1,5 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp;
 
+import com.wojciech.barwinski.akbarrestapp.delivery.PhotoSessionRepository;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.PhotoSession;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -31,6 +33,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private final SchoolRepository schoolRepository;
     private final PhotographerRepository photographerRepository;
     private final SalesmanRepository salesmanRepository;
+    private final PhotoSessionRepository photoSessionRepository;
 
 
     @Override
@@ -93,6 +96,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         schoolRepository.saveAll(schools);
         initialStaffData();
+        initialDeliveryData();
     }
 
     private void initialStaffData() {
@@ -117,5 +121,32 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         photographerRepository.save(photograph);
     }
 
+
+    private void initialDeliveryData(){
+        School school1 = schoolRepository.findByRspo(1L).get();
+        School school2 = schoolRepository.findByRspo(2L).get();
+        Photographer photographer = photographerRepository.findById(1L).get();
+
+        PhotoSession photoSession1 = PhotoSession.builder()
+                .school(school1)
+                .photographingDate(LocalDate.of(2022, 11, 1))
+                .photographyDaysCount(3)
+                .note("ciezka praca na korytarzu")
+                .build();
+
+        PhotoSession photoSession2 = PhotoSession.builder()
+                .school(school2)
+                .photographingDate(LocalDate.of(2021, 5, 16))
+                .photographyDaysCount(2)
+                .note("przyjemna praca")
+                .build();
+
+        photographer.addSession(photoSession1);
+        photographer.addSession(photoSession2);
+
+        photographerRepository.save(photographer);
+
+
+    }
 }
 

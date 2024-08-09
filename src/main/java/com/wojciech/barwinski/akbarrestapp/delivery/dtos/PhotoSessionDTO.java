@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Builder
 @Data
-public class PhotographyDTO {
+public class PhotoSessionDTO {
 
     private String photographer;
     private LocalDate photographingDate;

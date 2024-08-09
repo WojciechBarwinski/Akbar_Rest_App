@@ -2,6 +2,9 @@ package com.wojciech.barwinski.akbarrestapp.staff.dtos;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class PhotographerDTO {
 
@@ -11,5 +14,6 @@ public class PhotographerDTO {
     private String phone;
     private String email;
     private String note;
+    private List<PhotographerDeliveryDTO>  delivery = new ArrayList<>();
 
 }

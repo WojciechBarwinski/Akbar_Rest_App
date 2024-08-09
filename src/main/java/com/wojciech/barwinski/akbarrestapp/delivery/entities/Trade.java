@@ -36,5 +36,5 @@ public class Trade {
 
     @Column(length = 500)
     @Size(max = 500)
-    private String tradeNote;
+    private String note;
 }

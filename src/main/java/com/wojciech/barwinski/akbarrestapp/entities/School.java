@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.entities;
 
 
-import com.wojciech.barwinski.akbarrestapp.delivery.entities.Photography;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.PhotoSession;
 import com.wojciech.barwinski.akbarrestapp.delivery.entities.Trade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -60,7 +60,7 @@ public class School {
 
     @OneToMany(mappedBy = "school", fetch = EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @NotAudited
-    private Set<Photography> photographs;
+    private Set<PhotoSession> photoSessions;
 
     @OneToOne(fetch = EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "additional_info_id", foreignKey = @ForeignKey(name = "FK_SCHOOL_INFO"))

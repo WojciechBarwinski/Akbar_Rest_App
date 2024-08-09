@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DeliverableDTO {
 
-    private List<PhotographyDTO> photographyDTOS = new ArrayList<>();
+    private List<PhotoSessionDTO> photoSessionDTOS = new ArrayList<>();
     private List<TradeDTO> tradeDTOS = new ArrayList<>();
 
 }
