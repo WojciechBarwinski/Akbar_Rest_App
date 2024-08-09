@@ -2,6 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.controllers;
 
 
 import com.wojciech.barwinski.akbarrestapp.exception.*;
+import com.wojciech.barwinski.akbarrestapp.staff.exceptions.StaffNotFoundException;
 import com.wojciech.barwinski.akbarrestapp.validator.toUpdate.ValidationReportFromUpdateSchool;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,12 @@ public class ApplicationExceptionController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(PhoneNotFoundException.class)
     public String schoolNotFoundException(PhoneNotFoundException e){
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(StaffNotFoundException.class)
+    public String staffNotFoundException(PhoneNotFoundException e){
         return e.getMessage();
     }
 

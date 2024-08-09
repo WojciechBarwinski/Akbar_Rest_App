@@ -3,6 +3,7 @@ package com.wojciech.barwinski.akbarrestapp.staff.mappers;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.CreateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.PhotographerDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.SalesmanDTO;
+import com.wojciech.barwinski.akbarrestapp.staff.dtos.UpdateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Photographer;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Salesman;
 import org.modelmapper.ModelMapper;
@@ -28,4 +29,13 @@ public class StaffMappers {
     public Photographer mapNewStaffDTOToPhotographer(CreateStaffDTO dto){
         return mapper.map(dto, Photographer.class);
     }
+
+    public Photographer mapUpdateStaffDTOToPhotographer(UpdateStaffDTO dto){
+        return mapper.map(dto, Photographer.class);
+    }
+
+    public Salesman mapUpdateStaffDTOToSalesman(UpdateStaffDTO dto){
+        return mapper.map(dto, Salesman.class);
+    }
+
 }

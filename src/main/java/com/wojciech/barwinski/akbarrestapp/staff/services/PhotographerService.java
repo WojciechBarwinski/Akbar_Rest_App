@@ -2,6 +2,7 @@ package com.wojciech.barwinski.akbarrestapp.staff.services;
 
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.CreateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.PhotographerDTO;
+import com.wojciech.barwinski.akbarrestapp.staff.dtos.UpdateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Photographer;
 import com.wojciech.barwinski.akbarrestapp.staff.exceptions.StaffNotFoundException;
 import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMappers;
@@ -23,9 +24,9 @@ class PhotographerService {
         return mappers.mapPhotographToDTO(photographer);
     }
 
-    public PhotographerDTO getPhotographerByLastname(String lastname) {
-        Photographer photographer = repository.findByLastName(lastname)
-                .orElseThrow(() -> new StaffNotFoundException(lastname));
+    public PhotographerDTO getPhotographerByLastname(String lastName) {
+        Photographer photographer = repository.findByLastName(lastName)
+                .orElseThrow(() -> new StaffNotFoundException(lastName));
 
         return mappers.mapPhotographToDTO(photographer);
     }
@@ -36,5 +37,21 @@ class PhotographerService {
         Photographer createdPhotograph = repository.save(photographer);
 
         return mappers.mapPhotographToDTO(createdPhotograph);
+    }
+
+    public void deletePhotographerById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public void deletePhotographerByLastname(String lastName) {
+        repository.deleteByLastName(lastName);
+    }
+
+    public PhotographerDTO updatePhotographer(UpdateStaffDTO updateStaffDTO) {
+        Photographer photographer = mappers.mapUpdateStaffDTOToPhotographer(updateStaffDTO);
+
+        Photographer updatedPhotographer = repository.save(photographer);
+
+        return mappers.mapPhotographToDTO(updatedPhotographer);
     }
 }

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface PhotographerRepository extends JpaRepository<Photographer, Long> {
 
     Optional<Photographer> findByLastName(String lastName);
+
+    void deleteByLastName(String lastName);
 }

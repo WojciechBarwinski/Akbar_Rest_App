@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface SalesmanRepository extends JpaRepository<Salesman, Long> {
 
     Optional<Salesman> findByLastName(String lastName);
+
+    void deleteByLastName(String lastName);
 }
