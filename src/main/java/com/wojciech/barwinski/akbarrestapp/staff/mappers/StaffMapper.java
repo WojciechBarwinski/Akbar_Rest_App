@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StaffMappers {
+public class StaffMapper {
 
-    ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
     public PhotographerDTO mapPhotographToDTO(Photographer photographer) {
         PhotographerDTO dto = mapper.map(photographer, PhotographerDTO.class);

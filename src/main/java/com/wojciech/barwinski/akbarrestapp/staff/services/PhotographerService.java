@@ -7,7 +7,7 @@ import com.wojciech.barwinski.akbarrestapp.staff.dtos.PhotographerDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.UpdateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Photographer;
 import com.wojciech.barwinski.akbarrestapp.staff.exceptions.StaffNotFoundException;
-import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMappers;
+import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMapper;
 import com.wojciech.barwinski.akbarrestapp.staff.repositories.PhotographerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Set;
 class PhotographerService {
 
     private final PhotographerRepository photographerRepository;
-    private final StaffMappers mappers;
+    private final StaffMapper mappers;
     private final PhotoSessionRepository photoSessionRepository;
 
     public PhotographerDTO getPhotographerById(Long id) {

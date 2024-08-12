@@ -7,7 +7,7 @@ import com.wojciech.barwinski.akbarrestapp.staff.dtos.SalesmanDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.UpdateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Salesman;
 import com.wojciech.barwinski.akbarrestapp.staff.exceptions.StaffNotFoundException;
-import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMappers;
+import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMapper;
 import com.wojciech.barwinski.akbarrestapp.staff.repositories.SalesmanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Set;
 class SalesmanService {
 
     private final SalesmanRepository salesmanRepository;
-    private final StaffMappers mappers;
+    private final StaffMapper mappers;
     private final TradeRepository tradeRepository;
 
     public SalesmanDTO getSalesmanById(Long id) {

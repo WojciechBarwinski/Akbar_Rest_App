@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.delivery.dtos.DeliverableDTO;
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.PhotoSessionDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.SessionBySchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.delivery.dtos.TradeDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.*;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
@@ -68,18 +68,18 @@ public class SchoolToViewAndToUpdateMapper {
     DeliverableDTO mapDeliverablesToDTOForSchoolToViewDTO(School school) {
 
         List<TradeDTO> tradeDTOS = mapTradesToTradeDTOs(school.getTrades());
-        List<PhotoSessionDTO> photoSessionDTOS = mapPhotographyToDTO(school.getPhotoSessions());
+        List<SessionBySchoolDTO> photoSessionDTOS = mapPhotographyToDTO(school.getPhotoSessions());
 
         return new DeliverableDTO(photoSessionDTOS, tradeDTOS);
     }
 
-    private List<PhotoSessionDTO> mapPhotographyToDTO(Set<PhotoSession> photographs) {
-        List<PhotoSessionDTO> photoSessionDTOS = new ArrayList<>();
+    private List<SessionBySchoolDTO> mapPhotographyToDTO(Set<PhotoSession> photographs) {
+        List<SessionBySchoolDTO> photoSessionDTOS = new ArrayList<>();
 
         if (photographs != null){
             for (PhotoSession photograph : photographs) {
                 photoSessionDTOS.add(
-                        PhotoSessionDTO.builder()
+                        SessionBySchoolDTO.builder()
                                 .photographer(photograph.getPhotographer().getFirstName() + " " + photograph.getPhotographer().getLastName())
                                 .photographingDate(photograph.getPhotographingDate())
                                 .photographyDaysCount(photograph.getPhotographyDaysCount())
