@@ -1,7 +1,8 @@
 package com.wojciech.barwinski.akbarrestapp;
 
-import com.wojciech.barwinski.akbarrestapp.delivery.PhotoSessionRepository;
+import com.wojciech.barwinski.akbarrestapp.delivery.repositories.PhotoSessionRepository;
 import com.wojciech.barwinski.akbarrestapp.delivery.entities.PhotoSession;
+import com.wojciech.barwinski.akbarrestapp.delivery.entities.Trade;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;
 import com.wojciech.barwinski.akbarrestapp.entities.Address;
 import com.wojciech.barwinski.akbarrestapp.entities.Phone;
@@ -143,9 +144,25 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         photographer.addSession(photoSession1);
         photographer.addSession(photoSession2);
-
         photographerRepository.save(photographer);
 
+
+        Salesman salesman = salesmanRepository.findById(1L).get();
+        Trade trade1 = Trade.builder()
+                .school(school1)
+                .signContractDate(LocalDate.of(2022, 5, 16))
+                .note("notatka")
+                .build();
+
+        Trade trade2 = Trade.builder()
+                .school(school2)
+                .signContractDate(LocalDate.of(2021, 6, 19))
+                .note("ciezkie negocjacje")
+                .build();
+
+        salesman.addTrade(trade1);
+        salesman.addTrade(trade2);
+        salesmanRepository.save(salesman);
 
     }
 }

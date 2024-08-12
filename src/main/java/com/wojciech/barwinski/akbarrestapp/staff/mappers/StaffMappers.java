@@ -18,7 +18,7 @@ public class StaffMappers {
 
     public PhotographerDTO mapPhotographToDTO(Photographer photographer) {
         PhotographerDTO dto = mapper.map(photographer, PhotographerDTO.class);
-        dto.setDelivery(mapPhotographyToDeliveryDTOS(photographer));
+        dto.setDelivery(mapPhotoSessionToDeliveryDTOS(photographer));
         return dto;
     }
 
@@ -45,7 +45,6 @@ public class StaffMappers {
     }
 
     private List<SalesmanDeliveryDTO> mapTradesToDeliveryDTOS(Salesman salesman){
-
         List<SalesmanDeliveryDTO> deliveryDTOS = new ArrayList<>();
 
         for (Trade trade : salesman.getTrades()) {
@@ -60,20 +59,19 @@ public class StaffMappers {
         return deliveryDTOS;
     }
 
-    private List<PhotographerDeliveryDTO> mapPhotographyToDeliveryDTOS(Photographer photographer){
-        List<PhotographerDeliveryDTO>  list = new ArrayList<>();
+    private List<PhotoSessionDTO> mapPhotoSessionToDeliveryDTOS(Photographer photographer){
+        List<PhotoSessionDTO>  list = new ArrayList<>();
 
         for (PhotoSession session : photographer.getPhotoSessions()) {
             list.add(
-                    PhotographerDeliveryDTO.builder()
-                            .school(session.getSchool().getName())
+                    PhotoSessionDTO.builder()
+                            .schoolName(session.getSchool().getName())
                             .photographingDate(session.getPhotographingDate())
                             .photographyDaysCount(session.getPhotographyDaysCount())
                             .note(session.getNote())
                             .build()
             );
         }
-
         return list;
     }
 }

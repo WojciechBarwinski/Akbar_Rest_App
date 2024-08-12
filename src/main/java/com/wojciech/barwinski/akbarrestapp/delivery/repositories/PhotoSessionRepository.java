@@ -1,9 +1,8 @@
-package com.wojciech.barwinski.akbarrestapp.delivery;
+package com.wojciech.barwinski.akbarrestapp.delivery.repositories;
 
 import com.wojciech.barwinski.akbarrestapp.delivery.entities.PhotoSession;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Set;
 
 public interface PhotoSessionRepository extends JpaRepository<PhotoSession, Long> {

@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Data
-public class PhotographerDeliveryDTO {
+public class PhotoSessionDTO {
 
-    private String school;
+    private String schoolName;
     private LocalDate photographingDate;
     private Integer photographyDaysCount;
     private String note;

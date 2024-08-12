@@ -14,6 +14,6 @@ public class PhotographerDTO {
     private String phone;
     private String email;
     private String note;
-    private List<PhotographerDeliveryDTO>  delivery = new ArrayList<>();
+    private List<PhotoSessionDTO>  delivery = new ArrayList<>();
 
 }

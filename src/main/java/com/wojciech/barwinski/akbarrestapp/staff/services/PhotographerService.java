@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.staff.services;
 
-import com.wojciech.barwinski.akbarrestapp.delivery.PhotoSessionRepository;
+import com.wojciech.barwinski.akbarrestapp.delivery.repositories.PhotoSessionRepository;
 import com.wojciech.barwinski.akbarrestapp.delivery.entities.PhotoSession;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.CreateStaffDTO;
 import com.wojciech.barwinski.akbarrestapp.staff.dtos.PhotographerDTO;
@@ -11,7 +11,6 @@ import com.wojciech.barwinski.akbarrestapp.staff.mappers.StaffMappers;
 import com.wojciech.barwinski.akbarrestapp.staff.repositories.PhotographerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -23,7 +22,6 @@ class PhotographerService {
     private final StaffMappers mappers;
     private final PhotoSessionRepository photoSessionRepository;
 
-    @Transactional
     public PhotographerDTO getPhotographerById(Long id) {
 
         Photographer photographer = photographerRepository.findById(id)
@@ -50,7 +48,9 @@ class PhotographerService {
     public void deletePhotographerById(Long id) {
         Photographer photographer = photographerRepository.findById(id)
                 .orElseThrow(() -> new StaffNotFoundException(id.toString()));
+
         removePhotographerFromSessions(photographer);
+
         photographerRepository.deleteById(id);
     }
 

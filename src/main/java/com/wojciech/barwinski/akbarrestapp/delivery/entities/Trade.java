@@ -5,12 +5,10 @@ import com.wojciech.barwinski.akbarrestapp.entities.School;
 import com.wojciech.barwinski.akbarrestapp.staff.entities.Salesman;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -18,10 +16,12 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 @Entity
 public class Trade {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = LAZY)
@@ -37,4 +37,17 @@ public class Trade {
     @Column(length = 500)
     @Size(max = 500)
     private String note;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trade trade = (Trade) o;
+        return Objects.equals(id, trade.id) && Objects.equals(signContractDate, trade.signContractDate) && Objects.equals(note, trade.note);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, signContractDate, note);
+    }
 }
