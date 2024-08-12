@@ -1,7 +1,7 @@
 package com.wojciech.barwinski.akbarrestapp.mappers;
 
 import com.wojciech.barwinski.akbarrestapp.delivery.dtos.DeliverableDTO;
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.SessionBySchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.SessionBySchoolDTO;
 import com.wojciech.barwinski.akbarrestapp.delivery.dtos.TradeDTO;
 import com.wojciech.barwinski.akbarrestapp.dtos.*;
 import com.wojciech.barwinski.akbarrestapp.entities.AdditionalSchoolInformation;

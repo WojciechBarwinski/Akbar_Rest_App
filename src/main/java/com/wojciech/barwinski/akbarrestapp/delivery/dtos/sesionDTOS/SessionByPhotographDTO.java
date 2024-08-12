@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS;
+package com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS;
 
 import lombok.Builder;
 import lombok.Data;

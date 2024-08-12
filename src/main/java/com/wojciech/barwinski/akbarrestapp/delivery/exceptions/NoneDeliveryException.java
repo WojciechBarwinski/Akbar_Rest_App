@@ -1,4 +1,4 @@
-package com.wojciech.barwinski.akbarrestapp.delivery;
+package com.wojciech.barwinski.akbarrestapp.delivery.exceptions;
 
 import com.wojciech.barwinski.akbarrestapp.exception.ApplicationException;
 

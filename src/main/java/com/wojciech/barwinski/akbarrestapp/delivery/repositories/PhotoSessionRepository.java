@@ -8,5 +8,6 @@ import java.util.Set;
 public interface PhotoSessionRepository extends JpaRepository<PhotoSession, Long> {
 
     Set<PhotoSession> findByPhotographerId(Long id);
+
     Set<PhotoSession> findBySchoolRspo(Long rspo);
 }

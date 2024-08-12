@@ -1,9 +1,9 @@
 package com.wojciech.barwinski.akbarrestapp.delivery.controllers;
 
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.CreatePhotoSessionDTO;
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.PhotoSessionsByPhotographDTO;
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.PhotoSessionsBySchoolDTO;
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.UpdatePhotoSessionDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.CreatePhotoSessionDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.PhotoSessionsByPhotographDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.PhotoSessionsBySchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.UpdatePhotoSessionDTO;
 import com.wojciech.barwinski.akbarrestapp.delivery.services.PhotoSessionServices;
 import com.wojciech.barwinski.akbarrestapp.exception.IdMismatchException;
 import io.swagger.v3.oas.annotations.tags.Tag;

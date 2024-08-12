@@ -1,6 +1,6 @@
 package com.wojciech.barwinski.akbarrestapp.delivery.dtos;
 
-import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionsDTOS.SessionBySchoolDTO;
+import com.wojciech.barwinski.akbarrestapp.delivery.dtos.sesionDTOS.SessionBySchoolDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
