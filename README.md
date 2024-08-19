@@ -2,21 +2,19 @@
 
 ## Opis Projektu
 
-Akbar Rest App to aplikacja RESTowa napisana w Javie, służąca do zarządzania danymi szkół oraz personelem. Aplikacja oferuje funkcjonalności CRUD (Create, Read, Update, Delete) dla różnych encji takich jak szkoły, sprzedawcy, fotografowie i inne. Pozwala dodawać dane przez plik .csv pobrany ze stony ministerstwa (https://rspo.gov.pl/zaawansowana)
+Akbar Rest App to aplikacja RESTowa napisana w Javie, służąca do zarządzania danymi szkół oraz personelem, stworzona na podstawie realnych wymagań firmy zajmującej się fotografią szkolną. Aplikacja oferuje funkcjonalności CRUD (Create, Read, Update, Delete) dla różnych encji takich jak szkoły, sprzedawcy, fotografowie i inne. Pozwala dodawać dane przez plik .csv pobrany ze stony ministerstwa (https://rspo.gov.pl/zaawansowana), które są przez aplikacje szczegółowo walidowane wraz z poźniejszym raportem z walidacji. 
 
 ## Funkcjonalności
 
 - **Zarządzanie Szkołami**: CRUD dla szkół
 - **Zarządzanie Personelem**: CRUD dla sprzedawców i fotografów
 - **Walidacja Danych**: Walidacja danych wejściowych zarówno w formie json jak i .csv
-- **Obsługa Wyjątków**: Globalna obsługa wyjątków przy użyciu `ApplicationExceptionController`
 
 ## Technologia
 
 - **Język**: Java
 - **Framework**: Spring Boot
 - **Baza Danych**:  MySQL
-- **Maven/Gradle**: Użyj Maven lub Gradle do zarządzania zależnościami
 - **Mapowanie Obiektów**: ModelMapper
 - **Walidacja**: Hibernate Validator
 - **Testy**: JUnit5, Mockito
