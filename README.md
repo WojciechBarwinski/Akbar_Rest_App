@@ -9,6 +9,7 @@ Akbar Rest App to aplikacja RESTowa napisana w Javie, służąca do zarządzania
 - **Zarządzanie Szkołami**: CRUD dla szkół
 - **Zarządzanie Personelem**: CRUD dla sprzedawców i fotografów
 - **Walidacja Danych**: Walidacja danych wejściowych zarówno w formie json jak i .csv
+- **Audyt**: Śledzenie i zapisywanie zmian w encji School
 
 ## Technologia
 
@@ -29,4 +30,7 @@ Akbar Rest App to aplikacja RESTowa napisana w Javie, służąca do zarządzania
       komenda tworząca kontener dla projektu :
       - docker run --name mysql-akbar-app-db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=akbar_app_db -p 3308:3306 mysql:latest
      
-      ![image](https://github.com/user-attachments/assets/b2f515ae-543e-4f35-a188-a0ab3f40df9e)
+      ![image](https://github.com/user-attachments/assets/5b98eaf0-d138-4028-897e-825a83e0113c)
+      ![image](https://github.com/user-attachments/assets/c09110e1-d603-43c2-babd-a1c137c1a16d)
+
+
